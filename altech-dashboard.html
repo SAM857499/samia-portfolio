@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ALTECH Smart Home</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter','Noto Sans Arabic',sans-serif;background:#0a0f1a;color:#e0e6ed;overflow:hidden;width:1440px;height:900px;}
+
+/* Sidebar */
+.sidebar{position:fixed;right:0;top:0;width:72px;height:100%;background:#0d1420;border-left:1px solid rgba(255,255,255,.06);display:flex;flex-direction:column;align-items:center;padding:20px 0;z-index:10;}
+.sidebar-logo{width:40px;height:40px;background:linear-gradient(135deg,#0f7b6c,#14a58e);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:#fff;margin-bottom:30px;}
+.sidebar-item{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:8px;cursor:pointer;transition:all .2s;color:#5a6a7e;font-size:20px;}
+.sidebar-item.active{background:rgba(15,123,108,.15);color:#14a58e;}
+.sidebar-item:hover{background:rgba(255,255,255,.05);color:#c9a84c;}
+.sidebar-bottom{margin-top:auto;}
+
+/* Main */
+.main{margin-right:72px;padding:24px 30px;height:100vh;overflow:hidden;}
+
+/* Top bar */
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;}
+.topbar-right{display:flex;align-items:center;gap:12px;}
+.greeting{font-size:22px;font-weight:700;color:#fff;}
+.greeting span{color:#c9a84c;}
+.topbar-left{display:flex;align-items:center;gap:16px;}
+.offline-badge{display:flex;align-items:center;gap:8px;background:rgba(15,123,108,.12);border:1px solid rgba(15,123,108,.3);padding:8px 16px;border-radius:8px;font-size:12px;font-weight:600;color:#14a58e;}
+.offline-dot{width:8px;height:8px;border-radius:50%;background:#14a58e;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+.search-box{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:8px 14px;display:flex;align-items:center;gap:8px;color:#5a6a7e;font-size:13px;width:200px;}
+.notif{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:16px;position:relative;}
+.notif-dot{position:absolute;top:6px;left:8px;width:7px;height:7px;background:#e74c3c;border-radius:50%;border:2px solid #0a0f1a;}
+.avatar{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#c9a84c,#e8c46a);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#0d1420;}
+
+/* Stats row */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
+.stat-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:18px 20px;position:relative;overflow:hidden;}
+.stat-card::after{content:'';position:absolute;top:0;right:0;width:3px;height:100%;border-radius:0 14px 14px 0;}
+.stat-card:nth-child(1)::after{background:#14a58e;}
+.stat-card:nth-child(2)::after{background:#c9a84c;}
+.stat-card:nth-child(3)::after{background:#3b82f6;}
+.stat-card:nth-child(4)::after{background:#a855f7;}
+.stat-label{font-size:11px;color:#5a6a7e;text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-bottom:8px;}
+.stat-val{font-size:28px;font-weight:700;color:#fff;margin-bottom:4px;}
+.stat-sub{font-size:11px;color:#14a58e;font-weight:500;display:flex;align-items:center;gap:4px;}
+.stat-sub.warn{color:#c9a84c;}
+
+/* Grid layout */
+.grid-main{display:grid;grid-template-columns:1fr 340px;gap:20px;height:calc(100vh - 200px);}
+
+/* Room cards */
+.rooms-section h3{font-size:13px;color:#5a6a7e;text-transform:uppercase;letter-spacing:1.5px;font-weight:600;margin-bottom:14px;}
+.rooms-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px;}
+.room-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:18px;transition:all .2s;cursor:pointer;}
+.room-card:hover{border-color:rgba(15,123,108,.3);background:rgba(15,123,108,.05);}
+.room-card.active{border-color:rgba(15,123,108,.4);background:rgba(15,123,108,.08);}
+.room-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:12px;}
+.ri-1{background:rgba(15,123,108,.12);}
+.ri-2{background:rgba(201,168,76,.12);}
+.ri-3{background:rgba(59,130,246,.12);}
+.ri-4{background:rgba(168,85,247,.12);}
+.ri-5{background:rgba(239,68,68,.12);}
+.ri-6{background:rgba(34,197,94,.12);}
+.room-name{font-size:14px;font-weight:600;color:#fff;margin-bottom:4px;}
+.room-devices{font-size:11px;color:#5a6a7e;}
+.room-status{display:flex;align-items:center;justify-content:space-between;margin-top:10px;}
+.room-temp{font-size:13px;font-weight:600;color:#c9a84c;}
+.toggle{width:36px;height:20px;border-radius:10px;background:rgba(255,255,255,.1);position:relative;cursor:pointer;}
+.toggle.on{background:rgba(15,123,108,.5);}
+.toggle::after{content:'';position:absolute;top:2px;right:2px;width:16px;height:16px;border-radius:50%;background:#5a6a7e;transition:all .2s;}
+.toggle.on::after{right:18px;background:#14a58e;}
+
+/* Automations */
+.auto-section{margin-top:4px;}
+.auto-section h3{font-size:13px;color:#5a6a7e;text-transform:uppercase;letter-spacing:1.5px;font-weight:600;margin-bottom:14px;}
+.auto-list{display:flex;flex-direction:column;gap:8px;}
+.auto-item{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:12px 16px;}
+.auto-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.ai-sun{background:rgba(201,168,76,.12);}
+.ai-moon{background:rgba(59,130,246,.12);}
+.ai-shield{background:rgba(15,123,108,.12);}
+.ai-temp{background:rgba(239,68,68,.12);}
+.auto-text{flex:1;}
+.auto-name{font-size:13px;font-weight:600;color:#e0e6ed;}
+.auto-desc{font-size:11px;color:#5a6a7e;margin-top:1px;}
+.auto-time{font-size:10px;color:#5a6a7e;font-weight:500;text-align:left;}
+
+/* Right panel */
+.right-panel{display:flex;flex-direction:column;gap:16px;}
+.panel-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:18px 20px;}
+.panel-card h4{font-size:12px;color:#5a6a7e;text-transform:uppercase;letter-spacing:1.5px;font-weight:600;margin-bottom:14px;}
+
+/* Privacy shield */
+.privacy-badge{display:flex;align-items:center;gap:12px;padding:14px;background:rgba(15,123,108,.08);border:1px solid rgba(15,123,108,.2);border-radius:10px;margin-bottom:14px;}
+.privacy-icon{width:40px;height:40px;border-radius:10px;background:rgba(15,123,108,.2);display:flex;align-items:center;justify-content:center;font-size:20px;}
+.privacy-text{font-size:13px;font-weight:600;color:#14a58e;}
+.privacy-sub{font-size:11px;color:#5a6a7e;margin-top:2px;}
+.privacy-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.ps-item{background:rgba(255,255,255,.03);border-radius:8px;padding:10px;text-align:center;}
+.ps-val{font-size:18px;font-weight:700;color:#fff;}
+.ps-label{font-size:10px;color:#5a6a7e;margin-top:2px;}
+
+/* Energy chart placeholder */
+.energy-chart{height:120px;background:rgba(255,255,255,.02);border-radius:10px;position:relative;overflow:hidden;margin-top:8px;}
+.chart-line{position:absolute;bottom:0;left:0;right:0;height:80%;background:linear-gradient(to top,rgba(15,123,108,.15),transparent);}
+.chart-svg{width:100%;height:100%;position:absolute;top:0;left:0;}
+
+/* Activity */
+.activity-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04);}
+.activity-item:last-child{border-bottom:none;}
+.act-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.act-green{background:#14a58e;}
+.act-gold{background:#c9a84c;}
+.act-blue{background:#3b82f6;}
+.act-text{font-size:12px;color:#8a9bb0;flex:1;}
+.act-time{font-size:10px;color:#5a6a7e;}
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-logo">A</div>
+  <div class="sidebar-item active">🏠</div>
+  <div class="sidebar-item">💡</div>
+  <div class="sidebar-item">🌡️</div>
+  <div class="sidebar-item">📷</div>
+  <div class="sidebar-item">🔒</div>
+  <div class="sidebar-item">⚡</div>
+  <div class="sidebar-item sidebar-bottom">⚙️</div>
+</div>
+
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-right">
+      <div>
+        <div class="greeting">مرحباً، <span>أحمد</span></div>
+        <div style="font-size:12px;color:#5a6a7e;margin-top:2px;">المنزل الذكي · 12 جهاز متصل</div>
+      </div>
+    </div>
+    <div class="topbar-left">
+      <div class="offline-badge"><div class="offline-dot"></div>الوضع المحلي · البيانات آمنة</div>
+      <div class="search-box">🔍 بحث...</div>
+      <div class="notif">🔔<div class="notif-dot"></div></div>
+      <div class="avatar">أح</div>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-label">الأجهزة النشطة</div>
+      <div class="stat-val">12</div>
+      <div class="stat-sub">↑ جميعها متصلة</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">استهلاك الطاقة</div>
+      <div class="stat-val">2.4 kW</div>
+      <div class="stat-sub warn">↓ 18% أقل من أمس</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">درجة الحرارة</div>
+      <div class="stat-val">24°C</div>
+      <div class="stat-sub">المتوسط في المنزل</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">زمن الاستجابة</div>
+      <div class="stat-val">&lt;45ms</div>
+      <div class="stat-sub">معالجة محلية</div>
+    </div>
+  </div>
+
+  <div class="grid-main">
+    <div>
+      <div class="rooms-section">
+        <h3>الغرف</h3>
+        <div class="rooms-grid">
+          <div class="room-card active">
+            <div class="room-icon ri-1">🛋️</div>
+            <div class="room-name">غرفة المعيشة</div>
+            <div class="room-devices">5 أجهزة</div>
+            <div class="room-status"><span class="room-temp">24°C</span><div class="toggle on"></div></div>
+          </div>
+          <div class="room-card">
+            <div class="room-icon ri-2">🛏️</div>
+            <div class="room-name">غرفة النوم</div>
+            <div class="room-devices">3 أجهزة</div>
+            <div class="room-status"><span class="room-temp">22°C</span><div class="toggle on"></div></div>
+          </div>
+          <div class="room-card">
+            <div class="room-icon ri-3">🍳</div>
+            <div class="room-name">المطبخ</div>
+            <div class="room-devices">4 أجهزة</div>
+            <div class="room-status"><span class="room-temp">26°C</span><div class="toggle on"></div></div>
+          </div>
+          <div class="room-card">
+            <div class="room-icon ri-4">🚿</div>
+            <div class="room-name">الحمام</div>
+            <div class="room-devices">2 أجهزة</div>
+            <div class="room-status"><span class="room-temp">25°C</span><div class="toggle"></div></div>
+          </div>
+          <div class="room-card">
+            <div class="room-icon ri-5">🚗</div>
+            <div class="room-name">المرآب</div>
+            <div class="room-devices">2 أجهزة</div>
+            <div class="room-status"><span class="room-temp">30°C</span><div class="toggle on"></div></div>
+          </div>
+          <div class="room-card">
+            <div class="room-icon ri-6">🌿</div>
+            <div class="room-name">الحديقة</div>
+            <div class="room-devices">3 أجهزة</div>
+            <div class="room-status"><span class="room-temp">35°C</span><div class="toggle"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="auto-section">
+        <h3>الأتمتة النشطة</h3>
+        <div class="auto-list">
+          <div class="auto-item">
+            <div class="auto-icon ai-sun">☀️</div>
+            <div class="auto-text"><div class="auto-name">وضع الصباح</div><div class="auto-desc">فتح الستائر · إضاءة 40% · تكييف 24°C</div></div>
+            <div class="auto-time">06:30 ص</div>
+            <div class="toggle on" style="flex-shrink:0;"></div>
+          </div>
+          <div class="auto-item">
+            <div class="auto-icon ai-moon">🌙</div>
+            <div class="auto-text"><div class="auto-name">وضع النوم</div><div class="auto-desc">إغلاق الأضواء · قفل الأبواب · تكييف 22°C</div></div>
+            <div class="auto-time">11:00 م</div>
+            <div class="toggle on" style="flex-shrink:0;"></div>
+          </div>
+          <div class="auto-item">
+            <div class="auto-icon ai-shield">🛡️</div>
+            <div class="auto-text"><div class="auto-name">وضع الحماية</div><div class="auto-desc">كاميرات · إنذار · قفل تلقائي عند المغادرة</div></div>
+            <div class="auto-time">تلقائي</div>
+            <div class="toggle on" style="flex-shrink:0;"></div>
+          </div>
+          <div class="auto-item">
+            <div class="auto-icon ai-temp">🌡️</div>
+            <div class="auto-text"><div class="auto-name">توفير الطاقة</div><div class="auto-desc">تعديل التكييف حسب الإشغال</div></div>
+            <div class="auto-time">مستمر</div>
+            <div class="toggle on" style="flex-shrink:0;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="right-panel">
+      <div class="panel-card">
+        <h4>حماية البيانات</h4>
+        <div class="privacy-badge">
+          <div class="privacy-icon">🛡️</div>
+          <div><div class="privacy-text">الخصوصية محمية</div><div class="privacy-sub">جميع البيانات تُعالج محلياً</div></div>
+        </div>
+        <div class="privacy-stats">
+          <div class="ps-item"><div class="ps-val" style="color:#14a58e;">100%</div><div class="ps-label">بيانات محلية</div></div>
+          <div class="ps-item"><div class="ps-val" style="color:#c9a84c;">0</div><div class="ps-label">بيانات مرسلة للسحابة</div></div>
+        </div>
+      </div>
+      <div class="panel-card">
+        <h4>استهلاك الطاقة</h4>
+        <div class="energy-chart">
+          <svg class="chart-svg" viewBox="0 0 300 120" preserveAspectRatio="none">
+            <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(15,123,108,.3)"/><stop offset="100%" stop-color="rgba(15,123,108,0)"/></linearGradient></defs>
+            <path d="M0,90 C30,85 50,60 80,65 C110,70 130,40 160,35 C190,30 210,50 240,45 C270,40 290,25 300,20 L300,120 L0,120 Z" fill="url(#g1)"/>
+            <path d="M0,90 C30,85 50,60 80,65 C110,70 130,40 160,35 C190,30 210,50 240,45 C270,40 290,25 300,20" fill="none" stroke="#14a58e" stroke-width="2"/>
+          </svg>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:10px;color:#5a6a7e;">
+          <span>السبت</span><span>الأحد</span><span>الاثنين</span><span>الثلاثاء</span><span>الأربعاء</span><span>الخميس</span><span>الجمعة</span>
+        </div>
+      </div>
+      <div class="panel-card">
+        <h4>آخر الأنشطة</h4>
+        <div class="activity-item"><div class="act-dot act-green"></div><div class="act-text">تم قفل الباب الرئيسي</div><div class="act-time">منذ 5 د</div></div>
+        <div class="activity-item"><div class="act-dot act-gold"></div><div class="act-text">تم ضبط التكييف على 24°C</div><div class="act-time">منذ 12 د</div></div>
+        <div class="activity-item"><div class="act-dot act-blue"></div><div class="act-text">كاميرا المدخل: حركة مكتشفة</div><div class="act-time">منذ 23 د</div></div>
+        <div class="activity-item"><div class="act-dot act-green"></div><div class="act-text">إضاءة المطبخ: تم الإطفاء تلقائياً</div><div class="act-time">منذ 45 د</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
