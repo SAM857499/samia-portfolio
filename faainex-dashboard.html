@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>FAAINEX HR</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Inter', sans-serif; background:#f8fafc; color:#1e293b; width:1440px; height:900px; overflow:hidden; }
+
+.app-container { display: flex; height: 100vh; }
+
+/* Sidebar */
+.sidebar { width: 260px; background: #ffffff; border-right: 1px solid #e2e8f0; padding: 24px; display: flex; flex-direction: column; }
+.logo { display:flex; align-items:center; gap: 12px; margin-bottom: 40px; }
+.logo-icon { width:36px; height:36px; background:#2563eb; border-radius:8px; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:16px; }
+.logo-text { font-size: 18px; font-weight: 700; color:#0f172a;}
+
+.nav-item { display:flex; align-items:center; gap: 14px; padding: 12px 14px; border-radius: 8px; margin-bottom: 6px; color: #475569; font-weight: 500; font-size:14px; transition: all 0.2s; cursor: pointer; }
+.nav-item.active { background: #eff6ff; color: #2563eb; }
+.nav-item:hover:not(.active) { background: #f1f5f9; color: #0f172a; }
+.nav-icon { font-size: 16px; }
+.badge { margin-left:auto; background:#ef4444; color:#fff; font-size:10px; padding:2px 6px; border-radius:10px; font-weight:600;}
+
+/* Main Content */
+.main-content { flex: 1; display:flex; flex-direction: column; }
+.top-nav { height: 70px; background:#fff; border-bottom: 1px solid #e2e8f0; display:flex; align-items:center; justify-content:space-between; padding:0 40px;}
+.search-bar { display:flex; align-items:center; background:#f1f5f9; padding:10px 16px; border-radius:8px; width:300px; color:#64748b; font-size:13px; gap:10px;}
+.top-right { display:flex; align-items:center; gap:20px;}
+.avatar { width:36px; height:36px; border-radius:50%; background:#dbeafe; color:#2563eb; display:flex; align-items:center; justify-content:center; font-weight:600; font-size:13px;}
+
+.content-body { padding: 40px; flex:1; overflow-y:auto;}
+.page-header { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:32px;}
+.ph-title { font-size: 24px; font-weight: 700; margin-bottom: 6px; color:#0f172a;}
+.ph-sub { font-size: 14px; color: #64748b; }
+.btn-primary { background: #2563eb; color: #fff; border:none; padding:10px 18px; border-radius:8px; font-weight:500; font-size:14px; cursor:pointer;}
+
+/* Core KPI Grid */
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 32px; }
+.kpi-card { background: #fff; border: 1px solid #e2e8f0; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);}
+.kpi-h { display:flex; justify-content:space-between; align-items:center; margin-bottom: 16px;}
+.kpi-icon { width:40px; height:40px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:18px;}
+.c-blue { background: #eff6ff; color:#2563eb;}
+.c-green { background: #ecfdf5; color:#10b981;}
+.c-amber { background: #fffbeb; color:#f59e0b;}
+.c-purple { background: #faf5ff; color:#a855f7;}
+.kpi-title { font-size: 13px; color: #64748b; font-weight: 500;}
+.kpi-val { font-size: 28px; font-weight: 700; color: #0f172a;}
+
+/* OCR Pipeline Viz */
+.pipeline-section { background:#fff; border: 1px solid #e2e8f0; border-radius:12px; padding:24px; margin-bottom:32px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);}
+.sec-title { font-size:16px; font-weight:600; color:#0f172a; margin-bottom:24px;}
+.pipe-container { display:flex; justify-content:space-between; align-items:center; position:relative;}
+.pipe-line { position:absolute; top:30px; left:5%; right:5%; height:2px; background:#e2e8f0; z-index:0;}
+.pipe-step { position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; width:120px;}
+.pipe-circle { width:60px; height:60px; border-radius:50%; background:#fff; border:2px solid #e2e8f0; display:flex; align-items:center; justify-content:center; font-size:24px; margin-bottom:12px; font-weight:700;}
+.pipe-circle.active { border-color:#2563eb; color:#2563eb; box-shadow: 0 0 0 4px #eff6ff;}
+.pipe-circle.done { border-color:#10b981; background:#10b981; color:#fff;}
+.pipe-label { font-size:13px; font-weight:600; color:#0f172a; margin-bottom:4px; text-align:center;}
+.pipe-sub { font-size:11px; color:#64748b; text-align:center;}
+.metrics-row { display:flex; gap:20px; margin-top:24px; padding-top:20px; border-top:1px dashed #e2e8f0;}
+.mr-item { flex:1; }
+.mr-label { font-size:12px; color:#64748b; margin-bottom:4px;}
+.mr-val { font-size:16px; font-weight:600; color:#0f172a;}
+.mr-val span { font-size:12px; font-weight:normal; color:#10b981; margin-left:4px;}
+
+/* Table */
+.data-table { width:100%; border-collapse:collapse; background:#fff; border-radius:12px; overflow:hidden; border:1px solid #e2e8f0;  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);}
+.data-table th { background:#f8fafc; text-align:left; padding:16px; font-size:12px; color:#64748b; font-weight:600; text-transform:uppercase; letter-spacing:0.5px;}
+.data-table td { padding:16px; border-top:1px solid #e2e8f0; font-size:14px; color:#334155;}
+.status-pill { padding:4px 10px; border-radius:20px; font-size:11px; font-weight:600; display:inline-block;}
+.sp-success { background:#ecfdf5; color:#10b981;}
+.sp-warn { background:#fffbeb; color:#f59e0b;}
+.sp-process { background:#eff6ff; color:#2563eb;}
+.doc-name { display:flex; align-items:center; gap:10px; font-weight:500;}
+
+</style>
+</head>
+<body>
+
+<div class="app-container">
+  <div class="sidebar">
+    <div class="logo">
+      <div class="logo-icon">FX</div>
+      <div class="logo-text">FAAINEX HR</div>
+    </div>
+    
+    <div class="nav-item active"><span class="nav-icon">📊</span> Overview</div>
+    <div class="nav-item"><span class="nav-icon">📄</span> Documents OCR <div class="badge">12</div></div>
+    <div class="nav-item"><span class="nav-icon">⚖️</span> Qiwa & Mudad Sync</div>
+    <div class="nav-item"><span class="nav-icon">👥</span> Employee Records</div>
+    <div class="nav-item"><span class="nav-icon">📅</span> Attendance</div>
+    <div class="nav-item"><span class="nav-icon">⚙️</span> Settings</div>
+  </div>
+
+  <div class="main-content">
+    <div class="top-nav">
+      <div class="search-bar"><span>🔍</span> Search employees, passports, ids...</div>
+      <div class="top-right">
+        <span style="font-size:18px;">🔔</span>
+        <div class="avatar">SA</div>
+      </div>
+    </div>
+
+    <div class="content-body">
+      <div class="page-header">
+        <div>
+          <h1 class="ph-title">Compliance & OCR Pipeline</h1>
+          <p class="ph-sub">Manage enterprise workforce documentation and Saudi Labor Law compliance automatically.</p>
+        </div>
+        <button class="btn-primary">+ Upload Batch</button>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-h"><div class="kpi-icon c-blue">📄</div></div>
+          <div class="kpi-title">Docs Processed (Today)</div>
+          <div class="kpi-val">1,248</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-h"><div class="kpi-icon c-green">🎯</div></div>
+          <div class="kpi-title">OCR Accuracy</div>
+          <div class="kpi-val">99.8%</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-h"><div class="kpi-icon c-purple">⚖️</div></div>
+          <div class="kpi-title">Qiwa Sync Health</div>
+          <div class="kpi-val">100%</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-h"><div class="kpi-icon c-amber">⏳</div></div>
+          <div class="kpi-title">Pending Human Review</div>
+          <div class="kpi-val">12</div>
+        </div>
+      </div>
+
+      <div class="pipeline-section">
+        <div class="sec-title">Automation Funnel</div>
+        <div class="pipe-container">
+          <div class="pipe-line"></div>
+          
+          <div class="pipe-step">
+            <div class="pipe-circle done">✓</div>
+            <div class="pipe-label">Channel</div>
+            <div class="pipe-sub">WhatsApp / Portal</div>
+          </div>
+          
+          <div class="pipe-step">
+            <div class="pipe-circle done">✓</div>
+            <div class="pipe-label">OCR Engine</div>
+            <div class="pipe-sub">Extracting Data</div>
+          </div>
+          
+          <div class="pipe-step">
+            <div class="pipe-circle active">3</div>
+            <div class="pipe-label">Validation</div>
+            <div class="pipe-sub">AI Logic Check</div>
+          </div>
+          
+          <div class="pipe-step">
+            <div class="pipe-circle">4</div>
+            <div class="pipe-label">Compliance</div>
+            <div class="pipe-sub">Mudad / Qiwa API</div>
+          </div>
+          
+          <div class="pipe-step">
+            <div class="pipe-circle">5</div>
+            <div class="pipe-label">Database</div>
+            <div class="pipe-sub">Record Updated</div>
+          </div>
+        </div>
+        
+        <div class="metrics-row">
+          <div class="mr-item"><div class="mr-label">Processing Time</div><div class="mr-val">2.4s <span>↓0.5s</span></div></div>
+          <div class="mr-item"><div class="mr-label">Pass Rate (No manual review)</div><div class="mr-val">94.2% <span>↑2%</span></div></div>
+          <div class="mr-item"><div class="mr-label">API Rate Limit Usage</div><div class="mr-val">14%</div></div>
+        </div>
+      </div>
+
+      <table class="data-table">
+        <tr>
+          <th>Recent Documents</th>
+          <th>Employee ID</th>
+          <th>Type</th>
+          <th>Confidence</th>
+          <th>Status</th>
+        </tr>
+        <tr>
+          <td><div class="doc-name">📄 Iqama_Renewal_Ahmad.pdf</div></td>
+          <td>EMP-8492</td>
+          <td>Residency ID</td>
+          <td>99.9%</td>
+          <td><span class="status-pill sp-success">Synced to Qiwa</span></td>
+        </tr>
+        <tr>
+          <td><div class="doc-name">📄 Passport_Scan_004.jpg</div></td>
+          <td>EMP-1024</td>
+          <td>Passport</td>
+          <td>84.5%</td>
+          <td><span class="status-pill sp-warn">Needs Review</span></td>
+        </tr>
+        <tr>
+          <td><div class="doc-name">📄 Sick_Leave_HospitalX.pdf</div></td>
+          <td>EMP-5521</td>
+          <td>Medical</td>
+          <td>98.2%</td>
+          <td><span class="status-pill sp-process">Processing...</span></td>
+        </tr>
+        <tr>
+          <td><div class="doc-name">📄 Contract_Signature_V2.png</div></td>
+          <td>EMP-3920</td>
+          <td>Legal Contract</td>
+          <td>99.5%</td>
+          <td><span class="status-pill sp-success">Validated</span></td>
+        </tr>
+      </table>
+
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

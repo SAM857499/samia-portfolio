@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Metas Research Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Inter', sans-serif; background:#121217; color:#e0e0e0; width:1440px; height:900px; overflow:hidden; }
+
+.app { display: flex; height: 100vh; }
+.sidebar { width: 72px; background: #1a1a24; border-right: 1px solid #2a2a35; display:flex; flex-direction:column; align-items:center; padding: 24px 0;}
+.brand { width:40px; height:40px; background:linear-gradient(135deg, #a855f7, #ec4899); border-radius:12px; margin-bottom:40px; display:flex; align-items:center; justify-content:center; color:#fff; font-family:'Space Grotesk'; font-weight:700;}
+.s-icon { width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center; color:#8b8b9b; margin-bottom:12px; cursor:pointer;}
+.s-icon.active { background: #2a2a35; color:#a855f7;}
+
+.panel { width: 280px; background: #1a1a24; border-right: 1px solid #2a2a35; padding: 24px;}
+.p-title { font-family:'Space Grotesk'; font-size:18px; font-weight:600; color:#fff; margin-bottom:24px;}
+.menu-group { margin-bottom: 24px;}
+.mg-title { font-size:11px; text-transform:uppercase; letter-spacing:1px; color:#6b6b7b; margin-bottom:12px; font-weight:600;}
+.mg-item { display:flex; align-items:center; gap:10px; font-size:13px; color:#adadbe; padding:8px 12px; border-radius:6px; cursor:pointer;}
+.mg-item:hover { background: #2a2a35; color:#fff;}
+.mg-item.active { background: rgba(168, 85, 247, 0.1); color:#a855f7; border-left:3px solid #a855f7;}
+
+.main { flex:1; display:flex; flex-direction:column; padding:32px 40px;}
+.header { display:flex; justify-content:space-between; align-items:center; margin-bottom:32px;}
+.h-left h1 { font-family:'Space Grotesk'; font-size:24px; color:#fff; font-weight:600; margin-bottom:4px;}
+.h-left p { font-size:13px; color:#8b8b9b;}
+.filters { display:flex; gap:12px;}
+.filter { background: #1a1a24; border: 1px solid #2a2a35; padding:8px 16px; border-radius:8px; font-size:13px; color:#e0e0e0; display:flex; align-items:center; gap:8px;}
+
+/* Funnel Container */
+.content-grid { display:grid; grid-template-columns: 2fr 1fr; gap:24px; flex:1;}
+.card { background: #1a1a24; border: 1px solid #2a2a35; border-radius: 16px; padding:24px; display:flex; flex-direction:column;}
+.c-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;}
+.c-title { font-size:15px; font-weight:600; color:#fff; display:flex; align-items:center; gap:8px;}
+.c-tag { background: rgba(16, 185, 129, 0.15); color:#10b981; font-size:10px; padding:2px 6px; border-radius:4px; font-weight:600; text-transform:uppercase;}
+
+/* Funnel UI */
+.funnel-container { display:flex; flex-direction:column; gap:16px; flex:1;}
+.funnel-step { display:flex; align-items:center; justify-content:space-between; padding-right:120px; position:relative;}
+.fs-info { width: 140px; z-index:2;}
+.fs-name { font-size:13px; font-weight:500; color:#e0e0e0;}
+.fs-val { font-size:18px; font-weight:600; color:#fff; margin-top:2px;}
+.fs-bar-bg { flex:1; height:46px; background:#2a2a35; border-radius:8px; position:relative; overflow:hidden;}
+.fs-bar-fill { height:100%; position:absolute; left:0; top:0; background:linear-gradient(90deg, #a855f7, #8b5cf6); border-radius:8px;}
+.fs-drop { position:absolute; right:20px; top:14px; font-size:12px; color:#ec4899; font-weight:600;}
+
+/* A/B Test Panel */
+.ab-row { display:flex; justify-content:space-between; padding:16px 0; border-bottom:1px solid #2a2a35;}
+.ab-row:last-child { border-bottom:none;}
+.ab-title { font-size:13px; font-weight:500; color:#e0e0e0; margin-bottom:4px;}
+.ab-sub { font-size:11px; color:#8b8b9b;}
+.ab-metrics { text-align:right;}
+.ab-val { font-size:15px; font-weight:600; color:#fff;}
+.ab-lift { font-size:12px; color:#10b981; margin-top:2px; font-weight:500;}
+
+/* Retention Cohorts */
+.cohort-grid { display:grid; grid-template-columns: 50px repeat(6, 1fr); gap:4px; margin-top:16px;}
+.cg-head { font-size:11px; color:#6b6b7b; text-align:center; padding:4px;}
+.cg-row-label { font-size:11px; color:#adadbe; align-self:center;}
+.cg-cell { height:32px; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:600; color:#fff;}
+.bg-4 { background: rgba(168, 85, 247, 1); }
+.bg-3 { background: rgba(168, 85, 247, 0.7); }
+.bg-2 { background: rgba(168, 85, 247, 0.4); }
+.bg-1 { background: rgba(168, 85, 247, 0.2); }
+
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="sidebar">
+    <div class="brand">M</div>
+    <div class="s-icon">📊</div>
+    <div class="s-icon active">📈</div>
+    <div class="s-icon">👥</div>
+    <div class="s-icon">⚙️</div>
+  </div>
+  
+  <div class="panel">
+    <div class="p-title">Product Analytics</div>
+    
+    <div class="menu-group">
+      <div class="mg-title">Dashboards</div>
+      <div class="mg-item">Core KPIs</div>
+      <div class="mg-item active">Activation Funnel</div>
+      <div class="mg-item">Retention & Churn</div>
+    </div>
+    
+    <div class="menu-group">
+      <div class="mg-title">Experiments</div>
+      <div class="mg-item">Onboarding A/B Test</div>
+      <div class="mg-item">Pricing Page V2</div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="header">
+      <div class="h-left">
+        <h1>Activation Funnel (Global)</h1>
+        <p>Tracking user journey from sign-up to first paid conversion.</p>
+      </div>
+      <div class="filters">
+        <div class="filter">📅 Last 30 Days</div>
+        <div class="filter">🌍 All Markets</div>
+        <div class="filter" style="background:#a855f7; border-color:#a855f7; color:#fff;">Save Report</div>
+      </div>
+    </div>
+
+    <div class="content-grid">
+      <div class="card">
+        <div class="c-header">
+          <div class="c-title">Sign-up to Core Value <span class="c-tag">Trend ↑</span></div>
+          <div style="font-size:12px; color:#8b8b9b;">Conversion: 14.2%</div>
+        </div>
+        
+        <div class="funnel-container">
+          <div class="funnel-step">
+            <div class="fs-info"><div class="fs-name">Website Visitor</div><div class="fs-val">24,500</div></div>
+            <div class="fs-bar-bg"><div class="fs-bar-fill" style="width:100%"></div></div>
+          </div>
+          <div class="funnel-step">
+            <div class="fs-info"><div class="fs-name">Account Created</div><div class="fs-val">8,240</div></div>
+            <div class="fs-bar-bg"><div class="fs-bar-fill" style="width:34%"></div></div>
+            <div class="fs-drop">−66.0%</div>
+          </div>
+          <div class="funnel-step">
+            <div class="fs-info"><div class="fs-name">Workspace Setup</div><div class="fs-val">6,105</div></div>
+            <div class="fs-bar-bg"><div class="fs-bar-fill" style="width:25%"></div></div>
+            <div class="fs-drop">−25.9%</div>
+          </div>
+          <div class="funnel-step">
+            <div class="fs-info"><div class="fs-name">Core Feature Used</div><div class="fs-val">4,890</div></div>
+            <div class="fs-bar-bg"><div class="fs-bar-fill" style="width:20%"></div></div>
+            <div class="fs-drop">−19.9%</div>
+          </div>
+          <div class="funnel-step">
+            <div class="fs-info"><div class="fs-name">Paid Subscription</div><div class="fs-val">3,480</div></div>
+            <div class="fs-bar-bg"><div class="fs-bar-fill" style="width:14%"></div></div>
+            <div class="fs-drop">−28.8%</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:24px;">
+        <div class="card" style="padding:20px;">
+          <div class="c-header" style="margin-bottom:16px;">
+            <div class="c-title">Active A/B Tests</div>
+          </div>
+          <div class="ab-row">
+            <div>
+              <div class="ab-title">Onboarding Flow Redesign</div>
+              <div class="ab-sub">Variant B vs Control</div>
+            </div>
+            <div class="ab-metrics">
+              <div class="ab-val">18% Conv.</div>
+              <div class="ab-lift">↑ 24% Lift</div>
+            </div>
+          </div>
+          <div class="ab-row">
+            <div>
+              <div class="ab-title">In-App Paywall UI</div>
+              <div class="ab-sub">Variant A vs Control</div>
+            </div>
+            <div class="ab-metrics">
+              <div class="ab-val">4.2% Conv.</div>
+              <div class="ab-lift">↑ 8% Lift</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="flex:1; padding:20px;">
+          <div class="c-header" style="margin-bottom:8px;">
+            <div class="c-title">Retention Cohorts</div>
+          </div>
+          <div class="cohort-grid">
+            <div></div>
+            <div class="cg-head">W1</div><div class="cg-head">W2</div><div class="cg-head">W3</div><div class="cg-head">W4</div><div class="cg-head">W5</div><div class="cg-head">W6</div>
+            
+            <div class="cg-row-label">Oct 1</div>
+            <div class="cg-cell bg-4">100%</div><div class="cg-cell bg-3">78%</div><div class="cg-cell bg-3">72%</div><div class="cg-cell bg-2">55%</div><div class="cg-cell bg-2">48%</div><div class="cg-cell bg-1">42%</div>
+            
+            <div class="cg-row-label">Oct 8</div>
+            <div class="cg-cell bg-4">100%</div><div class="cg-cell bg-3">81%</div><div class="cg-cell bg-3">75%</div><div class="cg-cell bg-2">60%</div><div class="cg-cell bg-2">52%</div><div class="cg-cell"></div>
+            
+            <div class="cg-row-label">Oct 15</div>
+            <div class="cg-cell bg-4">100%</div><div class="cg-cell bg-3">85%</div><div class="cg-cell bg-3">78%</div><div class="cg-cell bg-2">65%</div><div class="cg-cell"></div><div class="cg-cell"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
