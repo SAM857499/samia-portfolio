@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Samia Ahmed | Product Owner | AI & SaaS Specialist</title>
 <meta name="description" content="Samia Ahmed — Product Owner with 3+ years leading AI-powered SaaS and IoT platforms across MENA. Certified PSPO I, bilingual Arabic & English."/>
-<meta name="keywords" content="Product Owner, SaaS, IoT, MENA, Qiwa, Mudad, Agile, Scrum, AI Automation, OCR, Saudi Arabia, B2B"/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 :root{
@@ -19,512 +17,566 @@
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{font-family:var(--font-sans);background:var(--white);color:var(--dktext);overflow-x:hidden;}
+body{font-family:var(--font-sans);background:var(--lightbg);color:var(--dktext);overflow-x:hidden;}
 
-/* SCROLLBAR */
 ::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:var(--navy);}::-webkit-scrollbar-thumb{background:var(--teal);}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(13,27,42,0.96);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.06);}
-.nav-i{max-width:1140px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:62px;padding:0 5%;}
+.bg-layer {
+  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: -1; overflow: hidden; pointer-events: none;
+  background: var(--navy);
+}
+.mesh-blob {
+  position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.35; mix-blend-mode: screen;
+}
+.b1 { width: 55vw; height: 55vw; background: var(--teal); top: -15%; left: -10%; animation: float 25s ease-in-out infinite alternate; }
+.b2 { width: 45vw; height: 45vw; background: var(--gold); bottom: -15%; right: -5%; animation: float 20s ease-in-out infinite alternate-reverse; }
+@keyframes float { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(10%, 10%) scale(1.1); } }
+
+.texture {
+  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+  background: url('data:image/svg+xml;utf8,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.08%22/%3E%3C/svg%3E');
+  z-index: -1; pointer-events: none; mix-blend-mode: overlay;
+}
+
+.glass-nav-wrapper {
+  position: fixed; top: 20px; left: 0; width: 100%; z-index: 200; display: flex; justify-content: center;
+  transition: transform 0.4s ease;
+}
+.glass-nav-wrapper.hide { transform: translateY(-100px); }
+.glass-nav {
+  background: rgba(13, 27, 42, 0.45); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.12); box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  border-radius: 50px; width: 92%; max-width: 1000px; display: flex; justify-content: space-between; align-items: center; padding: 0 1.5rem; height: 60px;
+}
 .logo{font-family:var(--font-serif);font-size:1.35rem;color:var(--white);font-weight:700;letter-spacing:.3px;text-decoration:none;}
 .logo em{color:var(--gold);font-style:normal;}
-.nav-links{display:flex;gap:2rem;list-style:none;align-items:center;}
-.nav-links a{color:var(--gray);text-decoration:none;font-size:.78rem;font-weight:500;letter-spacing:.8px;text-transform:uppercase;transition:color .2s;}
+.nav-links{display:flex;gap:1.5rem;list-style:none;align-items:center; margin-bottom:0;}
+.nav-links a{color: rgba(255,255,255,0.8); text-decoration:none;font-size:.78rem;font-weight:500;letter-spacing:1px;text-transform:uppercase;transition:color .2s;}
 .nav-links a:hover{color:var(--gold2);}
-.nav-cv-btn{background:var(--teal);color:var(--white)!important;padding:7px 16px;border-radius:2px;font-size:.75rem!important;}
-.nav-cv-btn:hover{background:var(--teal2)!important;color:var(--white)!important;}
+.nav-cv-btn{background: rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); color:var(--white)!important; padding:8px 18px; border-radius:30px; font-size:.75rem!important; transition: all 0.3s ease;}
+.nav-cv-btn:hover{background:var(--white); color:var(--navy)!important; border-color:var(--white);}
+.mobile-toggle { display: none; cursor: pointer; font-size: 1.5rem; color: var(--white); user-select: none; }
 
-/* HERO */
-.hero{min-height:100vh;background:var(--navy);display:flex;align-items:center;padding:90px 5% 70px;position:relative;overflow:hidden;}
-.hero::before{content:'';position:absolute;top:-150px;right:-150px;width:700px;height:700px;background:radial-gradient(circle,rgba(15,123,108,.18) 0%,transparent 65%);}
-.hero::after{content:'';position:absolute;bottom:-50px;left:10%;width:500px;height:500px;background:radial-gradient(circle,rgba(201,168,76,.08) 0%,transparent 65%);}
-.hero-grid{max-width:1140px;margin:0 auto;width:100%;display:grid;grid-template-columns:1.1fr .9fr;gap:4rem;align-items:center;position:relative;z-index:1;}
-.pill{display:inline-block;border:1px solid rgba(201,168,76,.4);color:var(--gold);font-size:.68rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;padding:5px 14px;border-radius:1px;margin-bottom:1.4rem;}
-h1.hero-name{font-family:var(--font-serif);font-size:clamp(2.6rem,4.5vw,4.2rem);color:var(--white);line-height:1.08;font-weight:700;margin-bottom:.9rem;}
+.reveal-card {
+  opacity: 0; transform: translateY(50px) scale(0.96);
+  transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: opacity, transform;
+}
+.reveal-card.in { opacity: 1; transform: translateY(0) scale(1); }
+.reveal-mask { display: inline-flex; overflow: hidden; vertical-align: top; }
+.reveal-text {
+  display: block; transform: translateY(110%);
+  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform;
+}
+.reveal-mask.in .reveal-text { transform: translateY(0); }
+.d-1 { transition-delay: 0.1s; } .d-2 { transition-delay: 0.2s; }
+.d-3 { transition-delay: 0.3s; } .d-4 { transition-delay: 0.4s; }
+.d-5 { transition-delay: 0.5s; }
+
+.hero{min-height:100vh; display:flex;align-items:center;padding:120px 5% 70px;position:relative; z-index:1;}
+.hero-grid{max-width:1140px;margin:0 auto;width:100%;display:grid;grid-template-columns:1.0fr 1.0fr;gap:4rem;align-items:center;}
+.pill{display:inline-block;border:1px solid rgba(201,168,76,.4);background: rgba(201,168,76,.05);color:var(--gold);font-size:.68rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;padding:6px 16px;border-radius:30px;margin-bottom:1.8rem;}
+h1.hero-name{font-family:var(--font-serif);font-size:clamp(3.0rem,4.5vw,4.5rem);color:var(--white);line-height:1.05;font-weight:700;margin-bottom:1.2rem;}
 h1.hero-name em{color:var(--gold);font-style:normal;}
-.hero-sub{color:var(--gray);font-size:.95rem;line-height:1.75;margin-bottom:2rem;max-width:500px;}
-.kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-bottom:2.4rem;}
-.kpi{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);padding:.9rem .7rem;text-align:center;border-radius:3px;}
-.kpi-n{font-family:var(--font-serif);font-size:2rem;color:var(--gold);font-weight:700;line-height:1;display:block;}
-.kpi-l{font-size:.65rem;color:var(--gray);text-transform:uppercase;letter-spacing:1px;margin-top:4px;}
+.hero-sub{color:rgba(255,255,255,0.7);font-size:1.0rem;line-height:1.75;margin-bottom:2.5rem;max-width:550px;}
+.kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2.6rem;}
+.kpi{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);backdrop-filter:blur(10px);padding:1.2rem .8rem;text-align:center;border-radius:12px;}
+.kpi-n{font-family:var(--font-serif);font-size:2.2rem;color:var(--gold);font-weight:700;line-height:1;display:block;}
+.kpi-l{font-size:.65rem;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:1px;margin-top:6px;}
 .cta-row{display:flex;gap:.9rem;flex-wrap:wrap;}
-.btn-p{background:var(--teal);color:var(--white);padding:12px 26px;border-radius:2px;font-weight:600;font-size:.88rem;text-decoration:none;transition:background .2s;border:none;cursor:pointer;}
-.btn-p:hover{background:var(--teal2);}
-.btn-o{background:transparent;color:rgba(255,255,255,.8);padding:11px 26px;border:1px solid rgba(255,255,255,.2);border-radius:2px;font-weight:500;font-size:.88rem;text-decoration:none;transition:all .2s;}
-.btn-o:hover{border-color:var(--gold);color:var(--gold);}
-.hero-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:1.8rem;position:relative;}
-.hero-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(to bottom,var(--gold),var(--teal));border-radius:6px 0 0 6px;}
-.hc-label{font-size:.63rem;color:var(--gold);text-transform:uppercase;letter-spacing:2.5px;font-weight:600;margin-bottom:1.1rem;}
-.exp-item-card{display:flex;align-items:flex-start;gap:.8rem;margin-bottom:.85rem;padding-bottom:.85rem;border-bottom:1px solid rgba(255,255,255,.06);}
+.btn-p{background:var(--teal);color:var(--white);padding:14px 28px;border-radius:30px;font-weight:600;font-size:.88rem;text-decoration:none;transition:all .3s;border:none;cursor:pointer; display:inline-flex; align-items:center; gap:8px;}
+.btn-p:hover{background:var(--white); color:var(--teal); transform:translateY(-2px); box-shadow: 0 10px 20px rgba(15, 123, 108, 0.3);}
+.btn-o{background:rgba(255,255,255,0.05);color:var(--white);padding:14px 28px;border:1px solid rgba(255,255,255,.2);border-radius:30px;font-weight:500;font-size:.88rem;text-decoration:none;transition:all .3s; display:inline-flex; align-items:center; gap:8px;}
+.btn-o:hover{background:var(--white); color:var(--navy); border-color:var(--white); transform:translateY(-2px);}
+
+.hero-card{background:rgba(20, 37, 58, 0.6);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:2.2rem;box-shadow: 0 20px 50px rgba(0,0,0,0.3);}
+.hc-label{font-size:.68rem;color:var(--gold);text-transform:uppercase;letter-spacing:2.5px;font-weight:600;margin-bottom:1.5rem;}
+.exp-item-card{display:flex;align-items:flex-start;gap:.9rem;margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid rgba(255,255,255,.06);}
 .exp-item-card:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
-.exp-dot{width:7px;height:7px;border-radius:50%;margin-top:5px;flex-shrink:0;}
-.dot-teal{background:var(--teal2);}
-.dot-gold{background:var(--gold);}
-.exp-ic-text{color:rgba(255,255,255,.85);font-size:.87rem;line-height:1.45;}
-.exp-ic-sub{color:var(--gray);font-size:.73rem;margin-top:1px;}
+.exp-dot{width:8px;height:8px;border-radius:50%;margin-top:5px;flex-shrink:0;}
+.dot-teal{background:var(--teal2); box-shadow: 0 0 10px var(--teal2);}
+.dot-gold{background:var(--gold); box-shadow: 0 0 10px var(--gold);}
+.exp-ic-text{color:var(--white);font-size:.9rem;font-weight:500;}
+.exp-ic-sub{color:rgba(255,255,255,0.5);font-size:.78rem;margin-top:3px;}
 
-/* SECTIONS */
-section{padding:80px 5%;}
+section{padding:100px 5%; position:relative; z-index:2;}
 .s-inner{max-width:1140px;margin:0 auto;}
-.s-eyebrow{font-size:.65rem;color:var(--teal);text-transform:uppercase;letter-spacing:3.5px;font-weight:700;margin-bottom:.4rem;}
-.s-title{font-family:var(--font-serif);font-size:clamp(1.9rem,3vw,2.8rem);font-weight:700;line-height:1.15;margin-bottom:.5rem;}
-.s-title span{color:var(--teal);}
-.s-desc{color:var(--gray);max-width:560px;line-height:1.75;margin-bottom:3rem;font-size:.92rem;}
+.solid-sec { background: var(--white); border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); margin-top: -40px; padding: 100px 6%; position:relative;}
 
-/* EXPERIENCE */
-.exp-list{display:flex;flex-direction:column;gap:1rem;}
-.exp-card{border:1px solid var(--border);border-radius:5px;overflow:hidden;transition:box-shadow .25s,transform .25s;}
-.exp-card:hover{box-shadow:0 6px 30px rgba(0,0,0,.08);transform:translateY(-1px);}
-.exp-head{padding:1.3rem 1.7rem;background:var(--white);display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;}
-.exp-role{font-size:1.02rem;font-weight:700;color:var(--dktext);margin-bottom:.15rem;}
-.exp-co{font-size:.88rem;color:var(--teal);font-weight:600;}
-.exp-meta{font-size:.76rem;color:var(--gray);margin-top:.15rem;}
-.badge{display:inline-block;font-size:.65rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:4px 10px;border-radius:2px;}
+.s-eyebrow{font-size:.7rem;color:var(--teal);text-transform:uppercase;letter-spacing:4px;font-weight:700;margin-bottom:.8rem;}
+.s-eyebrow.dark { color: var(--gold); }
+.s-title{font-family:var(--font-serif);font-size:clamp(2.2rem,3.5vw,3.2rem);font-weight:700;line-height:1.15;margin-bottom:1rem; color:var(--navy);}
+.s-title.dark { color: var(--white); }
+.s-title span{color:var(--teal);}
+.s-title.dark span{color:var(--gold);}
+.s-desc{color:var(--gray);max-width:600px;line-height:1.75;margin-bottom:4rem;font-size:1rem;}
+.s-desc.dark { color: rgba(255,255,255,0.6); }
+
+.timeline-wrap { display: flex; gap: 2.5rem; position: relative;}
+.timeline-line { width: 4px; background: rgba(13,27,42,0.06); border-radius: 4px; position: relative;}
+.timeline-progress { position: absolute; top: 0; left: 0; width: 100%; background: var(--teal); border-radius: 4px; transition: height 0.1s ease; }
+.exp-list{display:flex;flex-direction:column;gap:3rem; flex: 1;}
+
+.exp-card{background:var(--white);border:1px solid rgba(13,27,42,0.06);border-radius:12px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.02);}
+.exp-head{padding:1.8rem 2.2rem;background:var(--lightbg);display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;}
+.exp-role{font-size:1.1rem;font-weight:700;color:var(--navy);margin-bottom:.25rem;}
+.exp-co{font-size:.9rem;color:var(--teal);font-weight:600;}
+.exp-meta{font-size:.8rem;color:var(--gray);margin-top:.4rem;}
+.badge{display:inline-block;font-size:.65rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:5px 12px;border-radius:30px;}
 .bc{background:rgba(15,123,108,.1);color:var(--teal);}
 .bp{background:rgba(201,168,76,.12);color:var(--gold);}
 .bf{background:rgba(13,27,42,.06);color:#4a6080;}
-.exp-body{padding:.4rem 1.7rem 1.3rem;background:var(--white);}
-.exp-note{font-size:.76rem;color:var(--gold);font-style:italic;padding:.45rem .8rem;background:rgba(201,168,76,.06);border-left:2px solid var(--gold);border-radius:2px;margin-bottom:.8rem;}
-.buls{list-style:none;}
-.buls li{font-size:.85rem;color:#3a4a5c;line-height:1.65;padding:.3rem 0 .3rem 1.15rem;position:relative;border-bottom:1px solid #f0f4f8;}
+.exp-body{padding:0 2.2rem 2rem;}
+.exp-note{font-size:.8rem;color:var(--gold);font-style:italic;padding:.6rem 1rem;background:rgba(201,168,76,.06);border-left:2px solid var(--gold);border-radius:4px;margin: 1.5rem 0 1rem;}
+.buls{list-style:none; margin-top: 1.5rem;}
+.buls li{font-size:.9rem;color:#3a4a5c;line-height:1.75;padding:.4rem 0 .4rem 1.4rem;position:relative;border-bottom:1px solid #f0f4f8;}
 .buls li:last-child{border-bottom:none;}
-.buls li::before{content:'▸';position:absolute;left:0;color:var(--teal);font-size:.75rem;top:.38rem;}
-.tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.9rem;}
-.tag{background:var(--lightbg);border:1px solid var(--border);color:#4a6080;font-size:.68rem;font-weight:500;padding:3px 9px;border-radius:2px;}
+.buls li::before{content:'▸';position:absolute;left:0;color:var(--teal);font-size:.8rem;top:.5rem;}
+.tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.5rem;}
+.tag{background:var(--lightbg);border:1px solid var(--border);color:#4a6080;font-size:.7rem;font-weight:600;padding:5px 12px;border-radius:30px;}
 
-/* CASE STUDIES */
-.cases-wrap{display:flex;flex-direction:column;gap:2rem;}
-.case{border:1px solid var(--border);border-radius:6px;overflow:hidden;}
-.case-top{background:var(--navy);padding:1.9rem 2.2rem;position:relative;overflow:hidden;}
-.case-top::after{content:'';position:absolute;right:-60px;top:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(201,168,76,.12) 0%,transparent 70%);}
+.cases-wrap{display:flex;flex-direction:column;gap:4rem; margin-top: 2rem;}
+.case{border:1px solid var(--border);border-radius:16px;overflow:hidden; background: var(--white); box-shadow: 0 15px 40px rgba(0,0,0,0.04);}
+.case-top{background:var(--navy);padding:2.5rem 3rem;position:relative;overflow:hidden;}
+.case-top::after{content:'';position:absolute;right:-60px;top:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(201,168,76,.15) 0%,transparent 70%);}
 
-/* MOCKUP IMAGE */
-.case-mockup{position:relative;background:var(--navy);padding:1.5rem 2.2rem 0;overflow:hidden;}
-.case-mockup::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,var(--navy) 0%,rgba(13,27,42,.3) 100%);pointer-events:none;z-index:1;}
-.mockup-frame{position:relative;border-radius:8px 8px 0 0;overflow:hidden;border:1px solid rgba(255,255,255,.1);border-bottom:none;box-shadow:0 -8px 40px rgba(0,0,0,.4);}
-.mockup-browser-bar{background:#1a1f2e;padding:8px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,.06);}
-.mockup-dots{display:flex;gap:5px;}
-.mockup-dots span{width:9px;height:9px;border-radius:50%;}
+/* IFRAME SCALING AND FLAT PRESENTATION */
+.case-mockup { position:relative; background:var(--navy); padding:1.5rem 3rem 0; overflow:hidden; }
+.mockup-frame { position:relative; border-radius:12px 12px 0 0; overflow:hidden; border:1px solid rgba(255,255,255,.1); border-bottom:none; box-shadow:0 -10px 50px rgba(0,0,0,.3); transition: transform 0.4s ease; background: #0a0f1a; }
+.case:hover .mockup-frame { transform: translateY(-5px); }
+.mockup-browser-bar { background:#1a1f2e; padding:10px 16px; display:flex; align-items:center; gap:10px; border-bottom:1px solid rgba(255,255,255,.06); z-index: 10; position: relative;}
+.mockup-dots { display:flex; gap:6px; }
+.mockup-dots span { width:10px; height:10px; border-radius:50%; }
 .mockup-dots span:nth-child(1){background:#ff5f57;}
 .mockup-dots span:nth-child(2){background:#ffbd2e;}
 .mockup-dots span:nth-child(3){background:#28c840;}
-.mockup-url{flex:1;background:rgba(255,255,255,.06);border-radius:4px;padding:4px 12px;font-size:11px;color:#5a6a7e;margin-left:8px;font-family:var(--font-sans);}
-.mockup-frame img{width:100%;display:block;height:auto;}
-.mockup-label{position:relative;z-index:2;text-align:center;padding:.8rem 0 .4rem;}
-.mockup-label span{font-size:.65rem;color:var(--gold);text-transform:uppercase;letter-spacing:2.5px;font-weight:600;background:rgba(201,168,76,.08);padding:4px 14px;border-radius:2px;border:1px solid rgba(201,168,76,.15);}
-.cs-n{font-size:.63rem;color:var(--gold);text-transform:uppercase;letter-spacing:2.5px;font-weight:700;margin-bottom:.4rem;}
-.cs-title{font-family:var(--font-serif);font-size:1.55rem;color:var(--white);font-weight:700;margin-bottom:.4rem;}
-.cs-sub{color:var(--gray);font-size:.84rem;line-height:1.55;}
+.mockup-url { flex:1; background:rgba(255,255,255,.06); border-radius:6px; padding:5px 14px; font-size:11px; color:#5a6a7e; margin-left:10px; font-family:var(--font-sans); }
+
+.iframe-wrap { width: 100%; position: relative; background: #0a0f1a; overflow: hidden; padding-bottom: 62.5%; /* default aspect 16:10 */ }
+.iframe-wrap iframe { position: absolute; top: 0; left: 0; width: 1440px; height: 900px; border: none; transform-origin: top left; pointer-events: none; }
+
+.cs-n{font-size:.68rem;color:var(--gold);text-transform:uppercase;letter-spacing:2.5px;font-weight:700;margin-bottom:.6rem;}
+.cs-title{font-family:var(--font-serif);font-size:2rem;color:var(--white);font-weight:700;margin-bottom:.6rem;}
+.cs-sub{color:rgba(255,255,255,0.7);font-size:.95rem;line-height:1.6;}
 .case-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
-.case-meta-cell{background:var(--cream);padding:1rem 1.5rem;}
-.cmc-l{font-size:.62rem;color:var(--gray);text-transform:uppercase;letter-spacing:1.5px;font-weight:600;}
-.cmc-v{font-size:.86rem;font-weight:700;color:var(--dktext);margin-top:2px;}
-.case-body{padding:1.8rem 2.2rem;}
-.cs-sec{margin-bottom:1.4rem;}
-.cs-sec-h{font-size:.65rem;text-transform:uppercase;letter-spacing:2.5px;color:var(--teal);font-weight:700;margin-bottom:.55rem;}
-.cs-text{font-size:.86rem;color:#3a4a5c;line-height:1.7;}
-.cs-pts{list-style:none;margin-top:.45rem;}
-.cs-pts li{font-size:.83rem;color:#3a4a5c;padding:.28rem 0 .28rem 1.05rem;position:relative;line-height:1.55;}
-.cs-pts li::before{content:'▸';position:absolute;left:0;color:var(--teal);font-size:.72rem;top:.32rem;}
-.case-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;margin-top:1.4rem;padding-top:1.4rem;border-top:1px solid var(--border);}
-.metric{text-align:center;padding:.75rem .5rem;background:var(--lightbg);border-radius:3px;}
-.metric-n{font-family:var(--font-serif);font-size:1.55rem;font-weight:700;color:var(--teal);display:block;line-height:1;}
-.metric-l{font-size:.62rem;color:var(--gray);text-transform:uppercase;letter-spacing:.5px;margin-top:4px;}
+.case-meta-cell{background:var(--lightbg);padding:1.2rem 2rem;}
+.cmc-l{font-size:.65rem;color:var(--gray);text-transform:uppercase;letter-spacing:1.5px;font-weight:600;}
+.cmc-v{font-size:.9rem;font-weight:700;color:var(--navy);margin-top:4px;}
+.case-body{padding:2.5rem 3rem;}
+.cs-sec{margin-bottom:1.8rem;}
+.cs-sec-h{font-size:.75rem;text-transform:uppercase;letter-spacing:2.5px;color:var(--teal);font-weight:700;margin-bottom:.8rem;}
+.cs-text{font-size:.95rem;color:#3a4a5c;line-height:1.75;}
+.cs-pts{list-style:none;margin-top:.6rem;}
+.cs-pts li{font-size:.95rem;color:#3a4a5c;padding:.35rem 0 .35rem 1.25rem;position:relative;line-height:1.6;}
+.cs-pts li::before{content:'▸';position:absolute;left:0;color:var(--teal);font-size:.8rem;top:.45rem;}
+.case-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2rem;padding-top:2rem;border-top:1px solid var(--border);}
+.metric{text-align:center;padding:1.2rem .8rem;background:var(--lightbg);border-radius:8px;}
+.metric-n{font-family:var(--font-serif);font-size:1.8rem;font-weight:700;color:var(--teal);display:block;line-height:1;}
+.metric-l{font-size:.65rem;color:var(--gray);text-transform:uppercase;letter-spacing:1px;margin-top:8px;}
 
-/* SKILLS */
-.skills-dark{background:var(--navy);}
-.sk-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem;}
-.sk-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:4px;padding:1.4rem;position:relative;overflow:hidden;}
-.sk-card::before{content:'';position:absolute;top:0;left:0;width:2px;height:100%;background:var(--gold);}
-.sk-head{color:var(--gold);font-size:.66rem;text-transform:uppercase;letter-spacing:2.5px;font-weight:700;margin-bottom:.9rem;}
-.pills{display:flex;flex-wrap:wrap;gap:.35rem;}
-.pill-sk{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.78);font-size:.72rem;padding:4px 10px;border-radius:2px;}
+.skills-sec { background: transparent; padding-top:40px; }
+.sk-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;}
+.sk-card{background:rgba(20,37,58,.4);backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:2rem;position:relative;overflow:hidden;}
+.sk-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(to bottom, var(--gold), var(--teal));}
+.sk-head{color:var(--white);font-size:1.1rem;font-weight:700;margin-bottom:1.5rem;font-family:var(--font-serif);}
+.pills{display:flex;flex-wrap:wrap;gap:.5rem;}
+.pill-sk{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.8);font-size:.78rem;padding:6px 14px;border-radius:30px;transition: background 0.2s;}
+.pill-sk:hover { background: rgba(255,255,255,0.1); color: var(--white); }
 
-/* EDUCATION */
-.edu-cols{display:grid;grid-template-columns:1fr 1.5fr;gap:2rem;}
-.edu-card{border:1px solid var(--border);border-radius:5px;padding:1.5rem 1.8rem;}
-.edu-card-h{font-size:.63rem;color:var(--teal);text-transform:uppercase;letter-spacing:2.5px;font-weight:700;margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);}
-.edu-entry{margin-bottom:.85rem;padding-bottom:.85rem;border-bottom:1px solid var(--border);}
+.edu-sec { padding-bottom: 20px;}
+.edu-cols{display:grid;grid-template-columns:1fr 1.5fr;gap:3rem;}
+.edu-card{border:1px solid var(--border);border-radius:12px;padding:2.5rem; background: var(--lightbg);}
+.edu-card-h{font-size:.7rem;color:var(--teal);text-transform:uppercase;letter-spacing:2.5px;font-weight:700;margin-bottom:1.5rem;padding-bottom:.8rem;border-bottom:1px solid var(--border);}
+.edu-entry{margin-bottom:1.2rem;padding-bottom:1.2rem;border-bottom:1px solid var(--border);}
 .edu-entry:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
-.edu-n{font-size:.9rem;font-weight:700;color:var(--dktext);}
-.edu-o{font-size:.78rem;color:var(--gray);margin-top:1px;}
-.edu-y{font-size:.72rem;color:var(--teal);font-weight:700;margin-top:2px;}
+.edu-n{font-size:.95rem;font-weight:700;color:var(--navy);}
+.edu-o{font-size:.85rem;color:var(--gray);margin-top:2px;}
+.edu-y{font-size:.75rem;color:var(--teal);font-weight:700;margin-top:4px;}
 
-/* CONTACT */
-.contact-dark{background:var(--navy);}
+.contact-sec { background: transparent; }
 .contact-cols{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
-.ci{display:flex;align-items:flex-start;gap:.85rem;margin-bottom:1.15rem;}
-.ci-icon{width:36px;height:36px;background:rgba(15,123,108,.18);border:1px solid rgba(15,123,108,.28);border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.9rem;}
-.ci-l{font-size:.62rem;color:var(--gray);text-transform:uppercase;letter-spacing:1.5px;font-weight:600;}
-.ci-v{font-size:.88rem;color:var(--white);margin-top:1px;}
-.avail-box{margin-top:1.5rem;padding:1rem 1.2rem;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.22);border-radius:3px;}
-.avail-h{color:var(--gold);font-size:.63rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:.3rem;}
-.avail-t{color:rgba(255,255,255,.75);font-size:.85rem;line-height:1.6;}
-.cf{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:5px;padding:1.8rem;}
-.fl{font-size:.65rem;color:var(--gray);text-transform:uppercase;letter-spacing:1px;font-weight:600;display:block;margin-bottom:.35rem;}
-.fi,.ft{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:var(--white);padding:.65rem .85rem;border-radius:2px;font-family:var(--font-sans);font-size:.85rem;outline:none;transition:border .2s;}
-.fi:focus,.ft:focus{border-color:var(--teal);}
-.fi::placeholder,.ft::placeholder{color:rgba(255,255,255,.28);}
-.ft{min-height:90px;resize:vertical;}
-.fg{margin-bottom:.9rem;}
-.frow{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;}
-.fsub{width:100%;background:var(--teal);color:var(--white);border:none;padding:12px;border-radius:2px;font-weight:700;font-size:.88rem;cursor:pointer;margin-top:.3rem;transition:background .2s;}
-.fsub:hover{background:var(--teal2);}
+.ci{display:flex;align-items:flex-start;gap:1.2rem;margin-bottom:1.5rem;}
+.ci-icon{width:45px;height:45px;background:rgba(15,123,108,.15);border:1px solid rgba(15,123,108,.3);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem; color: var(--teal2);}
+.ci-l{font-size:.68rem;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:1.5px;font-weight:600;}
+.ci-v{font-size:.95rem;color:var(--white);margin-top:2px; font-weight:500;}
+.avail-box{margin-top:2rem;padding:1.5rem;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:8px;}
+.avail-h{color:var(--gold);font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:.5rem;}
+.avail-t{color:rgba(255,255,255,.75);font-size:.9rem;line-height:1.6;}
+.cf{background:rgba(20,37,58,.4);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:2.5rem;}
+.fl{font-size:.7rem;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:1px;font-weight:600;display:block;margin-bottom:.5rem;}
+.fi,.ft{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);color:var(--white);padding:.8rem 1rem;border-radius:6px;font-family:var(--font-sans);font-size:.9rem;outline:none;transition:border .2s;}
+.fi:focus,.ft:focus{border-color:var(--teal); background:rgba(255,255,255,.08);}
+.fi::placeholder,.ft::placeholder{color:rgba(255,255,255,.3);}
+.ft{min-height:120px;resize:vertical;}
+.fg{margin-bottom:1.2rem;}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
+.fsub{width:100%;background:var(--teal);color:var(--white);border:none;padding:14px;border-radius:30px;font-weight:700;font-size:1rem;cursor:pointer;margin-top:.5rem;transition:all .3s;}
+.fsub:hover{background:var(--white);color:var(--teal); transform:translateY(-2px);}
 
-/* DOWNLOAD CTA */
-.dl-band{background:linear-gradient(135deg,var(--teal) 0%,var(--navy2) 100%);padding:50px 5%;text-align:center;}
-.dl-band h3{font-family:var(--font-serif);font-size:1.8rem;color:var(--white);margin-bottom:.5rem;}
-.dl-band p{color:rgba(255,255,255,.7);margin-bottom:1.5rem;font-size:.9rem;}
-.dl-btns{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;}
+footer{background:#070e17;padding:2.5rem 5%;text-align:center;color:var(--gray);font-size:.85rem; border-top: 1px solid rgba(255,255,255,0.05);}
 
-/* FOOTER */
-footer{background:#070e17;padding:1.8rem 5%;text-align:center;color:var(--gray);font-size:.77rem;}
-
-/* ANIM */
-.fade{opacity:1;transition:opacity .55s ease,transform .55s ease;}
-.fade.in{opacity:1;transform:translateY(0);}
-
-@media(max-width:800px){
+@media(max-width:900px){
   .hero-grid{grid-template-columns:1fr;}
-  .hero-card{display:none;}
   .sk-grid,.edu-cols,.contact-cols{grid-template-columns:1fr;}
   .case-metrics{grid-template-columns:repeat(2,1fr);}
-  .case-meta{grid-template-columns:1fr 1fr;}
-  .nav-links{display:none;}
-  .frow{grid-template-columns:1fr;}
+  .case-meta{grid-template-columns:1fr;}
+  .mobile-toggle { display: block; }
+  .nav-links { display: none; position: absolute; top: 75px; left: 4%; width: 92%; background: rgba(13,27,42,0.95); backdrop-filter: blur(20px); border-radius: 12px; padding: 20px; flex-direction: column; gap: 15px; border: 1px solid rgba(255,255,255,0.1); }
+  .nav-links.active { display: flex; }
+  .timeline-wrap{flex-direction: column;}
+  .timeline-line { display: none; }
+  .solid-sec{padding: 60px 5%;}
+  .case-mockup { padding: 1.5rem 1.5rem 0; }
+  .case-body, .case-top { padding: 2rem 1.5rem; }
 }
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="nav-i">
+<div class="bg-layer">
+  <div class="mesh-blob b1"></div>
+  <div class="mesh-blob b2"></div>
+</div>
+<div class="texture"></div>
+
+<div class="glass-nav-wrapper">
+  <nav class="glass-nav">
     <a href="#" class="logo">Samia <em>Ahmed</em></a>
+    <div class="mobile-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')">☰</div>
     <ul class="nav-links">
       <li><a href="#experience">Experience</a></li>
       <li><a href="#cases">Case Studies</a></li>
       <li><a href="#skills">Skills</a></li>
-      <li><a href="#education">Education</a></li>
       <li><a href="#contact">Contact</a></li>
-      <li><a href="Samia_Ahmed_CV.pdf" download class="nav-cv-btn">↓ Download CV</a></li>
+      <li><a href="Samia_Ahmed_CV.pdf" download class="nav-cv-btn">CV</a></li>
     </ul>
-  </div>
-</nav>
+  </nav>
+</div>
 
-<!-- ══════════ HERO ══════════ -->
-<section class="hero">
+<!-- HERO -->
+<section class="hero reveal-card">
   <div class="hero-grid">
     <div>
       <span class="pill">Product Owner · MENA · AI & SaaS</span>
-      <h1 class="hero-name">Turning<br/>Complex Problems<br/>into <em>Scalable Products</em></h1>
-      <p class="hero-sub">3+ years leading end-to-end product strategy for AI-powered SaaS and IoT platforms across MENA. Certified PSPO I. Bilingual Arabic & English. Specialist in Saudi market entry and regulatory compliance.</p>
-      <div class="kpi-row">
+      <h1 class="hero-name"><span class="reveal-mask"><span class="reveal-text">Turning</span></span><br/><span class="reveal-mask"><span class="reveal-text d-1">Complex Problems</span></span><br/><span class="reveal-mask"><span class="reveal-text d-2">into <em>Scalable Products</em></span></span></h1>
+      <p class="hero-sub reveal-card d-3">3+ years leading end-to-end product strategy for AI-powered SaaS and IoT platforms across MENA. Certified PSPO I. Bilingual Arabic & English.</p>
+      <div class="kpi-row reveal-card d-4">
         <div class="kpi"><span class="kpi-n">3,000+</span><span class="kpi-l">B2B Users Scaled</span></div>
         <div class="kpi"><span class="kpi-n">+20%</span><span class="kpi-l">Engagement Growth</span></div>
         <div class="kpi"><span class="kpi-n">10+</span><span class="kpi-l">Global Markets</span></div>
       </div>
-      <div class="cta-row">
+      <div class="cta-row reveal-card d-5">
         <a href="#cases" class="btn-p">View Case Studies</a>
-        <a href="Samia_Ahmed_CV.pdf" download class="btn-o">↓ Download CV</a>
+        <a href="Samia_Ahmed_CV.pdf" download class="btn-o">Download CV</a>
       </div>
     </div>
-    <div class="hero-card">
+    <div class="hero-card reveal-card d-4">
       <div class="hc-label">Core Expertise</div>
-      <div class="exp-item-card"><div class="exp-dot dot-teal"></div><div><div class="exp-ic-text">Product Strategy & Roadmapping</div><div class="exp-ic-sub">Discovery · OKRs · RICE Prioritization · GTM</div></div></div>
+      <div class="exp-item-card"><div class="exp-dot dot-teal"></div><div><div class="exp-ic-text">Product Strategy & Roadmapping</div><div class="exp-ic-sub">Discovery · OKRs · RICE Prioritization</div></div></div>
       <div class="exp-item-card"><div class="exp-dot dot-gold"></div><div><div class="exp-ic-text">Saudi Market & Regulatory Compliance</div><div class="exp-ic-sub">Qiwa · Mudad · Saudi Labor Law</div></div></div>
-      <div class="exp-item-card"><div class="exp-dot dot-teal"></div><div><div class="exp-ic-text">AI & OCR Automation</div><div class="exp-ic-sub">Enterprise HR · Workflow Design · Validation</div></div></div>
-      <div class="exp-item-card"><div class="exp-dot dot-gold"></div><div><div class="exp-ic-text">IoT Platform Development</div><div class="exp-ic-sub">Offline-First Architecture · Privacy-by-Design</div></div></div>
-      <div class="exp-item-card"><div class="exp-dot dot-teal"></div><div><div class="exp-ic-text">Cross-Functional Leadership</div><div class="exp-ic-sub">Agile · Scrum · Stakeholder Alignment</div></div></div>
+      <div class="exp-item-card"><div class="exp-dot dot-teal"></div><div><div class="exp-ic-text">AI & OCR Automation</div><div class="exp-ic-sub">Enterprise HR · Workflow Design</div></div></div>
+      <div class="exp-item-card"><div class="exp-dot dot-gold"></div><div><div class="exp-ic-text">IoT Platform Development</div><div class="exp-ic-sub">Offline-First Architecture · Privacy</div></div></div>
     </div>
   </div>
 </section>
 
-<!-- ══════════ EXPERIENCE ══════════ -->
-<section id="experience">
+<!-- EXPERIENCE -->
+<div class="solid-sec" id="experience">
   <div class="s-inner">
     <p class="s-eyebrow">Career Timeline</p>
-    <h2 class="s-title">Professional <span>Experience</span></h2>
-    <p class="s-desc">End-to-end product ownership — from user research and discovery through delivery, scaling, and market entry across MENA.</p>
-    <div class="exp-list fade">
-
-      <div class="exp-card">
-        <div class="exp-head">
-          <div><div class="exp-role">Product Owner</div><div class="exp-co">ALTECH — Riyadh, Saudi Arabia</div><div class="exp-meta">Full-Time · January 2026 – Present</div></div>
-          <span class="badge bc">Current</span>
-        </div>
-        <div class="exp-body">
-          <ul class="buls">
-            <li>Leading end-to-end product strategy and MVP development for a privacy-focused, offline-capable IoT smart home automation platform targeting the Saudi residential market.</li>
-            <li>Architected offline-first infrastructure, reducing cloud dependency by 60% while maintaining real-time responsiveness in pilot deployments — metrics currently being validated pre-launch.</li>
-            <li>Conducting user research with Saudi homeowners (15+ interviews) to validate product-market fit and refine feature prioritization.</li>
-            <li>Defined full MVP scope (4 device types, 8 core automations, Arabic-first interface), feature roadmap, and GTM strategy for Q2 2026 launch.</li>
-          </ul>
-          <div class="tags"><span class="tag">IoT</span><span class="tag">Offline-First</span><span class="tag">Saudi Market</span><span class="tag">MVP</span><span class="tag">GTM Strategy</span><span class="tag">Privacy-by-Design</span></div>
-        </div>
+    <h2 class="s-title"><span class="reveal-mask"><span class="reveal-text">Professional <span>Experience</span></span></span></h2>
+    <p class="s-desc reveal-card">End-to-end product ownership — from user research and discovery through delivery, scaling, and market entry across MENA.</p>
+    
+    <div class="timeline-wrap">
+      <div class="timeline-line">
+        <div class="timeline-progress" id="tl-prog"></div>
       </div>
-
-      <div class="exp-card">
-        <div class="exp-head">
-          <div><div class="exp-role">Product Owner</div><div class="exp-co">FAAINEX — Riyadh, Saudi Arabia</div><div class="exp-meta">Part-Time, Remote · May 2025 – January 2026</div></div>
-          <span class="badge bp">Part-Time</span>
-        </div>
-        <div class="exp-body">
-          <div class="exp-note">⚑ Concurrent part-time engagement alongside Metas Research Studio (May – December 2025).</div>
-          <ul class="buls">
-            <li>Owned product vision for a scalable cloud-based enterprise HR platform with OCR-driven automation and AI-assisted validation for Saudi labor law compliance.</li>
-            <li>Led third-party integrations (Qiwa, Mudad, WhatsApp OCR), defining data contracts and compliance workflows for enterprise HR clients.</li>
-            <li>Conducted 50+ customer interviews with HR departments to validate automation features and achieve product-market fit.</li>
-            <li>Enabled 3 consecutive on-time releases through backlog streamlining and improved sprint planning, supporting 5,000+ active users.</li>
-          </ul>
-          <div class="tags"><span class="tag">OCR Automation</span><span class="tag">Qiwa / Mudad</span><span class="tag">Saudi Compliance</span><span class="tag">Enterprise HR</span><span class="tag">API Integrations</span></div>
-        </div>
-      </div>
-
-      <div class="exp-card">
-        <div class="exp-head">
-          <div><div class="exp-role">Product Owner</div><div class="exp-co">Metas Research Studio — Alexandria, Egypt</div><div class="exp-meta">Full-Time · October 2023 – December 2025</div></div>
-          <span class="badge bf">Full-Time</span>
-        </div>
-        <div class="exp-body">
-          <ul class="buls">
-            <li>Led development of a B2B SaaS platform (SME and mid-market clients), managing a cross-functional team of 5 developers and 2 designers while scaling to 3,000+ users across 10+ international markets.</li>
-            <li>Achieved 20% increase in user engagement and 10% reduction in churn through optimized onboarding flows and behavioral analytics.</li>
-            <li>Improved activation-to-paid conversion through systematic A/B testing; identified key funnel drop-off points that led to a redesigned trial experience.</li>
-            <li>Key learning: Following an initial positioning pivot, narrowed the ICP — reducing feature sprawl and significantly improving delivery velocity.</li>
-          </ul>
-          <div class="tags"><span class="tag">B2B SaaS</span><span class="tag">A/B Testing</span><span class="tag">Onboarding</span><span class="tag">Mixpanel</span><span class="tag">Cross-Functional</span><span class="tag">International Scaling</span></div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ══════════ CASE STUDIES ══════════ -->
-<section id="cases" style="background:var(--lightbg);">
-  <div class="s-inner">
-    <p class="s-eyebrow">Deep Dives</p>
-    <h2 class="s-title">Case <span>Studies</span></h2>
-    <p class="s-desc">Problem · Decision · Result. A look at the real work behind the numbers.</p>
-    <div class="cases-wrap fade">
-
-      <div class="case">
-        <div class="case-top">
-          <div class="cs-n">Case Study 01 · IoT Platform</div>
-          <div class="cs-title">ALTECH: Privacy-First Smart Home Platform</div>
-          <div class="cs-sub">MVP development for an offline-capable IoT automation platform — Saudi residential market</div>
-        </div>
-        <div class="case-mockup">
-          <div class="mockup-frame">
-            <div class="mockup-browser-bar"><div class="mockup-dots"><span></span><span></span><span></span></div><div class="mockup-url">🔒 app.altech.sa/dashboard</div></div>
-            <img src="altech_mockup.png" alt="ALTECH Smart Home Dashboard — Arabic-first IoT interface with room controls, privacy shield, and offline mode"/>
+      <div class="exp-list">
+        <!-- EXP 1 -->
+        <div class="exp-card reveal-card">
+          <div class="exp-head">
+            <div><div class="exp-role">Product Owner</div><div class="exp-co">ALTECH — Riyadh, Saudi Arabia</div><div class="exp-meta">Full-Time · Jan 2026 – Present</div></div>
+            <span class="badge bc">Current</span>
           </div>
-          <div class="mockup-label"><span>Product Dashboard · Arabic-First Interface</span></div>
-        </div>
-        <div class="case-meta">
-          <div class="case-meta-cell"><div class="cmc-l">Status</div><div class="cmc-v">Pre-Launch · Q2 2026 Target</div></div>
-          <div class="case-meta-cell"><div class="cmc-l">Team</div><div class="cmc-v">4 Engineers · 2 Designers · 1 QA</div></div>
-          <div class="case-meta-cell"><div class="cmc-l">Market</div><div class="cmc-v">Saudi Arabia Residential</div></div>
-        </div>
-        <div class="case-body">
-          <div class="cs-sec"><div class="cs-sec-h">The Problem</div><div class="cs-text">Saudi homeowners faced privacy concerns around cloud-dependent IoT, connectivity gaps, and unacceptable latency in real-time automation. No solution combined offline-first architecture with local data sovereignty and an Arabic-first UX.</div></div>
-          <div class="cs-sec"><div class="cs-sec-h">Key Decisions</div>
-            <ul class="cs-pts">
-              <li>15+ user interviews revealed privacy as the #1 adoption barrier — repositioned "offline-first" as a privacy feature, not a technical limitation</li>
-              <li>Worked with engineering to architect local processing with cloud sync only when available — achieving sub-100ms latency vs. 500ms+ in cloud-dependent systems; metrics currently being validated pre-launch</li>
-              <li>Scoped MVP to 4 device types and 8 core automations using RICE prioritization to meet Q2 2026 deadline</li>
-              <li>Ensured compliance with Saudi data residency laws, electrical standards, and building codes</li>
+          <div class="exp-body">
+            <ul class="buls">
+              <li>Leading end-to-end product strategy and MVP development for a privacy-focused, offline-capable IoT smart home automation platform targeting the Saudi residential market.</li>
+              <li>Architected offline-first infrastructure, reducing cloud dependency by 60% while maintaining real-time responsiveness.</li>
+              <li>Defined full MVP scope (4 device types, 8 core automations, Arabic-first interface) for Q2 2026 launch.</li>
             </ul>
-          </div>
-          <div class="cs-sec"><div class="cs-sec-h">Key Learning</div><div class="cs-text">Privacy is a product feature, not a compliance checkbox. Repositioning offline-first as a user benefit shifted interview sentiment dramatically — homeowners expressed willingness to pay premium for data sovereignty.</div></div>
-          <div class="case-metrics">
-            <div class="metric"><span class="metric-n">60%</span><span class="metric-l">Cloud Dependency Reduced (Pilot)</span></div>
-            <div class="metric"><span class="metric-n">&lt;100ms</span><span class="metric-l">Local Response Latency</span></div>
-            <div class="metric"><span class="metric-n">15+</span><span class="metric-l">User Research Interviews</span></div>
-            <div class="metric"><span class="metric-n">Q2 2026</span><span class="metric-l">Launch Target</span></div>
+            <div class="tags"><span class="tag">IoT</span><span class="tag">Offline-First</span><span class="tag">Saudi Market</span><span class="tag">Privacy-by-Design</span></div>
           </div>
         </div>
-      </div>
 
-      <div class="case">
-        <div class="case-top">
-          <div class="cs-n">Case Study 02 · Enterprise SaaS</div>
-          <div class="cs-title">FAAINEX: Enterprise HR Automation</div>
-          <div class="cs-sub">Cloud-based HR platform with OCR automation and full Saudi labor law compliance — 5,000+ active users</div>
-        </div>
-        <div class="case-mockup">
-          <div class="mockup-frame">
-            <div class="mockup-browser-bar"><div class="mockup-dots"><span></span><span></span><span></span></div><div class="mockup-url">🔒 app.faainex.com/compliance</div></div>
-            <img src="faainex_mockup.png" alt="FAAINEX Compliance Dashboard — Government compliance status, OCR pipeline, and WhatsApp automation"/>
+        <!-- EXP 2 -->
+        <div class="exp-card reveal-card">
+          <div class="exp-head">
+            <div><div class="exp-role">Product Owner</div><div class="exp-co">FAAINEX — Riyadh, Saudi Arabia</div><div class="exp-meta">Part-Time, Remote · May 2025 – Jan 2026</div></div>
+            <span class="badge bp">Part-Time</span>
           </div>
-          <div class="mockup-label"><span>Compliance Dashboard · Qiwa & Mudad Integration</span></div>
-        </div>
-        <div class="case-meta">
-          <div class="case-meta-cell"><div class="cmc-l">Duration</div><div class="cmc-v">9 Months (Part-Time)</div></div>
-          <div class="case-meta-cell"><div class="cmc-l">Active Users</div><div class="cmc-v">5,000+</div></div>
-          <div class="case-meta-cell"><div class="cmc-l">Key Integrations</div><div class="cmc-v">Qiwa · Mudad · WhatsApp</div></div>
-        </div>
-        <div class="case-body">
-          <div class="cs-sec"><div class="cs-sec-h">The Problem</div><div class="cs-text">Saudi enterprise HR teams manually tracked Qiwa and Mudad compliance, processed paper documents, and operated across disconnected tools — causing compliance errors, penalties, and slow employee onboarding.</div></div>
-          <div class="cs-sec"><div class="cs-sec-h">Key Decisions</div>
-            <ul class="cs-pts">
-              <li>50+ stakeholder interviews surfaced Qiwa/Mudad compliance as the highest-pain, highest-value feature — prioritized in Q1 roadmap using RICE</li>
-              <li>Designed WhatsApp OCR flow: employees submit documents via WhatsApp → AI extracts data → auto-populates HR records, reducing manual data entry significantly</li>
-              <li>Defined data contracts for Qiwa and Mudad API integrations — became the platform's strongest competitive moat</li>
-              <li>Streamlined sprint planning to achieve 3 consecutive on-time releases</li>
+          <div class="exp-body">
+            <div class="exp-note">⚑ Concurrent engagement alongside Metas Research Studio.</div>
+            <ul class="buls">
+              <li>Owned product vision for a scalable cloud-based enterprise HR platform with OCR-driven automation and AI-assisted validation for Saudi labor law compliance.</li>
+              <li>Led third-party integrations (Qiwa, Mudad, WhatsApp OCR) for enterprise HR clients.</li>
+              <li>Enabled 3 consecutive on-time releases, supporting 5,000+ active users.</li>
             </ul>
-          </div>
-          <div class="cs-sec"><div class="cs-sec-h">Key Learning</div><div class="cs-text">Compliance, treated as a product feature rather than overhead, becomes a premium differentiator. Enterprise clients chose FAAINEX specifically because it automated their biggest operational burden.</div></div>
-          <div class="case-metrics">
-            <div class="metric"><span class="metric-n">5,000+</span><span class="metric-l">Active Users</span></div>
-            <div class="metric"><span class="metric-n">50+</span><span class="metric-l">Customer Interviews</span></div>
-            <div class="metric"><span class="metric-n">3</span><span class="metric-l">Consecutive On-Time Releases</span></div>
-            <div class="metric"><span class="metric-n">100%</span><span class="metric-l">Compliance Coverage</span></div>
+            <div class="tags"><span class="tag">OCR Automation</span><span class="tag">Qiwa / Mudad</span><span class="tag">Enterprise HR</span></div>
           </div>
         </div>
-      </div>
 
-      <div class="case">
-        <div class="case-top">
-          <div class="cs-n">Case Study 03 · B2B SaaS</div>
-          <div class="cs-title">Metas Research Studio: Scaling B2B SaaS</div>
-          <div class="cs-sub">Growing a B2B SaaS platform to 3,000+ users across 10+ international markets with a lean team of 7</div>
-        </div>
-        <div class="case-mockup">
-          <div class="mockup-frame">
-            <div class="mockup-browser-bar"><div class="mockup-dots"><span></span><span></span><span></span></div><div class="mockup-url">🔒 app.metas.studio/growth</div></div>
-            <img src="metas_mockup.png" alt="Metas Growth Dashboard — User engagement analytics, onboarding funnel, A/B tests, and international markets"/>
+        <!-- EXP 3 -->
+        <div class="exp-card reveal-card">
+          <div class="exp-head">
+            <div><div class="exp-role">Product Owner</div><div class="exp-co">Metas Research Studio — Egypt</div><div class="exp-meta">Full-Time · Oct 2023 – Dec 2025</div></div>
+            <span class="badge bf">Full-Time</span>
           </div>
-          <div class="mockup-label"><span>Growth Dashboard · Analytics & A/B Testing</span></div>
-        </div>
-        <div class="case-meta">
-          <div class="case-meta-cell"><div class="cmc-l">Duration</div><div class="cmc-v">Oct 2023 – Dec 2025</div></div>
-          <div class="case-meta-cell"><div class="cmc-l">Users Achieved</div><div class="cmc-v">3,000+</div></div>
-          <div class="case-meta-cell"><div class="cmc-l">Markets</div><div class="cmc-v">10+ International</div></div>
-        </div>
-        <div class="case-body">
-          <div class="cs-sec"><div class="cs-sec-h">The Challenge</div><div class="cs-text">Scaling a B2B SaaS platform from early adoption to international growth while maintaining product quality, team cohesion, and product-market fit — all with a lean 7-person team.</div></div>
-          <div class="cs-sec"><div class="cs-sec-h">Key Decisions</div>
-            <ul class="cs-pts">
-              <li>Built Mixpanel analytics stack to track activation, retention, and feature adoption KPIs — gave the team a shared language for decisions</li>
-              <li>Behavioral analytics identified a key funnel drop-off in the trial experience; redesigned it and improved activation-to-paid conversion</li>
-              <li>Ran systematic A/B tests on onboarding flows, achieving 20% uplift in engagement and 10% reduction in churn</li>
-              <li>Made a strategic ICP pivot — narrowed from broad market to SME/mid-market, eliminating feature sprawl and doubling sprint velocity</li>
+          <div class="exp-body">
+            <ul class="buls">
+              <li>Led development of a B2B SaaS platform, scaling to 3,000+ users across 10+ international markets.</li>
+              <li>Achieved 20% increase in user engagement and 10% reduction in churn through optimized onboarding flows.</li>
+              <li>Improved activation-to-paid conversion through systematic A/B testing.</li>
             </ul>
-          </div>
-          <div class="cs-sec"><div class="cs-sec-h">Key Learning</div><div class="cs-text">The ICP pivot was the most important decision. Short-term discomfort of de-prioritizing some users paid off in sharper positioning, faster iteration cycles, and stronger PMF with our core segment.</div></div>
-          <div class="case-metrics">
-            <div class="metric"><span class="metric-n">3,000+</span><span class="metric-l">Users Scaled</span></div>
-            <div class="metric"><span class="metric-n">+20%</span><span class="metric-l">User Engagement</span></div>
-            <div class="metric"><span class="metric-n">−10%</span><span class="metric-l">Churn Rate</span></div>
-            <div class="metric"><span class="metric-n">10+</span><span class="metric-l">Markets</span></div>
+            <div class="tags"><span class="tag">B2B SaaS</span><span class="tag">A/B Testing</span><span class="tag">Mixpanel</span><span class="tag">Scaling</span></div>
           </div>
         </div>
       </div>
-
     </div>
-  </div>
-</section>
-
-<!-- ══════════ SKILLS ══════════ -->
-<section id="skills" class="skills-dark">
-  <div class="s-inner">
-    <p class="s-eyebrow" style="color:var(--gold);">Capabilities</p>
-    <h2 class="s-title" style="color:var(--white);">Skills & <span>Expertise</span></h2>
-    <p class="s-desc" style="color:var(--gray);">A full-stack PM toolkit spanning strategy, discovery, technical systems, and domain knowledge.</p>
-    <div class="sk-grid fade">
-      <div class="sk-card"><div class="sk-head">Product Strategy & Execution</div><div class="pills"><span class="pill-sk">Roadmapping</span><span class="pill-sk">Product Discovery</span><span class="pill-sk">Market Validation</span><span class="pill-sk">KPI Definition</span><span class="pill-sk">OKRs</span><span class="pill-sk">Stakeholder Alignment</span><span class="pill-sk">Backlog Prioritization</span><span class="pill-sk">A/B Testing</span><span class="pill-sk">Product Analytics</span><span class="pill-sk">RICE Prioritization</span><span class="pill-sk">GTM Strategy</span><span class="pill-sk">User Story Mapping</span></div></div>
-      <div class="sk-card"><div class="sk-head">Technical & Systems</div><div class="pills"><span class="pill-sk">API Integrations</span><span class="pill-sk">Data Flows</span><span class="pill-sk">RBAC</span><span class="pill-sk">OCR Automation</span><span class="pill-sk">Workflow Design</span><span class="pill-sk">IoT Concepts</span><span class="pill-sk">System Architecture</span><span class="pill-sk">Saudi Labor Law</span><span class="pill-sk">Regulatory Compliance</span></div></div>
-      <div class="sk-card"><div class="sk-head">Tools & Platforms</div><div class="pills"><span class="pill-sk">Jira</span><span class="pill-sk">Confluence</span><span class="pill-sk">Figma (Advanced)</span><span class="pill-sk">Mixpanel</span><span class="pill-sk">Usage Analytics</span><span class="pill-sk">Prototyping Tools</span></div></div>
-      <div class="sk-card"><div class="sk-head">Market & Languages</div><div class="pills"><span class="pill-sk">MENA Region</span><span class="pill-sk">Saudi Market Entry</span><span class="pill-sk">Enterprise SaaS</span><span class="pill-sk">B2B SaaS</span><span class="pill-sk">SaaS Scaling</span><span class="pill-sk">Arabic (Native)</span><span class="pill-sk">English (Fluent)</span></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════ EDUCATION ══════════ -->
-<section id="education">
-  <div class="s-inner">
-    <p class="s-eyebrow">Background</p>
-    <h2 class="s-title">Education & <span>Certifications</span></h2>
-    <p class="s-desc">Continuous professional development in product management, agile methodologies, and strategic thinking.</p>
-    <div class="edu-cols fade">
-      <div class="edu-card">
-        <div class="edu-card-h">Education</div>
-        <div class="edu-entry">
-          <div class="edu-n">Bachelor of Arts in English Literature</div>
-          <div class="edu-o">University of Alexandria</div>
+   
+    <!-- CASE STUDIES -->
+    <div id="cases" style="margin-top: 100px;">
+      <p class="s-eyebrow">Deep Dives</p>
+      <h2 class="s-title"><span class="reveal-mask"><span class="reveal-text">Case <span>Studies</span></span></span></h2>
+      <p class="s-desc reveal-card">Problem · Decision · Result. A look at the real work behind the numbers.</p>
+      
+      <div class="cases-wrap">
+        
+        <!-- CASE 1: ALTECH -->
+        <div class="case reveal-card">
+          <div class="case-top">
+            <div class="cs-n">Case Study 01 · IoT Platform</div>
+            <div class="cs-title">ALTECH: Privacy-First Smart Home</div>
+            <div class="cs-sub">MVP development for an offline-capable IoT automation platform</div>
+          </div>
+          <div class="case-mockup">
+            <div class="mockup-frame">
+              <div class="mockup-browser-bar"><div class="mockup-dots"><span></span><span></span><span></span></div><div class="mockup-url">🔒 app.altech.sa/dashboard</div></div>
+              <div class="iframe-wrap">
+                <iframe src="mockups/altech-dashboard.html" scrolling="no"></iframe>
+              </div>
+            </div>
+          </div>
+          <div class="case-meta">
+            <div class="case-meta-cell"><div class="cmc-l">Status</div><div class="cmc-v">Pre-Launch (Q2 2026)</div></div>
+            <div class="case-meta-cell"><div class="cmc-l">Team</div><div class="cmc-v">4 Engineers, 2 Designers</div></div>
+            <div class="case-meta-cell"><div class="cmc-l">Market</div><div class="cmc-v">Saudi Arabia Residential</div></div>
+          </div>
+          <div class="case-body">
+            <div class="cs-sec"><div class="cs-sec-h">The Problem</div><div class="cs-text">Saudi homeowners faced privacy concerns around cloud-dependent IoT, connectivity gaps, and latency.</div></div>
+            <div class="cs-sec"><div class="cs-sec-h">Key Decisions</div>
+              <ul class="cs-pts">
+                <li>Repositioned "offline-first" as a premium privacy feature based on 15+ interviews.</li>
+                <li>Architected local processing with cloud sync only when available (&lt;100ms latency).</li>
+                <li>Scoped MVP to 4 device types and 8 core automations using RICE prioritization.</li>
+              </ul>
+            </div>
+            <div class="case-metrics">
+              <div class="metric"><span class="metric-n">60%</span><span class="metric-l">Less Cloud Dependency</span></div>
+              <div class="metric"><span class="metric-n">&lt;100ms</span><span class="metric-l">Latency</span></div>
+              <div class="metric"><span class="metric-n">15+</span><span class="metric-l">User Interviews</span></div>
+              <div class="metric"><span class="metric-n">Q2 '26</span><span class="metric-l">Launch</span></div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="edu-card">
-        <div class="edu-card-h">Professional Certifications</div>
-        <div class="edu-entry"><div class="edu-n">Professional Scrum Product Owner (PSPO I)</div><div class="edu-o">Scrum.org</div><div class="edu-y">2026</div></div>
-        <div class="edu-entry"><div class="edu-n">Google Product Management Certificate</div><div class="edu-o">Coursera</div><div class="edu-y">2025</div></div>
-        <div class="edu-entry"><div class="edu-n">Agile Product Management & Product Analytics</div><div class="edu-o">Coursera / Mixpanel</div><div class="edu-y">2026</div></div>
-        <div class="edu-entry"><div class="edu-n">Product Management Professional Training</div><div class="edu-o">SECC, Egypt</div><div class="edu-y">2026</div></div>
-        <div class="edu-entry"><div class="edu-n">AI for Business</div><div class="edu-o">AUC Egypt Executive Education</div><div class="edu-y">2026</div></div>
-        <div class="edu-entry"><div class="edu-n">Effective Business Communication</div><div class="edu-o">AUC Egypt Executive Education</div><div class="edu-y">2026</div></div>
+
+        <!-- CASE 2: FAAINEX -->
+        <div class="case reveal-card">
+          <div class="case-top">
+            <div class="cs-n">Case Study 02 · Enterprise SaaS</div>
+            <div class="cs-title">FAAINEX: Enterprise HR Automation</div>
+            <div class="cs-sub">Cloud-based HR platform with OCR automation and compliance</div>
+          </div>
+          <div class="case-mockup">
+            <div class="mockup-frame">
+              <div class="mockup-browser-bar"><div class="mockup-dots"><span></span><span></span><span></span></div><div class="mockup-url">🔒 app.faainex.com/compliance</div></div>
+              <div class="iframe-wrap">
+                <iframe src="mockups/faainex-dashboard.html" scrolling="no"></iframe>
+              </div>
+            </div>
+          </div>
+          <div class="case-meta">
+            <div class="case-meta-cell"><div class="cmc-l">Duration</div><div class="cmc-v">9 Months</div></div>
+            <div class="case-meta-cell"><div class="cmc-l">Active Users</div><div class="cmc-v">5,000+</div></div>
+            <div class="case-meta-cell"><div class="cmc-l">Integrations</div><div class="cmc-v">Qiwa · Mudad</div></div>
+          </div>
+          <div class="case-body">
+            <div class="cs-sec"><div class="cs-sec-h">The Problem</div><div class="cs-text">Saudi enterprise HR teams manually tracked Qiwa and Mudad compliance, causing errors and penalties.</div></div>
+            <div class="cs-sec"><div class="cs-sec-h">Key Decisions</div>
+              <ul class="cs-pts">
+                <li>Designed WhatsApp OCR flow: employees submit docs → AI extracts data → auto-populates records.</li>
+                <li>Defined data contracts for Qiwa and Mudad API integrations.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- CASE 3: METAS -->
+        <div class="case reveal-card">
+          <div class="case-top">
+            <div class="cs-n">Case Study 03 · B2B SaaS</div>
+            <div class="cs-title">Metas Research Studio: Scaling B2B SaaS</div>
+            <div class="cs-sub">Growing a B2B SaaS platform to 3,000+ users across 10+ international markets with a lean team of 7</div>
+          </div>
+          <div class="case-mockup">
+            <div class="mockup-frame">
+              <div class="mockup-browser-bar"><div class="mockup-dots"><span></span><span></span><span></span></div><div class="mockup-url">🔒 app.metas.studio/growth</div></div>
+              <div class="iframe-wrap">
+                <iframe src="mockups/metas-dashboard.html" scrolling="no"></iframe>
+              </div>
+            </div>
+          </div>
+          <div class="case-meta">
+            <div class="case-meta-cell"><div class="cmc-l">Duration</div><div class="cmc-v">Oct 2023 – Dec 2025</div></div>
+            <div class="case-meta-cell"><div class="cmc-l">Users Achieved</div><div class="cmc-v">3,000+</div></div>
+            <div class="case-meta-cell"><div class="cmc-l">Markets</div><div class="cmc-v">10+ International</div></div>
+          </div>
+          <div class="case-body">
+            <div class="cs-sec"><div class="cs-sec-h">The Challenge</div><div class="cs-text">Scaling a B2B SaaS platform from early adoption to international growth while maintaining product quality, team cohesion, and product-market fit.</div></div>
+            <div class="cs-sec"><div class="cs-sec-h">Key Decisions</div>
+              <ul class="cs-pts">
+                <li>Built Mixpanel analytics stack to track feature adoption KPIs.</li>
+                <li>Behavioral analytics identified a key funnel drop-off; redesigned trial experience, improving activation-to-paid conversion.</li>
+                <li>Ran systematic A/B tests on onboarding flows, achieving 20% uplift in engagement and 10% reduction in churn.</li>
+                <li>Made a strategic ICP pivot — narrowed from broad market to SME/mid-market, doubling sprint velocity.</li>
+              </ul>
+            </div>
+            <div class="case-metrics">
+              <div class="metric"><span class="metric-n">3,000+</span><span class="metric-l">Users Scaled</span></div>
+              <div class="metric"><span class="metric-n">+20%</span><span class="metric-l">User Engagement</span></div>
+              <div class="metric"><span class="metric-n">−10%</span><span class="metric-l">Churn Rate</span></div>
+              <div class="metric"><span class="metric-n">10+</span><span class="metric-l">Markets</span></div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
-  </div>
-</section>
-
-<!-- ══════════ DOWNLOAD BAND ══════════ -->
-<div class="dl-band">
-  <h3>Ready to See the Full Picture?</h3>
-  <p>Download the complete CV — available in PDF and Word formats.</p>
-  <div class="dl-btns">
-    <a href="Samia_Ahmed_CV.pdf" download class="btn-p">↓ Download PDF</a>
-    <a href="Samia_Ahmed_CV.docx" download class="btn-o" style="color:rgba(255,255,255,.8);border-color:rgba(255,255,255,.3);">↓ Download Word</a>
+    
   </div>
 </div>
 
-<!-- ══════════ CONTACT ══════════ -->
-<section id="contact" class="contact-dark">
+<!-- SKILLS -->
+<section id="skills" class="skills-sec">
   <div class="s-inner">
-    <p class="s-eyebrow" style="color:var(--gold);">Get In Touch</p>
-    <h2 class="s-title" style="color:var(--white);">Let's <span>Connect</span></h2>
-    <p class="s-desc" style="color:var(--gray);">Open to product leadership opportunities, consulting engagements, and conversations about MENA market strategy.</p>
-    <div class="contact-cols fade">
-      <div>
+    <p class="s-eyebrow dark">Capabilities</p>
+    <h2 class="s-title dark"><span class="reveal-mask"><span class="reveal-text">Skills & <span>Expertise</span></span></span></h2>
+    <p class="s-desc dark reveal-card">A full-stack PM toolkit spanning strategy, discovery, technical systems, and domain knowledge.</p>
+    
+    <div class="sk-grid">
+      <div class="sk-card reveal-card"><div class="sk-head">Product Strategy</div><div class="pills"><span class="pill-sk">Roadmapping</span><span class="pill-sk">OKRs</span><span class="pill-sk">Stakeholder Alignment</span><span class="pill-sk">RICE Prioritization</span><span class="pill-sk">GTM Strategy</span></div></div>
+      <div class="sk-card reveal-card d-1"><div class="sk-head">Technical & Systems</div><div class="pills"><span class="pill-sk">API Integrations</span><span class="pill-sk">OCR Automation</span><span class="pill-sk">IoT Concepts</span><span class="pill-sk">Saudi Labor Law</span><span class="pill-sk">Compliance</span></div></div>
+      <div class="sk-card reveal-card"><div class="sk-head">Tools & Platforms</div><div class="pills"><span class="pill-sk">Jira / Confluence</span><span class="pill-sk">Figma</span><span class="pill-sk">Mixpanel</span><span class="pill-sk">Product Analytics</span></div></div>
+      <div class="sk-card reveal-card d-1"><div class="sk-head">Market Focus</div><div class="pills"><span class="pill-sk">MENA Region</span><span class="pill-sk">Saudi Market</span><span class="pill-sk">B2B SaaS</span><span class="pill-sk">Arabic (Native)</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-sec">
+  <div class="s-inner">
+    <p class="s-eyebrow dark">Get In Touch</p>
+    <h2 class="s-title dark"><span class="reveal-mask"><span class="reveal-text">Let's <span>Connect</span></span></span></h2>
+    <p class="s-desc dark reveal-card">Open to product leadership opportunities, consulting engagements, and conversations about MENA strategy.</p>
+    
+    <div class="contact-cols">
+      <div class="reveal-card">
         <div class="ci"><div class="ci-icon">✉</div><div><div class="ci-l">Email</div><div class="ci-v">samhassan045@gmail.com</div></div></div>
-        <div class="ci"><div class="ci-icon">📞</div><div><div class="ci-l">Phone</div><div class="ci-v">+20 127 772 3950</div></div></div>
-        <div class="ci"><div class="ci-icon">📍</div><div><div class="ci-l">Location</div><div class="ci-v">Alexandria, Egypt</div></div></div>
-        <div class="ci"><div class="ci-icon">💼</div><div><div class="ci-l">LinkedIn</div><div class="ci-v"><a href="https://linkedin.com/in/samia-ahmed" target="_blank" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">linkedin.com/in/samia-ahmed</a></div></div></div>
-        <div class="avail-box"><div class="avail-h">Availability</div><div class="avail-t">Open to full-time and consulting opportunities across MENA and international markets. Typical response: 24–48 hours.</div></div>
+        <div class="ci"><div class="ci-icon">📍</div><div><div class="ci-l">Location</div><div class="ci-v">Alexandria, Egypt (Open to remote/MENA)</div></div></div>
+        <div class="ci"><div class="ci-icon">💼</div><div><div class="ci-l">LinkedIn</div><div class="ci-v"><a href="https://linkedin.com/in/samia-ahmed" target="_blank" style="color:inherit;">linkedin.com/in/samia-ahmed</a></div></div></div>
+        <div class="avail-box"><div class="avail-h">Availability</div><div class="avail-t">Open to full-time and consulting opportunities across MENA and international markets.</div></div>
       </div>
-      <div class="cf">
+      <!-- NOTE: Replace YOUR_FORMSPREE_ID with your actual Formspree endpoint (e.g. mrbgpvqw) -->
+      <form action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" class="cf reveal-card d-1">
         <div class="frow">
-          <div class="fg"><label class="fl">Name</label><input class="fi" placeholder="Your name"/></div>
-          <div class="fg"><label class="fl">Email</label><input class="fi" type="email" placeholder="your@email.com"/></div>
+          <div class="fg"><label class="fl">Name</label><input name="name" required class="fi" placeholder="Your name"/></div>
+          <div class="fg"><label class="fl">Email</label><input name="email" required class="fi" type="email" placeholder="your@email.com"/></div>
         </div>
-        <div class="fg"><label class="fl">Subject</label><input class="fi" placeholder="What's this about?"/></div>
-        <div class="fg"><label class="fl">Message</label><textarea class="ft" placeholder="Tell me about your project or opportunity..."></textarea></div>
-        <button class="fsub" onclick="this.textContent='Message Sent ✓';this.style.background='#0a6b5d';">Send Message</button>
-      </div>
+        <div class="fg"><label class="fl">Subject</label><input name="subject" required class="fi" placeholder="What's this about?"/></div>
+        <div class="fg"><label class="fl">Message</label><textarea name="message" required class="ft" placeholder="Tell me about your project..."></textarea></div>
+        <button type="submit" class="fsub">Send Message</button>
+      </form>
     </div>
   </div>
 </section>
 
 <footer>
   <p style="color:rgba(255,255,255,.45);margin-bottom:.3rem;">Samia Ahmed · Product Owner · Alexandria, Egypt</p>
-  <p>© 2026 All rights reserved · samhassan045@gmail.com</p>
+  <p>© 2026 All rights reserved</p>
 </footer>
 
 <script>
-// Intersection Observer for fade-in animations
+// Scroll animations with IntersectionObserver
+const ioOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('in');
+      observer.unobserve(entry.target);
     }
   });
-}, { threshold: 0.15 });
+}, ioOptions);
 
-document.querySelectorAll('.fade').forEach(el => observer.observe(el));
+document.querySelectorAll('.reveal-card, .reveal-mask').forEach(el => {
+  observer.observe(el);
+  if(el.classList.contains('reveal-mask')){
+    setTimeout(() => { if(!el.classList.contains('in')) el.style.overflow = 'hidden'; }, 100);
+  }
+});
+
+// Liquid Nav Auto-hide on scroll down
+let lastScrollY = window.scrollY;
+const nav = document.querySelector('.glass-nav-wrapper');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > lastScrollY && window.scrollY > 150) {
+    nav.classList.add('hide');
+  } else {
+    nav.classList.remove('hide');
+  }
+  lastScrollY = window.scrollY;
+  
+  // Timeline Progress
+  const tlProg = document.getElementById('tl-prog');
+  const expSection = document.getElementById('experience');
+  if(tlProg && expSection) {
+    const rect = expSection.getBoundingClientRect();
+    const percent = Math.max(0, Math.min(100, ((window.innerHeight / 2) - rect.top) / rect.height * 100));
+    tlProg.style.height = percent + '%';
+  }
+}, {passive:true});
+
+// Trigger initial animations
+setTimeout(() => {
+  document.querySelectorAll('.hero .reveal-card, .hero .reveal-mask').forEach(el => el.classList.add('in'));
+}, 100);
+
+// Iframe dynamic scaling to match container width
+function resizeIframes() {
+  document.querySelectorAll('.iframe-wrap').forEach(wrap => {
+    const w = wrap.clientWidth;
+    // The design width of the mockups is strictly 1440px
+    const scale = w / 1440;
+    const iframe = wrap.querySelector('iframe');
+    if(iframe) {
+      iframe.style.transform = `scale(${scale})`;
+      // The design height is 900px, so wrap height automatically adjusts via padding-bottom 62.5%
+      // No need to set tight bounds, the padding aspect-ratio perfectly holds it!
+    }
+  });
+}
+window.addEventListener('resize', resizeIframes);
+setTimeout(resizeIframes, 150); // initial call
 </script>
 </body>
 </html>
-Getting DOM...Pressing key...Stopping...
-
-Stop Agent
