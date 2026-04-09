@@ -1,14 +1,582 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Portfolio</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Samia Ahmed | Product Owner | AI & SaaS Specialist</title>
+<meta name="description" content="Samia Ahmed — Product Owner with 3+ years leading AI-powered SaaS and IoT platforms across MENA. Certified PSPO I, bilingual Arabic & English."/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --navy:#0d1b2a;--navy2:#14253a;--teal:#0f7b6c;--teal2:#14a58e;
+  --gold:#c9a84c;--gold2:#e8c46a;--cream:#f5f0e8;
+  --white:#ffffff;--gray:#8a9bb0;--dktext:#1e2d3d;
+  --lightbg:#f7f9fb;--border:#e2e8f0;
+  --font-serif:'Cormorant Garamond',serif;
+  --font-sans:'DM Sans',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font-sans);background:var(--lightbg);color:var(--dktext);overflow-x:hidden;}
+
+::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:var(--navy);}::-webkit-scrollbar-thumb{background:var(--teal);}
+
+.bg-layer {
+  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: -1; overflow: hidden; pointer-events: none;
+  background: var(--navy);
+}
+.mesh-blob {
+  position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.35; mix-blend-mode: screen;
+}
+.b1 { width: 55vw; height: 55vw; background: var(--teal); top: -15%; left: -10%; animation: float 25s ease-in-out infinite alternate; }
+.b2 { width: 45vw; height: 45vw; background: var(--gold); bottom: -15%; right: -5%; animation: float 20s ease-in-out infinite alternate-reverse; }
+@keyframes float { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(10%, 10%) scale(1.1); } }
+
+.texture {
+  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+  background: url('data:image/svg+xml;utf8,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.08%22/%3E%3C/svg%3E');
+  z-index: -1; pointer-events: none; mix-blend-mode: overlay;
+}
+
+.glass-nav-wrapper {
+  position: fixed; top: 20px; left: 0; width: 100%; z-index: 200; display: flex; justify-content: center;
+  transition: transform 0.4s ease;
+}
+.glass-nav-wrapper.hide { transform: translateY(-100px); }
+.glass-nav {
+  background: rgba(13, 27, 42, 0.45); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.12); box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  border-radius: 50px; width: 92%; max-width: 1000px; display: flex; justify-content: space-between; align-items: center; padding: 0 1.5rem; height: 60px;
+}
+.logo{font-family:var(--font-serif);font-size:1.35rem;color:var(--white);font-weight:700;letter-spacing:.3px;text-decoration:none;}
+.logo em{color:var(--gold);font-style:normal;}
+.nav-links{display:flex;gap:1.5rem;list-style:none;align-items:center; margin-bottom:0;}
+.nav-links a{color: rgba(255,255,255,0.8); text-decoration:none;font-size:.78rem;font-weight:500;letter-spacing:1px;text-transform:uppercase;transition:color .2s;}
+.nav-links a:hover{color:var(--gold2);}
+.nav-cv-btn{background: rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); color:var(--white)!important; padding:8px 18px; border-radius:30px; font-size:.75rem!important; transition: all 0.3s ease;}
+.nav-cv-btn:hover{background:var(--white); color:var(--navy)!important; border-color:var(--white);}
+.mobile-toggle { display: none; cursor: pointer; font-size: 1.5rem; color: var(--white); user-select: none; }
+
+.reveal-card {
+  opacity: 0; transform: translateY(50px) scale(0.96);
+  transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: opacity, transform;
+}
+.reveal-card.in { opacity: 1; transform: translateY(0) scale(1); }
+.reveal-mask { display: inline-flex; overflow: hidden; vertical-align: top; }
+.reveal-text {
+  display: block; transform: translateY(110%);
+  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform;
+}
+.reveal-mask.in .reveal-text { transform: translateY(0); }
+.d-1 { transition-delay: 0.1s; } .d-2 { transition-delay: 0.2s; }
+.d-3 { transition-delay: 0.3s; } .d-4 { transition-delay: 0.4s; }
+.d-5 { transition-delay: 0.5s; }
+
+.hero{min-height:100vh; display:flex;align-items:center;padding:120px 5% 70px;position:relative; z-index:1;}
+.hero-grid{max-width:1140px;margin:0 auto;width:100%;display:grid;grid-template-columns:1.0fr 1.0fr;gap:4rem;align-items:center;}
+.pill{display:inline-block;border:1px solid rgba(201,168,76,.4);background: rgba(201,168,76,.05);color:var(--gold);font-size:.68rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;padding:6px 16px;border-radius:30px;margin-bottom:1.8rem;}
+h1.hero-name{font-family:var(--font-serif);font-size:clamp(3.0rem,4.5vw,4.5rem);color:var(--white);line-height:1.05;font-weight:700;margin-bottom:1.2rem;}
+h1.hero-name em{color:var(--gold);font-style:normal;}
+.hero-sub{color:rgba(255,255,255,0.7);font-size:1.0rem;line-height:1.75;margin-bottom:2.5rem;max-width:550px;}
+.kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2.6rem;}
+.kpi{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);backdrop-filter:blur(10px);padding:1.2rem .8rem;text-align:center;border-radius:12px;}
+.kpi-n{font-family:var(--font-serif);font-size:2.2rem;color:var(--gold);font-weight:700;line-height:1;display:block;}
+.kpi-l{font-size:.65rem;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:1px;margin-top:6px;}
+.cta-row{display:flex;gap:.9rem;flex-wrap:wrap;}
+.btn-p{background:var(--teal);color:var(--white);padding:14px 28px;border-radius:30px;font-weight:600;font-size:.88rem;text-decoration:none;transition:all .3s;border:none;cursor:pointer; display:inline-flex; align-items:center; gap:8px;}
+.btn-p:hover{background:var(--white); color:var(--teal); transform:translateY(-2px); box-shadow: 0 10px 20px rgba(15, 123, 108, 0.3);}
+.btn-o{background:rgba(255,255,255,0.05);color:var(--white);padding:14px 28px;border:1px solid rgba(255,255,255,.2);border-radius:30px;font-weight:500;font-size:.88rem;text-decoration:none;transition:all .3s; display:inline-flex; align-items:center; gap:8px;}
+.btn-o:hover{background:var(--white); color:var(--navy); border-color:var(--white); transform:translateY(-2px);}
+
+.hero-card{background:rgba(20, 37, 58, 0.6);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:2.2rem;box-shadow: 0 20px 50px rgba(0,0,0,0.3);}
+.hc-label{font-size:.68rem;color:var(--gold);text-transform:uppercase;letter-spacing:2.5px;font-weight:600;margin-bottom:1.5rem;}
+.exp-item-card{display:flex;align-items:flex-start;gap:.9rem;margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid rgba(255,255,255,.06);}
+.exp-item-card:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.exp-dot{width:8px;height:8px;border-radius:50%;margin-top:5px;flex-shrink:0;}
+.dot-teal{background:var(--teal2); box-shadow: 0 0 10px var(--teal2);}
+.dot-gold{background:var(--gold); box-shadow: 0 0 10px var(--gold);}
+.exp-ic-text{color:var(--white);font-size:.9rem;font-weight:500;}
+.exp-ic-sub{color:rgba(255,255,255,0.5);font-size:.78rem;margin-top:3px;}
+
+section{padding:100px 5%; position:relative; z-index:2;}
+.s-inner{max-width:1140px;margin:0 auto;}
+.solid-sec { background: var(--white); border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); margin-top: -40px; padding: 100px 6%; position:relative;}
+
+.s-eyebrow{font-size:.7rem;color:var(--teal);text-transform:uppercase;letter-spacing:4px;font-weight:700;margin-bottom:.8rem;}
+.s-eyebrow.dark { color: var(--gold); }
+.s-title{font-family:var(--font-serif);font-size:clamp(2.2rem,3.5vw,3.2rem);font-weight:700;line-height:1.15;margin-bottom:1rem; color:var(--navy);}
+.s-title.dark { color: var(--white); }
+.s-title span{color:var(--teal);}
+.s-title.dark span{color:var(--gold);}
+.s-desc{color:var(--gray);max-width:600px;line-height:1.75;margin-bottom:4rem;font-size:1rem;}
+.s-desc.dark { color: rgba(255,255,255,0.6); }
+
+.timeline-wrap { display: flex; gap: 2.5rem; position: relative;}
+.timeline-line { width: 4px; background: rgba(13,27,42,0.06); border-radius: 4px; position: relative;}
+.timeline-progress { position: absolute; top: 0; left: 0; width: 100%; background: var(--teal); border-radius: 4px; transition: height 0.1s ease; }
+.exp-list{display:flex;flex-direction:column;gap:3rem; flex: 1;}
+
+.exp-card{background:var(--white);border:1px solid rgba(13,27,42,0.06);border-radius:12px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.02);}
+.exp-head{padding:1.8rem 2.2rem;background:var(--lightbg);display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;}
+.exp-role{font-size:1.1rem;font-weight:700;color:var(--navy);margin-bottom:.25rem;}
+.exp-co{font-size:.9rem;color:var(--teal);font-weight:600;}
+.exp-meta{font-size:.8rem;color:var(--gray);margin-top:.4rem;}
+.badge{display:inline-block;font-size:.65rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:5px 12px;border-radius:30px;}
+.bc{background:rgba(15,123,108,.1);color:var(--teal);}
+.bp{background:rgba(201,168,76,.12);color:var(--gold);}
+.bf{background:rgba(13,27,42,.06);color:#4a6080;}
+.exp-body{padding:0 2.2rem 2rem;}
+.exp-note{font-size:.8rem;color:var(--gold);font-style:italic;padding:.6rem 1rem;background:rgba(201,168,76,.06);border-left:2px solid var(--gold);border-radius:4px;margin: 1.5rem 0 1rem;}
+.buls{list-style:none; margin-top: 1.5rem;}
+.buls li{font-size:.9rem;color:#3a4a5c;line-height:1.75;padding:.4rem 0 .4rem 1.4rem;position:relative;border-bottom:1px solid #f0f4f8;}
+.buls li:last-child{border-bottom:none;}
+.buls li::before{content:'▸';position:absolute;left:0;color:var(--teal);font-size:.8rem;top:.5rem;}
+.tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.5rem;}
+.tag{background:var(--lightbg);border:1px solid var(--border);color:#4a6080;font-size:.7rem;font-weight:600;padding:5px 12px;border-radius:30px;}
+
+.cases-wrap{display:flex;flex-direction:column;gap:4rem; margin-top: 2rem;}
+.case{border:1px solid var(--border);border-radius:16px;overflow:hidden; background: var(--white); box-shadow: 0 15px 40px rgba(0,0,0,0.04);}
+.case-top{background:var(--navy);padding:2.5rem 3rem;position:relative;overflow:hidden;}
+.case-top::after{content:'';position:absolute;right:-60px;top:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(201,168,76,.15) 0%,transparent 70%);}
+
+/* IFRAME SCALING AND FLAT PRESENTATION */
+.case-mockup { position:relative; background:var(--navy); padding:1.5rem 3rem 0; overflow:hidden; }
+.mockup-frame { position:relative; border-radius:12px 12px 0 0; overflow:hidden; border:1px solid rgba(255,255,255,.1); border-bottom:none; box-shadow:0 -10px 50px rgba(0,0,0,.3); transition: transform 0.4s ease; background: #0a0f1a; }
+.case:hover .mockup-frame { transform: translateY(-5px); }
+.mockup-browser-bar { background:#1a1f2e; padding:10px 16px; display:flex; align-items:center; gap:10px; border-bottom:1px solid rgba(255,255,255,.06); z-index: 10; position: relative;}
+.mockup-dots { display:flex; gap:6px; }
+.mockup-dots span { width:10px; height:10px; border-radius:50%; }
+.mockup-dots span:nth-child(1){background:#ff5f57;}
+.mockup-dots span:nth-child(2){background:#ffbd2e;}
+.mockup-dots span:nth-child(3){background:#28c840;}
+.mockup-url { flex:1; background:rgba(255,255,255,.06); border-radius:6px; padding:5px 14px; font-size:11px; color:#5a6a7e; margin-left:10px; font-family:var(--font-sans); }
+
+.iframe-wrap { width: 100%; position: relative; background: #0a0f1a; overflow: hidden; padding-bottom: 62.5%; /* default aspect 16:10 */ }
+.iframe-wrap iframe { position: absolute; top: 0; left: 0; width: 1440px; height: 900px; border: none; transform-origin: top left; pointer-events: none; }
+
+.cs-n{font-size:.68rem;color:var(--gold);text-transform:uppercase;letter-spacing:2.5px;font-weight:700;margin-bottom:.6rem;}
+.cs-title{font-family:var(--font-serif);font-size:2rem;color:var(--white);font-weight:700;margin-bottom:.6rem;}
+.cs-sub{color:rgba(255,255,255,0.7);font-size:.95rem;line-height:1.6;}
+.case-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
+.case-meta-cell{background:var(--lightbg);padding:1.2rem 2rem;}
+.cmc-l{font-size:.65rem;color:var(--gray);text-transform:uppercase;letter-spacing:1.5px;font-weight:600;}
+.cmc-v{font-size:.9rem;font-weight:700;color:var(--navy);margin-top:4px;}
+.case-body{padding:2.5rem 3rem;}
+.cs-sec{margin-bottom:1.8rem;}
+.cs-sec-h{font-size:.75rem;text-transform:uppercase;letter-spacing:2.5px;color:var(--teal);font-weight:700;margin-bottom:.8rem;}
+.cs-text{font-size:.95rem;color:#3a4a5c;line-height:1.75;}
+.cs-pts{list-style:none;margin-top:.6rem;}
+.cs-pts li{font-size:.95rem;color:#3a4a5c;padding:.35rem 0 .35rem 1.25rem;position:relative;line-height:1.6;}
+.cs-pts li::before{content:'▸';position:absolute;left:0;color:var(--teal);font-size:.8rem;top:.45rem;}
+.case-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2rem;padding-top:2rem;border-top:1px solid var(--border);}
+.metric{text-align:center;padding:1.2rem .8rem;background:var(--lightbg);border-radius:8px;}
+.metric-n{font-family:var(--font-serif);font-size:1.8rem;font-weight:700;color:var(--teal);display:block;line-height:1;}
+.metric-l{font-size:.65rem;color:var(--gray);text-transform:uppercase;letter-spacing:1px;margin-top:8px;}
+
+.skills-sec { background: transparent; padding-top:40px; }
+.sk-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;}
+.sk-card{background:rgba(20,37,58,.4);backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:2rem;position:relative;overflow:hidden;}
+.sk-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(to bottom, var(--gold), var(--teal));}
+.sk-head{color:var(--white);font-size:1.1rem;font-weight:700;margin-bottom:1.5rem;font-family:var(--font-serif);}
+.pills{display:flex;flex-wrap:wrap;gap:.5rem;}
+.pill-sk{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.8);font-size:.78rem;padding:6px 14px;border-radius:30px;transition: background 0.2s;}
+.pill-sk:hover { background: rgba(255,255,255,0.1); color: var(--white); }
+
+.edu-sec { padding-bottom: 20px;}
+.edu-cols{display:grid;grid-template-columns:1fr 1.5fr;gap:3rem;}
+.edu-card{border:1px solid var(--border);border-radius:12px;padding:2.5rem; background: var(--lightbg);}
+.edu-card-h{font-size:.7rem;color:var(--teal);text-transform:uppercase;letter-spacing:2.5px;font-weight:700;margin-bottom:1.5rem;padding-bottom:.8rem;border-bottom:1px solid var(--border);}
+.edu-entry{margin-bottom:1.2rem;padding-bottom:1.2rem;border-bottom:1px solid var(--border);}
+.edu-entry:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.edu-n{font-size:.95rem;font-weight:700;color:var(--navy);}
+.edu-o{font-size:.85rem;color:var(--gray);margin-top:2px;}
+.edu-y{font-size:.75rem;color:var(--teal);font-weight:700;margin-top:4px;}
+
+.contact-sec { background: transparent; }
+.contact-cols{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+.ci{display:flex;align-items:flex-start;gap:1.2rem;margin-bottom:1.5rem;}
+.ci-icon{width:45px;height:45px;background:rgba(15,123,108,.15);border:1px solid rgba(15,123,108,.3);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem; color: var(--teal2);}
+.ci-l{font-size:.68rem;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:1.5px;font-weight:600;}
+.ci-v{font-size:.95rem;color:var(--white);margin-top:2px; font-weight:500;}
+.avail-box{margin-top:2rem;padding:1.5rem;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:8px;}
+.avail-h{color:var(--gold);font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:.5rem;}
+.avail-t{color:rgba(255,255,255,.75);font-size:.9rem;line-height:1.6;}
+.cf{background:rgba(20,37,58,.4);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:2.5rem;}
+.fl{font-size:.7rem;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:1px;font-weight:600;display:block;margin-bottom:.5rem;}
+.fi,.ft{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);color:var(--white);padding:.8rem 1rem;border-radius:6px;font-family:var(--font-sans);font-size:.9rem;outline:none;transition:border .2s;}
+.fi:focus,.ft:focus{border-color:var(--teal); background:rgba(255,255,255,.08);}
+.fi::placeholder,.ft::placeholder{color:rgba(255,255,255,.3);}
+.ft{min-height:120px;resize:vertical;}
+.fg{margin-bottom:1.2rem;}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
+.fsub{width:100%;background:var(--teal);color:var(--white);border:none;padding:14px;border-radius:30px;font-weight:700;font-size:1rem;cursor:pointer;margin-top:.5rem;transition:all .3s;}
+.fsub:hover{background:var(--white);color:var(--teal); transform:translateY(-2px);}
+
+footer{background:#070e17;padding:2.5rem 5%;text-align:center;color:var(--gray);font-size:.85rem; border-top: 1px solid rgba(255,255,255,0.05);}
+
+@media(max-width:900px){
+  .hero-grid{grid-template-columns:1fr;}
+  .sk-grid,.edu-cols,.contact-cols{grid-template-columns:1fr;}
+  .case-metrics{grid-template-columns:repeat(2,1fr);}
+  .case-meta{grid-template-columns:1fr;}
+  .mobile-toggle { display: block; }
+  .nav-links { display: none; position: absolute; top: 75px; left: 4%; width: 92%; background: rgba(13,27,42,0.95); backdrop-filter: blur(20px); border-radius: 12px; padding: 20px; flex-direction: column; gap: 15px; border: 1px solid rgba(255,255,255,0.1); }
+  .nav-links.active { display: flex; }
+  .timeline-wrap{flex-direction: column;}
+  .timeline-line { display: none; }
+  .solid-sec{padding: 60px 5%;}
+  .case-mockup { padding: 1.5rem 1.5rem 0; }
+  .case-body, .case-top { padding: 2rem 1.5rem; }
+}
+</style>
 </head>
 <body>
-    <h1>Welcome to My Portfolio</h1>
-    <iframe src="altech-dashboard.html" width="800" height="600"></iframe>
-    <iframe src="faainex-dashboard.html" width="800" height="600"></iframe>
-    <iframe src="metas-dashboard.html" width="800" height="600"></iframe>
+
+<div class="bg-layer">
+  <div class="mesh-blob b1"></div>
+  <div class="mesh-blob b2"></div>
+</div>
+<div class="texture"></div>
+
+<div class="glass-nav-wrapper">
+  <nav class="glass-nav">
+    <a href="#" class="logo">Samia <em>Ahmed</em></a>
+    <div class="mobile-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')">☰</div>
+    <ul class="nav-links">
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#cases">Case Studies</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="Samia_Ahmed_CV.pdf" download class="nav-cv-btn">CV</a></li>
+    </ul>
+  </nav>
+</div>
+
+<!-- HERO -->
+<section class="hero reveal-card">
+  <div class="hero-grid">
+    <div>
+      <span class="pill">Product Owner · MENA · AI & SaaS</span>
+      <h1 class="hero-name"><span class="reveal-mask"><span class="reveal-text">Turning</span></span><br/><span class="reveal-mask"><span class="reveal-text d-1">Complex Problems</span></span><br/><span class="reveal-mask"><span class="reveal-text d-2">into <em>Scalable Products</em></span></span></h1>
+      <p class="hero-sub reveal-card d-3">3+ years leading end-to-end product strategy for AI-powered SaaS and IoT platforms across MENA. Certified PSPO I. Bilingual Arabic & English.</p>
+      <div class="kpi-row reveal-card d-4">
+        <div class="kpi"><span class="kpi-n">3,000+</span><span class="kpi-l">B2B Users Scaled</span></div>
+        <div class="kpi"><span class="kpi-n">+20%</span><span class="kpi-l">Engagement Growth</span></div>
+        <div class="kpi"><span class="kpi-n">10+</span><span class="kpi-l">Global Markets</span></div>
+      </div>
+      <div class="cta-row reveal-card d-5">
+        <a href="#cases" class="btn-p">View Case Studies</a>
+        <a href="Samia_Ahmed_CV.pdf" download class="btn-o">Download CV</a>
+      </div>
+    </div>
+    <div class="hero-card reveal-card d-4">
+      <div class="hc-label">Core Expertise</div>
+      <div class="exp-item-card"><div class="exp-dot dot-teal"></div><div><div class="exp-ic-text">Product Strategy & Roadmapping</div><div class="exp-ic-sub">Discovery · OKRs · RICE Prioritization</div></div></div>
+      <div class="exp-item-card"><div class="exp-dot dot-gold"></div><div><div class="exp-ic-text">Saudi Market & Regulatory Compliance</div><div class="exp-ic-sub">Qiwa · Mudad · Saudi Labor Law</div></div></div>
+      <div class="exp-item-card"><div class="exp-dot dot-teal"></div><div><div class="exp-ic-text">AI & OCR Automation</div><div class="exp-ic-sub">Enterprise HR · Workflow Design</div></div></div>
+      <div class="exp-item-card"><div class="exp-dot dot-gold"></div><div><div class="exp-ic-text">IoT Platform Development</div><div class="exp-ic-sub">Offline-First Architecture · Privacy</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<div class="solid-sec" id="experience">
+  <div class="s-inner">
+    <p class="s-eyebrow">Career Timeline</p>
+    <h2 class="s-title"><span class="reveal-mask"><span class="reveal-text">Professional <span>Experience</span></span></span></h2>
+    <p class="s-desc reveal-card">End-to-end product ownership — from user research and discovery through delivery, scaling, and market entry across MENA.</p>
+    
+    <div class="timeline-wrap">
+      <div class="timeline-line">
+        <div class="timeline-progress" id="tl-prog"></div>
+      </div>
+      <div class="exp-list">
+        <!-- EXP 1 -->
+        <div class="exp-card reveal-card">
+          <div class="exp-head">
+            <div><div class="exp-role">Product Owner</div><div class="exp-co">ALTECH — Riyadh, Saudi Arabia</div><div class="exp-meta">Full-Time · Jan 2026 – Present</div></div>
+            <span class="badge bc">Current</span>
+          </div>
+          <div class="exp-body">
+            <ul class="buls">
+              <li>Leading end-to-end product strategy and MVP development for a privacy-focused, offline-capable IoT smart home automation platform targeting the Saudi residential market.</li>
+              <li>Architected offline-first infrastructure, reducing cloud dependency by 60% while maintaining real-time responsiveness.</li>
+              <li>Defined full MVP scope (4 device types, 8 core automations, Arabic-first interface) for Q2 2026 launch.</li>
+            </ul>
+            <div class="tags"><span class="tag">IoT</span><span class="tag">Offline-First</span><span class="tag">Saudi Market</span><span class="tag">Privacy-by-Design</span></div>
+          </div>
+        </div>
+
+        <!-- EXP 2 -->
+        <div class="exp-card reveal-card">
+          <div class="exp-head">
+            <div><div class="exp-role">Product Owner</div><div class="exp-co">FAAINEX — Riyadh, Saudi Arabia</div><div class="exp-meta">Part-Time, Remote · May 2025 – Jan 2026</div></div>
+            <span class="badge bp">Part-Time</span>
+          </div>
+          <div class="exp-body">
+            <div class="exp-note">⚑ Concurrent engagement alongside Metas Research Studio.</div>
+            <ul class="buls">
+              <li>Owned product vision for a scalable cloud-based enterprise HR platform with OCR-driven automation and AI-assisted validation for Saudi labor law compliance.</li>
+              <li>Led third-party integrations (Qiwa, Mudad, WhatsApp OCR) for enterprise HR clients.</li>
+              <li>Enabled 3 consecutive on-time releases, supporting 5,000+ active users.</li>
+            </ul>
+            <div class="tags"><span class="tag">OCR Automation</span><span class="tag">Qiwa / Mudad</span><span class="tag">Enterprise HR</span></div>
+          </div>
+        </div>
+
+        <!-- EXP 3 -->
+        <div class="exp-card reveal-card">
+          <div class="exp-head">
+            <div><div class="exp-role">Product Owner</div><div class="exp-co">Metas Research Studio — Egypt</div><div class="exp-meta">Full-Time · Oct 2023 – Dec 2025</div></div>
+            <span class="badge bf">Full-Time</span>
+          </div>
+          <div class="exp-body">
+            <ul class="buls">
+              <li>Led development of a B2B SaaS platform, scaling to 3,000+ users across 10+ international markets.</li>
+              <li>Achieved 20% increase in user engagement and 10% reduction in churn through optimized onboarding flows.</li>
+              <li>Improved activation-to-paid conversion through systematic A/B testing.</li>
+            </ul>
+            <div class="tags"><span class="tag">B2B SaaS</span><span class="tag">A/B Testing</span><span class="tag">Mixpanel</span><span class="tag">Scaling</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+    <!-- CASE STUDIES -->
+    <div id="cases" style="margin-top: 100px;">
+      <p class="s-eyebrow">Deep Dives</p>
+      <h2 class="s-title"><span class="reveal-mask"><span class="reveal-text">Case <span>Studies</span></span></span></h2>
+      <p class="s-desc reveal-card">Problem · Decision · Result. A look at the real work behind the numbers.</p>
+      
+      <div class="cases-wrap">
+        
+        <!-- CASE 1: ALTECH -->
+        <div class="case reveal-card">
+          <div class="case-top">
+            <div class="cs-n">Case Study 01 · IoT Platform</div>
+            <div class="cs-title">ALTECH: Privacy-First Smart Home</div>
+            <div class="cs-sub">MVP development for an offline-capable IoT automation platform</div>
+          </div>
+          <div class="case-mockup">
+            <div class="mockup-frame">
+              <div class="mockup-browser-bar"><div class="mockup-dots"><span></span><span></span><span></span></div><div class="mockup-url">🔒 app.altech.sa/dashboard</div></div>
+              <div class="iframe-wrap">
+                <iframe src="mockups/altech-dashboard.html" scrolling="no"></iframe>
+              </div>
+            </div>
+          </div>
+          <div class="case-meta">
+            <div class="case-meta-cell"><div class="cmc-l">Status</div><div class="cmc-v">Pre-Launch (Q2 2026)</div></div>
+            <div class="case-meta-cell"><div class="cmc-l">Team</div><div class="cmc-v">4 Engineers, 2 Designers</div></div>
+            <div class="case-meta-cell"><div class="cmc-l">Market</div><div class="cmc-v">Saudi Arabia Residential</div></div>
+          </div>
+          <div class="case-body">
+            <div class="cs-sec"><div class="cs-sec-h">The Problem</div><div class="cs-text">Saudi homeowners faced privacy concerns around cloud-dependent IoT, connectivity gaps, and latency.</div></div>
+            <div class="cs-sec"><div class="cs-sec-h">Key Decisions</div>
+              <ul class="cs-pts">
+                <li>Repositioned "offline-first" as a premium privacy feature based on 15+ interviews.</li>
+                <li>Architected local processing with cloud sync only when available (&lt;100ms latency).</li>
+                <li>Scoped MVP to 4 device types and 8 core automations using RICE prioritization.</li>
+              </ul>
+            </div>
+            <div class="case-metrics">
+              <div class="metric"><span class="metric-n">60%</span><span class="metric-l">Less Cloud Dependency</span></div>
+              <div class="metric"><span class="metric-n">&lt;100ms</span><span class="metric-l">Latency</span></div>
+              <div class="metric"><span class="metric-n">15+</span><span class="metric-l">User Interviews</span></div>
+              <div class="metric"><span class="metric-n">Q2 '26</span><span class="metric-l">Launch</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CASE 2: FAAINEX -->
+        <div class="case reveal-card">
+          <div class="case-top">
+            <div class="cs-n">Case Study 02 · Enterprise SaaS</div>
+            <div class="cs-title">FAAINEX: Enterprise HR Automation</div>
+            <div class="cs-sub">Cloud-based HR platform with OCR automation and compliance</div>
+          </div>
+          <div class="case-mockup">
+            <div class="mockup-frame">
+              <div class="mockup-browser-bar"><div class="mockup-dots"><span></span><span></span><span></span></div><div class="mockup-url">🔒 app.faainex.com/compliance</div></div>
+              <div class="iframe-wrap">
+                <iframe src="mockups/faainex-dashboard.html" scrolling="no"></iframe>
+              </div>
+            </div>
+          </div>
+          <div class="case-meta">
+            <div class="case-meta-cell"><div class="cmc-l">Duration</div><div class="cmc-v">9 Months</div></div>
+            <div class="case-meta-cell"><div class="cmc-l">Active Users</div><div class="cmc-v">5,000+</div></div>
+            <div class="case-meta-cell"><div class="cmc-l">Integrations</div><div class="cmc-v">Qiwa · Mudad</div></div>
+          </div>
+          <div class="case-body">
+            <div class="cs-sec"><div class="cs-sec-h">The Problem</div><div class="cs-text">Saudi enterprise HR teams manually tracked Qiwa and Mudad compliance, causing errors and penalties.</div></div>
+            <div class="cs-sec"><div class="cs-sec-h">Key Decisions</div>
+              <ul class="cs-pts">
+                <li>Designed WhatsApp OCR flow: employees submit docs → AI extracts data → auto-populates records.</li>
+                <li>Defined data contracts for Qiwa and Mudad API integrations.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- CASE 3: METAS -->
+        <div class="case reveal-card">
+          <div class="case-top">
+            <div class="cs-n">Case Study 03 · B2B SaaS</div>
+            <div class="cs-title">Metas Research Studio: Scaling B2B SaaS</div>
+            <div class="cs-sub">Growing a B2B SaaS platform to 3,000+ users across 10+ international markets with a lean team of 7</div>
+          </div>
+          <div class="case-mockup">
+            <div class="mockup-frame">
+              <div class="mockup-browser-bar"><div class="mockup-dots"><span></span><span></span><span></span></div><div class="mockup-url">🔒 app.metas.studio/growth</div></div>
+              <div class="iframe-wrap">
+                <iframe src="mockups/metas-dashboard.html" scrolling="no"></iframe>
+              </div>
+            </div>
+          </div>
+          <div class="case-meta">
+            <div class="case-meta-cell"><div class="cmc-l">Duration</div><div class="cmc-v">Oct 2023 – Dec 2025</div></div>
+            <div class="case-meta-cell"><div class="cmc-l">Users Achieved</div><div class="cmc-v">3,000+</div></div>
+            <div class="case-meta-cell"><div class="cmc-l">Markets</div><div class="cmc-v">10+ International</div></div>
+          </div>
+          <div class="case-body">
+            <div class="cs-sec"><div class="cs-sec-h">The Challenge</div><div class="cs-text">Scaling a B2B SaaS platform from early adoption to international growth while maintaining product quality, team cohesion, and product-market fit.</div></div>
+            <div class="cs-sec"><div class="cs-sec-h">Key Decisions</div>
+              <ul class="cs-pts">
+                <li>Built Mixpanel analytics stack to track feature adoption KPIs.</li>
+                <li>Behavioral analytics identified a key funnel drop-off; redesigned trial experience, improving activation-to-paid conversion.</li>
+                <li>Ran systematic A/B tests on onboarding flows, achieving 20% uplift in engagement and 10% reduction in churn.</li>
+                <li>Made a strategic ICP pivot — narrowed from broad market to SME/mid-market, doubling sprint velocity.</li>
+              </ul>
+            </div>
+            <div class="case-metrics">
+              <div class="metric"><span class="metric-n">3,000+</span><span class="metric-l">Users Scaled</span></div>
+              <div class="metric"><span class="metric-n">+20%</span><span class="metric-l">User Engagement</span></div>
+              <div class="metric"><span class="metric-n">−10%</span><span class="metric-l">Churn Rate</span></div>
+              <div class="metric"><span class="metric-n">10+</span><span class="metric-l">Markets</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<!-- SKILLS -->
+<section id="skills" class="skills-sec">
+  <div class="s-inner">
+    <p class="s-eyebrow dark">Capabilities</p>
+    <h2 class="s-title dark"><span class="reveal-mask"><span class="reveal-text">Skills & <span>Expertise</span></span></span></h2>
+    <p class="s-desc dark reveal-card">A full-stack PM toolkit spanning strategy, discovery, technical systems, and domain knowledge.</p>
+    
+    <div class="sk-grid">
+      <div class="sk-card reveal-card"><div class="sk-head">Product Strategy</div><div class="pills"><span class="pill-sk">Roadmapping</span><span class="pill-sk">OKRs</span><span class="pill-sk">Stakeholder Alignment</span><span class="pill-sk">RICE Prioritization</span><span class="pill-sk">GTM Strategy</span></div></div>
+      <div class="sk-card reveal-card d-1"><div class="sk-head">Technical & Systems</div><div class="pills"><span class="pill-sk">API Integrations</span><span class="pill-sk">OCR Automation</span><span class="pill-sk">IoT Concepts</span><span class="pill-sk">Saudi Labor Law</span><span class="pill-sk">Compliance</span></div></div>
+      <div class="sk-card reveal-card"><div class="sk-head">Tools & Platforms</div><div class="pills"><span class="pill-sk">Jira / Confluence</span><span class="pill-sk">Figma</span><span class="pill-sk">Mixpanel</span><span class="pill-sk">Product Analytics</span></div></div>
+      <div class="sk-card reveal-card d-1"><div class="sk-head">Market Focus</div><div class="pills"><span class="pill-sk">MENA Region</span><span class="pill-sk">Saudi Market</span><span class="pill-sk">B2B SaaS</span><span class="pill-sk">Arabic (Native)</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-sec">
+  <div class="s-inner">
+    <p class="s-eyebrow dark">Get In Touch</p>
+    <h2 class="s-title dark"><span class="reveal-mask"><span class="reveal-text">Let's <span>Connect</span></span></span></h2>
+    <p class="s-desc dark reveal-card">Open to product leadership opportunities, consulting engagements, and conversations about MENA strategy.</p>
+    
+    <div class="contact-cols">
+      <div class="reveal-card">
+        <div class="ci"><div class="ci-icon">✉</div><div><div class="ci-l">Email</div><div class="ci-v">samhassan045@gmail.com</div></div></div>
+        <div class="ci"><div class="ci-icon">📍</div><div><div class="ci-l">Location</div><div class="ci-v">Alexandria, Egypt (Open to remote/MENA)</div></div></div>
+        <div class="ci"><div class="ci-icon">💼</div><div><div class="ci-l">LinkedIn</div><div class="ci-v"><a href="https://linkedin.com/in/samia-ahmed" target="_blank" style="color:inherit;">linkedin.com/in/samia-ahmed</a></div></div></div>
+        <div class="avail-box"><div class="avail-h">Availability</div><div class="avail-t">Open to full-time and consulting opportunities across MENA and international markets.</div></div>
+      </div>
+      <!-- NOTE: Replace YOUR_FORMSPREE_ID with your actual Formspree endpoint (e.g. mrbgpvqw) -->
+      <form action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" class="cf reveal-card d-1">
+        <div class="frow">
+          <div class="fg"><label class="fl">Name</label><input name="name" required class="fi" placeholder="Your name"/></div>
+          <div class="fg"><label class="fl">Email</label><input name="email" required class="fi" type="email" placeholder="your@email.com"/></div>
+        </div>
+        <div class="fg"><label class="fl">Subject</label><input name="subject" required class="fi" placeholder="What's this about?"/></div>
+        <div class="fg"><label class="fl">Message</label><textarea name="message" required class="ft" placeholder="Tell me about your project..."></textarea></div>
+        <button type="submit" class="fsub">Send Message</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p style="color:rgba(255,255,255,.45);margin-bottom:.3rem;">Samia Ahmed · Product Owner · Alexandria, Egypt</p>
+  <p>© 2026 All rights reserved</p>
+</footer>
+
+<script>
+// Scroll animations with IntersectionObserver
+const ioOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in');
+      observer.unobserve(entry.target);
+    }
+  });
+}, ioOptions);
+
+document.querySelectorAll('.reveal-card, .reveal-mask').forEach(el => {
+  observer.observe(el);
+  if(el.classList.contains('reveal-mask')){
+    setTimeout(() => { if(!el.classList.contains('in')) el.style.overflow = 'hidden'; }, 100);
+  }
+});
+
+// Liquid Nav Auto-hide on scroll down
+let lastScrollY = window.scrollY;
+const nav = document.querySelector('.glass-nav-wrapper');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > lastScrollY && window.scrollY > 150) {
+    nav.classList.add('hide');
+  } else {
+    nav.classList.remove('hide');
+  }
+  lastScrollY = window.scrollY;
+  
+  // Timeline Progress
+  const tlProg = document.getElementById('tl-prog');
+  const expSection = document.getElementById('experience');
+  if(tlProg && expSection) {
+    const rect = expSection.getBoundingClientRect();
+    const percent = Math.max(0, Math.min(100, ((window.innerHeight / 2) - rect.top) / rect.height * 100));
+    tlProg.style.height = percent + '%';
+  }
+}, {passive:true});
+
+// Trigger initial animations
+setTimeout(() => {
+  document.querySelectorAll('.hero .reveal-card, .hero .reveal-mask').forEach(el => el.classList.add('in'));
+}, 100);
+
+// Iframe dynamic scaling to match container width
+function resizeIframes() {
+  document.querySelectorAll('.iframe-wrap').forEach(wrap => {
+    const w = wrap.clientWidth;
+    // The design width of the mockups is strictly 1440px
+    const scale = w / 1440;
+    const iframe = wrap.querySelector('iframe');
+    if(iframe) {
+      iframe.style.transform = `scale(${scale})`;
+      // The design height is 900px, so wrap height automatically adjusts via padding-bottom 62.5%
+      // No need to set tight bounds, the padding aspect-ratio perfectly holds it!
+    }
+  });
+}
+window.addEventListener('resize', resizeIframes);
+setTimeout(resizeIframes, 150); // initial call
+</script>
 </body>
 </html>
