@@ -1,3 +1,6 @@
+
+Copy
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -94,9 +97,45 @@ nav{
 .nav-links a:hover{color:var(--accent);}
 .nav-cv{background:#FFFFFF;border:1px solid var(--border);padding:5px 12px;border-radius:30px;color:var(--text);font-size:.65rem;font-weight:700;transition:all .25s;white-space:nowrap;}
 .nav-cv:hover{background:var(--accent);color:var(--white);border-color:var(--accent);}
-.lang-toggle{font-size:.62rem;font-weight:700;color:var(--text3);cursor:default;margin:0 .2rem;}
-.lang-toggle .ar{font-family:'Inter',sans-serif;opacity:.5;}
-.lang-toggle .active{color:var(--teal2);}
+/* ── Language Toggle Button ── */
+.lang-btn {
+  font-size:.65rem; font-weight:700; letter-spacing:.5px;
+  color:var(--teal2); background:var(--teal3);
+  border:1.5px solid rgba(13,148,136,.25); border-radius:30px;
+  padding:5px 13px; cursor:pointer; white-space:nowrap;
+  transition:all .25s var(--ease); font-family:var(--fn);
+}
+.lang-btn:hover { background:var(--teal); color:#fff; border-color:var(--teal); }
+ 
+/* ── RTL overrides ── */
+html[dir="rtl"] body { direction:rtl; text-align:right; }
+html[dir="rtl"] .nav-links { flex-direction:row-reverse; }
+html[dir="rtl"] .hero-head { text-align:right; }
+html[dir="rtl"] .hero-kpis, html[dir="rtl"] .hero-ctas, html[dir="rtl"] .hero-tech-chips { justify-content:flex-start; }
+html[dir="rtl"] .bc-tag::before { display:none; }
+html[dir="rtl"] .bc-tag::after { content:''; width:18px; height:1.5px; background:currentColor; display:inline-block; margin-right:.5rem; }
+html[dir="rtl"] .blist li { padding-left:0; padding-right:1.8rem; }
+html[dir="rtl"] .blist li::before { left:auto; right:0; }
+html[dir="rtl"] .cs-list li { padding-left:0; padding-right:1.5rem; }
+html[dir="rtl"] .cs-list li::before { left:auto; right:0; }
+html[dir="rtl"] .cs-h::after { display:none; }
+html[dir="rtl"] .cs-h::before { content:''; flex:1; height:1px; background:var(--border); display:inline-block; margin-left:.8rem; }
+html[dir="rtl"] .dt-step { text-align:right; align-items:flex-end; }
+html[dir="rtl"] .dt-step::before { left:auto; right:50%; }
+html[dir="rtl"] .ec:hover { transform:translateX(-8px); }
+html[dir="rtl"] .star-reflect { border-left:none; border-right:4px solid var(--accent); border-radius:16px 0 0 16px; padding-right:2rem; padding-left:0; }
+html[dir="rtl"] nav { direction:rtl; }
+ 
+/* ── Decision Timeline — expandable ── */
+.dt-step { cursor:pointer; }
+.dt-expanded { background:rgba(124,58,237,.04); border-radius:12px; padding:.8rem; margin-top:.5rem; }
+.dt-more { font-size:.7rem; color:var(--text2); line-height:1.6; display:none; margin-top:.6rem; border-top:1px solid var(--border); padding-top:.6rem; }
+.dt-step.open .dt-more { display:block; }
+.dt-step.open .dt-dot { transform:scale(1.18); }
+.dt-step.problem.open  .dt-dot { background:rgba(217,119,6,.2); }
+.dt-step.insight.open  .dt-dot { background:rgba(13,148,136,.18); }
+.dt-step.decision.open .dt-dot { background:rgba(124,58,237,.18); }
+.dt-step.outcome.open  .dt-dot { background:rgba(34,197,94,.18); }
 .ham{display:none;cursor:pointer;font-size:1.3rem;color:var(--text);}
 @media(max-width:1100px) and (min-width:769px){
   .lang-toggle{display:none;}
@@ -615,6 +654,180 @@ h2.sh, .bc-headline, .cs-headline, .star-title, .ec-role {
  
 /* Ensure hero sub text uses CSS variable, not rgba */
 .hero-sub { color: var(--text2); }
+ 
+/* ═══════════════════════════════
+   FEATURE 1 — COUNTER ANIMATION
+═══════════════════════════════ */
+.hkpi-n { display: block; }
+.hkpi-n.counting { opacity: 1; }
+ 
+/* ═══════════════════════════════
+   FEATURE 2 — DECISION TIMELINE
+═══════════════════════════════ */
+.dt-wrap {
+  padding: 2.5rem 2.8rem;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+}
+.dt-label {
+  font-size: .62rem; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 2px; color: var(--text3); margin-bottom: 1.6rem;
+  display: flex; align-items: center; gap: 10px;
+}
+.dt-label::after { content:''; flex:1; height:1px; background:var(--border); }
+.dt-track {
+  display: flex; align-items: flex-start; gap: 0;
+  position: relative; overflow-x: auto; padding-bottom: .5rem;
+}
+.dt-step {
+  flex: 1; min-width: 160px; position: relative;
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center;
+}
+.dt-step::before {
+  content: ''; position: absolute; top: 18px; left: 50%; right: -50%;
+  height: 2px; background: var(--border); z-index: 0;
+}
+.dt-step:last-child::before { display: none; }
+.dt-dot {
+  width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .7rem; font-weight: 800; z-index: 1; position: relative;
+  margin-bottom: .75rem; flex-shrink: 0;
+  transition: transform .3s var(--ease);
+}
+.dt-dot:hover { transform: scale(1.15); }
+.dt-step.problem .dt-dot  { background: rgba(217,119,6,.12); color: var(--gold); border: 2px solid rgba(217,119,6,.3); }
+.dt-step.insight .dt-dot  { background: rgba(13,148,136,.1);  color: var(--teal); border: 2px solid rgba(13,148,136,.25); }
+.dt-step.decision .dt-dot { background: rgba(124,58,237,.1);  color: var(--accent); border: 2px solid rgba(124,58,237,.2); }
+.dt-step.outcome .dt-dot  { background: rgba(34,197,94,.1);   color: #16a34a;  border: 2px solid rgba(34,197,94,.25); }
+.dt-title { font-size: .72rem; font-weight: 800; color: var(--text); margin-bottom: .3rem; line-height: 1.2; padding: 0 .5rem; }
+.dt-desc  { font-size: .72rem; color: var(--text3); line-height: 1.55; padding: 0 .5rem; }
+.dt-badge {
+  font-size: .6rem; font-weight: 700; padding: 3px 9px;
+  border-radius: 20px; margin-top: .5rem;
+  background: var(--teal3); color: var(--teal2);
+}
+.dt-step.problem .dt-badge  { background: rgba(217,119,6,.08); color: var(--gold); }
+.dt-step.decision .dt-badge { background: rgba(124,58,237,.07); color: var(--accent); }
+.dt-step.outcome .dt-badge  { background: rgba(34,197,94,.08);  color: #16a34a; }
+@media(max-width:768px){
+  .dt-track { flex-direction: column; gap: 1.5rem; align-items: flex-start; }
+  .dt-step  { flex-direction: row; text-align: left; align-items: flex-start; gap: 1rem; min-width: unset; width: 100%; }
+  .dt-step::before { top: 36px; left: 18px; right: unset; width: 2px; height: 100%; }
+  .dt-dot { margin-bottom: 0; flex-shrink: 0; }
+}
+ 
+/* ═══════════════════════════════
+   FEATURE 3 — INTERACTIVE SKILLS MAP
+═══════════════════════════════ */
+.skmap-section { padding: 0 0 60px; }
+.skmap-wrap { max-width: 1200px; margin: 0 auto; padding: 0 5%; }
+.skmap-tabs {
+  display: flex; gap: .5rem; flex-wrap: wrap;
+  margin-bottom: 2rem; margin-top: 3rem;
+}
+.skmap-tab {
+  font-size: .72rem; font-weight: 700; letter-spacing: .8px;
+  text-transform: uppercase; padding: 8px 18px; border-radius: 30px;
+  border: 1.5px solid var(--border); background: var(--white);
+  color: var(--text3); cursor: pointer; transition: all .25s var(--ease);
+}
+.skmap-tab:hover  { border-color: var(--border2); color: var(--text2); }
+.skmap-tab.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+.skmap-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+.skmap-item {
+  background: var(--white); border: 1.5px solid var(--border);
+  border-radius: var(--r16); padding: 1.2rem;
+  cursor: pointer; transition: all .3s var(--ease);
+  display: flex; flex-direction: column; gap: .5rem;
+  opacity: 0; transform: translateY(12px);
+  animation: sk-in .4s var(--ease) forwards;
+}
+.skmap-item:hover {
+  border-color: var(--accent); transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(124,58,237,.1);
+}
+.skmap-item.active-sk {
+  border-color: var(--accent);
+  background: rgba(124,58,237,.04);
+}
+@keyframes sk-in {
+  to { opacity:1; transform:translateY(0); }
+}
+.skmap-name { font-size: .88rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+.skmap-proof {
+  font-size: .72rem; color: var(--text3); line-height: 1.55;
+  display: none; padding-top: .5rem; border-top: 1px solid var(--border);
+}
+.skmap-item.active-sk .skmap-proof { display: block; }
+.skmap-proof strong { color: var(--accent); }
+.skmap-tag {
+  font-size: .6rem; font-weight: 700; padding: 2px 8px;
+  border-radius: 20px; background: var(--bg2); color: var(--text3);
+  align-self: flex-start;
+}
+.skmap-item.active-sk .skmap-tag { background: rgba(124,58,237,.08); color: var(--accent); }
+ 
+/* ═══════════════════════════════
+   FEATURE 4 — PO PHILOSOPHY
+═══════════════════════════════ */
+.philosophy-section {
+  padding: 100px 5%;
+  background: var(--text);
+  position: relative; overflow: hidden;
+}
+.philosophy-section::before {
+  content:''; position:absolute; inset:0;
+  background: radial-gradient(circle at 80% 20%, rgba(124,58,237,.18) 0%, transparent 55%),
+              radial-gradient(circle at 20% 80%, rgba(13,148,136,.12) 0%, transparent 50%);
+  pointer-events:none;
+}
+.philosophy-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index:1; }
+.philosophy-eyebrow {
+  font-size: .62rem; font-weight: 800; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--teal); margin-bottom: 1rem; display: block;
+}
+.philosophy-head {
+  font-family: var(--fs); font-size: clamp(2.2rem, 3.5vw, 3rem);
+  font-weight: 700; color: #fff; margin-bottom: .8rem; line-height: 1.15;
+}
+.philosophy-sub {
+  color: rgba(255,255,255,.5); font-size: .95rem; margin-bottom: 3.5rem; max-width: 520px;
+}
+.phil-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5px; background: rgba(255,255,255,.08); border-radius: var(--r24); overflow: hidden;
+}
+.phil-card {
+  background: rgba(15,23,42,.7); padding: 2.2rem;
+  transition: background .3s var(--ease); cursor: default;
+  display: flex; flex-direction: column; gap: 1rem;
+}
+.phil-card:hover { background: rgba(124,58,237,.12); }
+.phil-num {
+  font-family: var(--fs); font-size: 2.8rem; font-weight: 700;
+  color: rgba(255,255,255,.08); line-height: 1;
+}
+.phil-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; flex-shrink: 0;
+}
+.phil-icon.purple { background: rgba(124,58,237,.2); }
+.phil-icon.teal   { background: rgba(13,148,136,.2); }
+.phil-icon.gold   { background: rgba(217,119,6,.2); }
+.phil-icon.green  { background: rgba(34,197,94,.15); }
+.phil-principle {
+  font-size: 1.05rem; font-weight: 700; color: #fff; line-height: 1.4;
+}
+.phil-expand {
+  font-size: .82rem; color: rgba(255,255,255,.45); line-height: 1.7;
+}
+.phil-expand strong { color: rgba(255,255,255,.75); }
 </style>
 </head>
 <body>
@@ -634,8 +847,9 @@ h2.sh, .bc-headline, .cs-headline, .star-title, .ec-role {
       <li><a href="#cases">Case Studies</a></li>
       <li><a href="#star">STAR Story</a></li>
       <li><a href="#skills">Skills</a></li>
+      <li><a href="#philosophy">Philosophy</a></li>
       <li><a href="#contact">Contact</a></li>
-      <li class="lang-toggle"><span class="active">EN</span> | <span class="ar">عربي</span></li>
+      <li><button class="lang-btn" id="langBtn" onclick="toggleLang()" title="Switch to Arabic / التبديل للعربية"><span id="langLabel">🌐 عربي</span></button></li>
       <li><a href="Samia_Ahmed_CV.pdf" download class="nav-cv">Download Full CV (PDF) ↓</a></li>
     </ul>
   </nav>
@@ -647,26 +861,26 @@ h2.sh, .bc-headline, .cs-headline, .star-title, .ec-role {
 <section class="hero" id="hero">
   <div class="hero-inner">
     <div class="hero-eyebrow rv">
-      <span class="blink"></span> Senior Product Owner | SaaS &amp; IoT Specialist
+      <span class="blink"></span> <span id="heroEyebrowText">Senior Product Owner | SaaS &amp; IoT Specialist</span>
     </div>
     <h1 class="hero-head" id="heroHead">
-      <span class="line"><span class="word">Turning Complexity &amp; Constraints Into</span></span>
-      <span class="line"><span class="word">Scalable, <em>Privacy-First</em> Products</span></span>
+      <span class="line"><span class="word" id="heroLine1">Turning Complexity &amp; Constraints Into</span></span>
+      <span class="line"><span class="word" id="heroLine2">Scalable, <em>Privacy-First</em> Products</span></span>
     </h1>
-    <p class="hero-sub rv d2" style="font-size: 1.15rem; line-height: 1.85; max-width: 620px; color: var(--text2);">
+    <p class="hero-sub rv d2" id="heroSub" style="font-size: 1.15rem; line-height: 1.85; max-width: 620px; color: var(--text2);">
       Senior Product Owner driving AI-powered SaaS and IoT platforms across MENA. 
       Turning regulatory complexity into scalable, privacy-first products. 
       PSPO I · Arabic native.
     </p>
     <div class="hero-kpis rv d3">
-      <div class="hkpi"><span class="hkpi-n">8,000+</span><span class="hkpi-l">users impacted</span></div>
-      <div class="hkpi"><span class="hkpi-n">10+</span><span class="hkpi-l">international markets</span></div>
-      <div class="hkpi"><span class="hkpi-n">60%</span><span class="hkpi-l">cloud dependency reduction (pilot validated)</span></div>
-      <div class="hkpi"><span class="hkpi-n">20%</span><span class="hkpi-l">engagement increase</span></div>
+      <div class="hkpi"><span class="hkpi-n" data-target="8000" data-suffix="+">8,000+</span><span class="hkpi-l">users impacted</span></div>
+      <div class="hkpi"><span class="hkpi-n" data-target="10" data-suffix="+">10+</span><span class="hkpi-l">international markets</span></div>
+      <div class="hkpi"><span class="hkpi-n" data-target="60" data-suffix="%">60%</span><span class="hkpi-l">cloud dependency reduction (pilot validated)</span></div>
+      <div class="hkpi"><span class="hkpi-n" data-target="20" data-suffix="%">20%</span><span class="hkpi-l">engagement increase</span></div>
     </div>
     <div class="hero-ctas rv d4">
-      <a href="#work" class="btn-primary">Explore Work ↓</a>
-      <a href="Samia_Ahmed_CV.pdf" download class="btn-ghost">Download Full CV (PDF) ↓</a>
+      <a href="#work" class="btn-primary" id="heroCTA1">Explore Work ↓</a>
+      <a href="Samia_Ahmed_CV.pdf" download class="btn-ghost" id="heroCTA2">Download Full CV (PDF) ↓</a>
     </div>
     <div class="hero-tech-chips rv d5">
       <span class="tech-chip">Product Strategy</span>
@@ -689,9 +903,9 @@ h2.sh, .bc-headline, .cs-headline, .star-title, .ec-role {
 ═══════════════════════════════ -->
 <div class="bento-section" id="work">
   <div class="bento-header">
-    <span class="eyebrow rv">Featured Work</span>
-    <h2 class="sh rv">Three roles. <span>Three market-defining</span> bets.</h2>
-    <p class="sdesc rv">Hover any card to reveal impact metrics. Click to jump to the full case study.</p>
+    <span class="eyebrow rv" id="bentoEyebrow">Featured Work</span>
+    <h2 class="sh rv" id="bentoH">Three roles. <span>Three market-defining</span> bets.</h2>
+    <p class="sdesc rv" id="bentoSub">Hover any card to reveal impact metrics. Click to jump to the full case study.</p>
   </div>
  
   <div class="bento">
@@ -846,10 +1060,10 @@ h2.sh, .bc-headline, .cs-headline, .star-title, .ec-role {
         <div class="bc-tag">Availability</div>
         <div class="avail-status">
           <span class="avail-dot"></span>
-          <span style="font-weight:700; font-size:0.95rem; color:var(--text);">Open to Opportunities</span>
+          <span id="availStatus" style="font-weight:700; font-size:0.95rem; color:var(--text);">Open to Opportunities</span>
         </div>
-        <p class="avail-bt">Senior Product Owner roles · Series B–C SaaS/IoT · MENA or Remote Europe · Available immediately</p>
-        <a href="#contact" class="btn-primary" style="font-size:0.78rem; padding:10px 20px; width:fit-content; margin-top:0.4rem;">Let's Talk →</a>
+        <p class="avail-bt" id="availText">Senior Product Owner roles · Series B–C SaaS/IoT · MENA or Remote Europe · Available immediately</p>
+        <a href="#contact" class="btn-primary" id="availCTA" style="font-size:0.78rem; padding:10px 20px; width:fit-content; margin-top:0.4rem;">Let's Talk →</a>
       </div>
     </div>
     <div class="bc bc-star rv d2" onclick="location.href='#star'">
@@ -890,9 +1104,9 @@ h2.sh, .bc-headline, .cs-headline, .star-title, .ec-role {
 ═══════════════════════════════ -->
 <div class="cases-section" id="cases" style="display:block;">
   <div class="cases-inner">
-    <span class="eyebrow rv">Deep Dives</span>
-    <h2 class="sh rv">Case <span>Studies</span></h2>
-    <p class="sdesc rv">Problem · Discovery · Decision · Outcome. The strategic thinking behind every number.</p>
+    <span class="eyebrow rv" id="casesEyebrow">Deep Dives</span>
+    <h2 class="sh rv" id="casesH">Case <span>Studies</span></h2>
+    <p class="sdesc rv" id="casesSub">Problem · Discovery · Decision · Outcome. The strategic thinking behind every number.</p>
  
     <!-- ── CASE 1: ALTECH ── -->
     <div class="cs-card rv" id="case-altech">
@@ -1044,6 +1258,40 @@ h2.sh, .bc-headline, .cs-headline, .star-title, .ec-role {
         <div class="metric"><span class="metric-n">15+</span><span class="metric-l">homeowner interviews</span></div>
         <div class="metric"><span class="metric-n">Q2 2026</span><span class="metric-l">launch target</span></div>
       </div>
+      <!-- ── Decision Timeline ── -->
+      <div class="dt-wrap">
+        <div class="dt-label">Decision Flow</div>
+        <div class="dt-track">
+          <div class="dt-step problem">
+            <div class="dt-dot">⚠</div>
+            <div class="dt-title">The Constraint</div>
+            <div class="dt-desc">Cloud-first IoT meant high latency, high cost &amp; trust gap in Saudi privacy-sensitive market.</div>
+            <div class="dt-more">Saudi homeowners showed strong anxiety around cloud data storage — particularly post-PDPL. Cloud-only architecture also added 200–400ms latency spikes, incompatible with real-time automation expectations.</div>
+            <span class="dt-badge">Discovery Signal</span>
+          </div>
+          <div class="dt-step insight">
+            <div class="dt-dot">◎</div>
+            <div class="dt-title">The Insight</div>
+            <div class="dt-desc">15+ interviews revealed privacy as the #1 buying trigger — not convenience or price.</div>
+            <div class="dt-more">Quote pattern from 11 of 15 interviews: "I don't want my home data on a server I can't see." This confirmed the offline constraint was actually a feature — not a limitation to apologise for.</div>
+            <span class="dt-badge">User Research</span>
+          </div>
+          <div class="dt-step decision">
+            <div class="dt-dot">→</div>
+            <div class="dt-title">The Bet</div>
+            <div class="dt-desc">Reframe offline-first as a premium privacy feature. Deprioritize cloud automations in MVP.</div>
+            <div class="dt-more">Engineering initially pushed back — offline sync adds complexity. The tradeoff: delay 3 advanced cloud automations (weather integration, voice assistant sync) to Q3. Accepted and documented in the PRD as a deliberate scope decision.</div>
+            <span class="dt-badge">Strategic Tradeoff</span>
+          </div>
+          <div class="dt-step outcome">
+            <div class="dt-dot">✓</div>
+            <div class="dt-title">The Outcome</div>
+            <div class="dt-desc">60% cloud reduction. &lt;100ms latency. Strong PMF signal ahead of Q2 2026 launch.</div>
+            <div class="dt-more">Pilot feedback score: 4.6/5 on "trust in data privacy." Sales narrative now leads with Privacy-First, not Smart Home — repositioning ALTECH against international competitors who can't match local-first architecture.</div>
+            <span class="dt-badge">Validated</span>
+          </div>
+        </div>
+      </div>
     </div>
  
     <!-- ── CASE 2: FAAINEX ── -->
@@ -1193,6 +1441,40 @@ h2.sh, .bc-headline, .cs-headline, .star-title, .ec-role {
         <div class="metric"><span class="metric-n" style="color:var(--teal);">3</span><span class="metric-l">consecutive on-time releases</span></div>
         <div class="metric"><span class="metric-n" style="color:var(--teal);">50+</span><span class="metric-l">HR leader interviews</span></div>
         <div class="metric"><span class="metric-n" style="color:var(--teal);">0</span><span class="metric-l">compliance incidents</span></div>
+      </div>
+      <!-- ── Decision Timeline ── -->
+      <div class="dt-wrap">
+        <div class="dt-label">Decision Flow</div>
+        <div class="dt-track">
+          <div class="dt-step problem">
+            <div class="dt-dot">⚠</div>
+            <div class="dt-title">The Problem</div>
+            <div class="dt-desc">Saudi enterprise HR had fragmented compliance workflows — legal exposure, manual data entry, slow audits.</div>
+            <div class="dt-more">HR managers were spending 6–8 hours/week manually re-entering Qiwa data into internal systems. Three customers had received compliance warnings due to data lag — creating urgency and a clear monetisation angle.</div>
+            <span class="dt-badge">Market Gap</span>
+          </div>
+          <div class="dt-step insight">
+            <div class="dt-dot">◎</div>
+            <div class="dt-title">The Insight</div>
+            <div class="dt-desc">50+ HR leader interviews showed the gap wasn't AI — it was seamless, trusted Qiwa/Mudad integration.</div>
+            <div class="dt-more">Every HR director mentioned "trust" before "speed." They'd tried automation before — and errors during audits had burned them. The real requirement was accuracy + traceability, not just speed.</div>
+            <span class="dt-badge">User Research</span>
+          </div>
+          <div class="dt-step decision">
+            <div class="dt-dot">→</div>
+            <div class="dt-title">The Bet</div>
+            <div class="dt-desc">Prioritised native compliance integrations over broader feature expansion. Delayed analytics deliberately.</div>
+            <div class="dt-more">Analytics dashboard was 60% scoped and partially built. I halted it — moved 2 engineers to compliance integrations. The team resisted (analytics were "almost done"). I held the line. Release 1 shipped on-time with full Qiwa sync. Analytics shipped in Release 3 — with real compliance data to power it.</div>
+            <span class="dt-badge">Strategic Tradeoff</span>
+          </div>
+          <div class="dt-step outcome">
+            <div class="dt-dot">✓</div>
+            <div class="dt-title">The Outcome</div>
+            <div class="dt-desc">5,000+ users. 3 on-time releases. Zero compliance incidents. Compliance trust became the moat.</div>
+            <div class="dt-more">Customer renewal rate held at 94% through the compliance-first quarter. Two enterprise accounts specifically cited "zero Qiwa errors" as the reason for renewal — validating the bet completely.</div>
+            <span class="dt-badge">Delivered</span>
+          </div>
+        </div>
       </div>
     </div>
  
@@ -1388,6 +1670,40 @@ h2.sh, .bc-headline, .cs-headline, .star-title, .ec-role {
         <div class="metric"><span class="metric-n purple">10%</span><span class="metric-l">reduction in churn</span></div>
         <div class="metric"><span class="metric-n gold">↑ Conv.</span><span class="metric-l">improved activation-to-paid</span></div>
       </div>
+      <!-- ── Decision Timeline ── -->
+      <div class="dt-wrap">
+        <div class="dt-label">Decision Flow</div>
+        <div class="dt-track">
+          <div class="dt-step problem">
+            <div class="dt-dot">⚠</div>
+            <div class="dt-title">The Problem</div>
+            <div class="dt-desc">Broad ICP meant feature sprawl, slow velocity, and shallow engagement across too many user types.</div>
+            <div class="dt-more">The backlog had 140+ items. Engineering was delivering 6–8 stories/sprint but most had low downstream impact. NPS from micro-businesses and mid-market diverged 18 points — the product was trying to be everything to everyone.</div>
+            <span class="dt-badge">Internal Signal</span>
+          </div>
+          <div class="dt-step insight">
+            <div class="dt-dot">◎</div>
+            <div class="dt-title">The Insight</div>
+            <div class="dt-desc">Mixpanel cohort data showed SME &amp; mid-market users had 2× retention vs. enterprise segment.</div>
+            <div class="dt-more">Day-90 retention: micro-business 18%, SME/mid-market 41%. Expansion revenue: 0% from micro, 22% from mid-market. The data made the ICP decision undeniable — even to stakeholders protecting micro revenue.</div>
+            <span class="dt-badge">Data Analysis</span>
+          </div>
+          <div class="dt-step decision">
+            <div class="dt-dot">→</div>
+            <div class="dt-title">The Bet</div>
+            <div class="dt-desc">Narrowed ICP to SME/mid-market. Said no to existing enterprise revenue. Redesigned trial flow entirely.</div>
+            <div class="dt-more">Leadership challenged the pivot — micro-segment was 30% of ARR. I built a 12-month model showing mid-market LTV compensated within 2 quarters. The model held. We churned 3 micro accounts deliberately. Backlog dropped from 140 to 52 items in one planning session.</div>
+            <span class="dt-badge">Courageous Pivot</span>
+          </div>
+          <div class="dt-step outcome">
+            <div class="dt-dot">✓</div>
+            <div class="dt-title">The Outcome</div>
+            <div class="dt-desc">20% engagement ↑, 10% churn ↓, 3,000+ users in 10+ markets. Velocity restored within 2 sprints.</div>
+            <div class="dt-more">Mid-market NRR improved measurably. Within two sprints of the pivot, the team shipped faster than any quarter in 2024 — proving that focus compounds. The ICP decision is now embedded in RICE scoring for every future roadmap item.</div>
+            <span class="dt-badge">Compounding Growth</span>
+          </div>
+        </div>
+      </div>
     </div>
  
   </div>
@@ -1405,9 +1721,9 @@ h2.sh, .bc-headline, .cs-headline, .star-title, .ec-role {
 ═══════════════════════════════ -->
 <div class="exp-section" id="experience" style="padding:120px 5%;">
   <div class="exp-inner">
-    <span class="eyebrow rv">Career Timeline</span>
-    <h2 class="sh rv">Professional <span>Experience</span></h2>
-    <p class="sdesc rv">End-to-end product ownership — from discovery through delivery, scaling, and market entry across MENA and international markets.</p>
+    <span class="eyebrow rv" id="expEyebrow">Career Timeline</span>
+    <h2 class="sh rv" id="expH">Professional <span>Experience</span></h2>
+    <p class="sdesc rv" id="expSub">End-to-end product ownership — from discovery through delivery, scaling, and market entry across MENA and international markets.</p>
     <div class="exp-list">
  
       <div class="ec rv">
@@ -1478,54 +1794,73 @@ h2.sh, .bc-headline, .cs-headline, .star-title, .ec-role {
 <div class="div-line"></div>
  
 <!-- ═══════════════════════════════
-     SKILLS
+     SKILLS — INTERACTIVE MAP
 ═══════════════════════════════ -->
-<div class="skills-section" id="skills" style="padding:120px 5%;">
-  <div class="si">
-    <span class="eyebrow rv">Capabilities</span>
-    <h2 class="sh rv">Skills &amp; <span>Expertise</span></h2>
-    <p class="sdesc rv">A full-stack PM toolkit spanning strategy, analytics, technical systems, and cross-cultural market leadership.</p>
-  </div>
-  <div class="sk-grid">
-    <div class="sk-card rv"><div class="sk-head">Product Strategy &amp; Leadership</div><div><span class="pill-sk">Product Vision</span><span class="pill-sk">OKRs</span><span class="pill-sk">Roadmapping</span><span class="pill-sk">RICE Prioritization</span><span class="pill-sk">Stakeholder Alignment</span><span class="pill-sk">GTM Strategy</span><span class="pill-sk">ICP Definition</span><span class="pill-sk">PMF Validation</span></div></div>
-    <div class="sk-card rv d1"><div class="sk-head">Discovery &amp; Analytics</div><div><span class="pill-sk">User Interviews (65+)</span><span class="pill-sk">Mixpanel</span><span class="pill-sk">Behavioral Analytics</span><span class="pill-sk">Funnel Optimization</span><span class="pill-sk">A/B Testing</span><span class="pill-sk">Cohort Analysis</span></div></div>
-    <div class="sk-card rv"><div class="sk-head">Technical &amp; Domain</div><div><span class="pill-sk">IoT Offline-First Architecture</span><span class="pill-sk">OCR Automation</span><span class="pill-sk">API Integrations</span><span class="pill-sk">Saudi Labor Law</span><span class="pill-sk">Qiwa · Mudad</span><span class="pill-sk">AI/ML Products</span></div></div>
-    <div class="sk-card rv d1"><div class="sk-head">Tools &amp; Execution</div><div><span class="pill-sk">Jira &amp; Confluence</span><span class="pill-sk">Figma (Advanced)</span><span class="pill-sk">Mixpanel</span><span class="pill-sk">Agile / Scrum</span><span class="pill-sk">Cross-Functional Teams</span><span class="pill-sk">Arabic-First UX</span></div></div>
+<div class="skills-section skmap-section" id="skills" style="padding:120px 5% 60px;">
+  <div class="si skmap-wrap" style="padding:0;">
+    <span class="eyebrow rv" id="skillsEyebrow">Capabilities</span>
+    <h2 class="sh rv" id="skillsH">Skills &amp; <span>Expertise</span></h2>
+    <p class="sdesc rv" id="skillsSub">Click any skill to see exactly how I applied it — real decisions, real projects.</p>
+    <div class="skmap-tabs">
+      <button class="skmap-tab active" data-cat="all">All Skills</button>
+      <button class="skmap-tab" data-cat="strategy">Strategy</button>
+      <button class="skmap-tab" data-cat="discovery">Discovery</button>
+      <button class="skmap-tab" data-cat="technical">Technical</button>
+      <button class="skmap-tab" data-cat="tools">Tools</button>
+    </div>
+    <div class="skmap-grid" id="skmapGrid"></div>
   </div>
 </div>
  
 <!-- ═══════════════════════════════
      EDU + CERTS
 ═══════════════════════════════ -->
-<div class="principles-section rv" style="padding:100px 5%; background:var(--bg2);">
-  <div class="si" style="max-width:1200px; margin:0 auto;">
-    <span class="eyebrow">Mindset</span>
-    <h2 class="sh">Product <span>Principles</span></h2>
-    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:25px; margin-top:3rem;">
-      <div style="background:var(--white); padding:30px; border-radius:16px; border:1px solid var(--border); box-shadow:0 4px 12px rgba(0,0,0,0.03);">
-        <div style="color:var(--accent); font-weight:800; font-size:0.75rem; margin-bottom:10px;">01</div>
-        <div style="font-weight:700; font-size:1.1rem; line-height:1.4;">Clarity beats complexity every single time.</div>
+<!-- ═══════════════════════════════
+     PO PHILOSOPHY
+═══════════════════════════════ -->
+<div class="philosophy-section rv" id="philosophy">
+  <div class="philosophy-inner">
+    <span class="philosophy-eyebrow" id="philEyebrow">How I Think</span>
+    <h2 class="philosophy-head" id="philH">A Product Owner's <em style="color:var(--accent);font-style:normal;">Operating System</em></h2>
+    <p class="philosophy-sub" id="philSub">Not frameworks I know — beliefs I ship with, decisions I've made, and lessons I've earned.</p>
+    <div class="phil-grid">
+ 
+      <div class="phil-card">
+        <div class="phil-num">01</div>
+        <div class="phil-icon purple">🔍</div>
+        <div class="phil-principle">Ask why three times before writing a single user story.</div>
+        <div class="phil-expand">Every feature request hides a real problem. At ALTECH, "add cloud sync" was actually "users don't trust local data alone" — which led to the privacy-first reframe that became the entire product narrative.</div>
       </div>
-      <div style="background:var(--white); padding:30px; border-radius:16px; border:1px solid var(--border); box-shadow:0 4px 12px rgba(0,0,0,0.03);">
-        <div style="color:var(--accent); font-weight:800; font-size:0.75rem; margin-bottom:10px;">02</div>
-        <div style="font-weight:700; font-size:1.1rem; line-height:1.4;">Data informs, but courage is what ships.</div>
+ 
+      <div class="phil-card">
+        <div class="phil-num">02</div>
+        <div class="phil-icon teal">📊</div>
+        <div class="phil-principle">Data tells you what. Talking to users tells you why.</div>
+        <div class="phil-expand">At Metas, Mixpanel showed SME users had 2× retention — but only 65+ interviews revealed <strong>why</strong>: they needed outcomes, not features. That "why" justified the entire ICP pivot.</div>
       </div>
-      <div style="background:var(--white); padding:30px; border-radius:16px; border:1px solid var(--border); box-shadow:0 4px 12px rgba(0,0,0,0.03);">
-        <div style="color:var(--accent); font-weight:800; font-size:0.75rem; margin-bottom:10px;">03</div>
-        <div style="font-weight:700; font-size:1.1rem; line-height:1.4;">Arabic-first UX is a market-defining edge.</div>
+ 
+      <div class="phil-card">
+        <div class="phil-num">03</div>
+        <div class="phil-icon gold">⚖</div>
+        <div class="phil-principle">Every "yes" to a feature is a "no" to something more important.</div>
+        <div class="phil-expand">At FAAINEX, I explicitly delayed analytics &amp; reporting to protect compliance workflows. The team resisted. Compliance trust became the moat. <strong>Saying no is the hardest and most valuable PO skill.</strong></div>
       </div>
-      <div style="background:var(--white); padding:30px; border-radius:16px; border:1px solid var(--border); box-shadow:0 4px 12px rgba(0,0,0,0.03);">
-        <div style="color:var(--accent); font-weight:800; font-size:0.75rem; margin-bottom:10px;">04</div>
-        <div style="font-weight:700; font-size:1.1rem; line-height:1.4;">Offline-first architecture equals Trust-first.</div>
+ 
+      <div class="phil-card">
+        <div class="phil-num">04</div>
+        <div class="phil-icon green">🌐</div>
+        <div class="phil-principle">Arabic-first UX isn't localisation — it's a market-defining edge.</div>
+        <div class="phil-expand">Designing RTL from day one, not retrofitting it, changes architecture decisions, changes trust signals, and changes who your product is actually built for. In MENA, this is the difference between a product and a product people adopt.</div>
       </div>
+ 
     </div>
   </div>
 </div>
  
 <div class="edu-section rv" style="padding:120px 5%;">
   <div class="si">
-    <span class="eyebrow rv">Credentials</span>
-    <h2 class="sh rv">Education &amp; <span>Certifications</span></h2>
+    <span class="eyebrow rv" id="eduEyebrow">Credentials</span>
+    <h2 class="sh rv" id="eduH">Education &amp; <span>Certifications</span></h2>
   </div>
   <div class="edu-inner" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:40px; max-width:1200px; margin:0 auto;">
     <div class="edu-box rv" style="background:var(--bg2); padding:40px; border-radius:var(--r24); border:1px solid var(--border);">
@@ -1592,8 +1927,8 @@ h2.sh, .bc-headline, .cs-headline, .star-title, .ec-role {
 <div class="contact-section" id="contact" style="padding:120px 5%;">
   <div class="contact-inner">
     <div class="rv">
-      <span class="eyebrow">Get In Touch</span>
-      <h2 class="sh">Let's <span>Connect</span></h2>
+      <span class="eyebrow" id="contactEyebrow">Get In Touch</span>
+      <h2 class="sh" id="contactH">Let's <span>Connect</span></h2>
       <p style="color:var(--text2);font-size:.95rem;line-height:1.8;margin-bottom:2rem;max-width:440px;">
         Open to opportunities, consulting engagements, and strategic conversations about MENA and international product leadership.<br><br>
         <strong>Currently open to Senior Product Owner roles at Series B–C SaaS/IoT companies in MENA or Europe who want someone who has shipped under regulatory pressure and scaled product-led growth in emerging markets.</strong>
@@ -1630,7 +1965,7 @@ h2.sh, .bc-headline, .cs-headline, .star-title, .ec-role {
 <footer style="padding:60px 5%; background:var(--bg2); border-top:1px solid var(--border); text-align:center;">
   <div style="max-width:1200px; margin:0 auto;">
     <div class="logo" style="font-size:1.1rem; margin-bottom:15px; opacity:0.8;">Samia <em>Ahmed</em></div>
-    <div style="font-size:0.85rem; color:var(--text3); letter-spacing:0.5px;">© 2026 · Built to showcase strategic depth, not just activity.</div>
+    <div style="font-size:0.85rem; color:var(--text3); letter-spacing:0.5px;" id="footerLine">© 2026 · Built to showcase strategic depth, not just activity.</div>
   </div>
 </footer>
  
@@ -1797,6 +2132,330 @@ window.addEventListener('scroll',()=>{
   window.scrollY>lastY&&window.scrollY>120 ? navEl.classList.add('up') : navEl.classList.remove('up');
   lastY=window.scrollY;
 },{passive:true});
+ 
+/* ══════════════════════════════════════════════
+   FEATURE 1 — COUNTER ANIMATION
+══════════════════════════════════════════════ */
+function animateCounter(el){
+  const target = parseInt(el.dataset.target);
+  const suffix = el.dataset.suffix || '';
+  const isLarge = target >= 1000;
+  const duration = 1800;
+  const steps = 60;
+  const interval = duration / steps;
+  let current = 0;
+  el.textContent = '0' + suffix;
+  const timer = setInterval(()=>{
+    current += target / steps;
+    if(current >= target){
+      current = target;
+      clearInterval(timer);
+    }
+    if(isLarge){
+      el.textContent = Math.floor(current).toLocaleString() + suffix;
+    } else {
+      el.textContent = Math.floor(current) + suffix;
+    }
+  }, interval);
+}
+ 
+const counterObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting && e.target.dataset.target && !e.target.dataset.counted){
+      e.target.dataset.counted = '1';
+      animateCounter(e.target);
+    }
+  });
+},{threshold:0.5});
+ 
+document.querySelectorAll('.hkpi-n[data-target]').forEach(el=>counterObserver.observe(el));
+ 
+ 
+/* ══════════════════════════════════════════════
+   FEATURE 3 — INTERACTIVE SKILLS MAP
+══════════════════════════════════════════════ */
+const SKILLS = [
+  { name:'Product Vision & OKRs', cat:'strategy', tag:'Strategy',
+    proof:'At Metas, I defined quarterly OKRs tied to ICP pivot milestones — every sprint had a measurable business outcome. Reduced feature sprawl by 40% in two cycles.' },
+  { name:'RICE Prioritisation', cat:'strategy', tag:'Strategy',
+    proof:'Used RICE at ALTECH to deprioritise cloud-only automations and protect the privacy-first narrative for MVP — kept delivery velocity on track for Q2 2026 launch.' },
+  { name:'GTM Strategy', cat:'strategy', tag:'Strategy',
+    proof:'Owned full GTM for ALTECH: positioning, pricing narrative, Saudi channel strategy, and launch sequencing. Reframed "offline limitation" as premium privacy feature.' },
+  { name:'ICP Definition & Pivot', cat:'strategy', tag:'Strategy',
+    proof:'Led the Metas ICP pivot from broad to SME/mid-market based on Mixpanel cohort data. Said no to enterprise revenue. Resulted in 20% engagement ↑ and restored velocity within 2 sprints.' },
+  { name:'Roadmapping', cat:'strategy', tag:'Strategy',
+    proof:'Managed rolling 3-month roadmaps at all three companies, balancing tech debt, compliance requirements, and growth features — never missing a committed release date.' },
+  { name:'PMF Validation', cat:'strategy', tag:'Strategy',
+    proof:'Validated offline-first IoT PMF through 15+ Saudi homeowner interviews before finalising MVP scope — avoided building the wrong product entirely.' },
+ 
+  { name:'User Interviews (65+)', cat:'discovery', tag:'Discovery',
+    proof:'Ran 65+ structured user interviews across three products: 15+ Saudi homeowners (ALTECH), 50+ HR leaders (FAAINEX). Each study directly changed product direction.' },
+  { name:'Mixpanel & Behavioural Analytics', cat:'discovery', tag:'Discovery',
+    proof:'At Metas: identified funnel drop-off at activation step using Mixpanel cohort analysis. Redesigned trial experience → 20% engagement increase.' },
+  { name:'Funnel Optimisation', cat:'discovery', tag:'Discovery',
+    proof:'Mapped full acquisition→activation→paid funnel at Metas. Found 38% drop at day-3 onboarding. Shipped targeted fix that materially improved activation-to-paid conversion.' },
+  { name:'A/B Testing & Cohort Analysis', cat:'discovery', tag:'Discovery',
+    proof:'Used cohort segmentation at Metas to compare SME vs enterprise retention. SME showed 2× 90-day retention — the data that justified the ICP pivot decision.' },
+ 
+  { name:'IoT Offline-First Architecture', cat:'technical', tag:'Technical',
+    proof:'Architected local-processing infrastructure at ALTECH delivering <100ms latency — no cloud round-trips. Reduced cloud dependency 60% in pilot. Speaks to Arabic-first privacy expectations.' },
+  { name:'OCR Automation', cat:'technical', tag:'Technical',
+    proof:'At FAAINEX, owned OCR pipeline for WhatsApp-submitted HR documents — defined extraction rules, error handling, and validation flows with engineering. Processed 1,800+ documents in first cycle.' },
+  { name:'API Integrations (Qiwa · Mudad)', cat:'technical', tag:'Technical',
+    proof:'Led full integration of Qiwa & Mudad government platforms at FAAINEX — defined data contracts, edge cases, and compliance workflows. Zero incidents post-launch.' },
+  { name:'Saudi Labor Law & Compliance', cat:'technical', tag:'Technical',
+    proof:'Deep working knowledge of Qiwa, Mudad, and Saudi labor law requirements. Translated legal requirements into technical acceptance criteria for engineering team.' },
+  { name:'AI/ML Product Design', cat:'technical', tag:'Technical',
+    proof:'Designed AI-assisted document validation at FAAINEX — scoped model confidence thresholds, human-in-the-loop escalation, and audit trails for enterprise trust.' },
+ 
+  { name:'Jira & Confluence', cat:'tools', tag:'Tools',
+    proof:'Used Jira for sprint planning and backlog management across all three roles. Built Confluence wikis for decision logs, PRDs, and onboarding docs — teams reference them months later.' },
+  { name:'Figma (Advanced)', cat:'tools', tag:'Tools',
+    proof:'Used Figma to prototype Arabic-first UI flows at ALTECH before engineering started. Reduced back-and-forth by defining component states, RTL behaviour, and dark mode specs upfront.' },
+  { name:'Agile / Scrum (PSPO I)', cat:'tools', tag:'Tools',
+    proof:'PSPO I certified (Scrum.org 2026). Applied Scrum across two concurrent part-time + full-time roles — maintained clear sprint goals and protected team focus.' },
+  { name:'Cross-Functional Leadership', cat:'tools', tag:'Tools',
+    proof:'Led teams of 5–7 across engineering, design, legal, and integration partners. Aligned everyone around single narrative: privacy at ALTECH, compliance trust at FAAINEX.' },
+  { name:'Arabic-First UX', cat:'tools', tag:'Tools',
+    proof:'Designed RTL from architecture level — not as an afterthought. At ALTECH: scene names, status labels, and alerts in Arabic. UX that earns trust in the Saudi market.' },
+];
+ 
+const grid = document.getElementById('skmapGrid');
+let activeTab = 'all';
+let activeItem = null;
+ 
+function renderSkills(cat){
+  const filtered = cat==='all' ? SKILLS : SKILLS.filter(s=>s.cat===cat);
+  grid.innerHTML = '';
+  filtered.forEach((sk, i)=>{
+    const div = document.createElement('div');
+    div.className = 'skmap-item rv in';
+    div.style.animationDelay = (i * 0.04) + 's';
+    div.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
+        <div class="skmap-name">${sk.name}</div>
+        <span class="skmap-tag">${sk.tag}</span>
+      </div>
+      <div class="skmap-proof">${sk.proof.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')}</div>
+      <div style="font-size:.65rem;color:var(--accent);font-weight:700;opacity:0;transition:opacity .2s;" class="sk-hint">Click to see real example →</div>
+    `;
+    div.addEventListener('mouseenter',()=>{ div.querySelector('.sk-hint').style.opacity='1'; });
+    div.addEventListener('mouseleave',()=>{ if(!div.classList.contains('active-sk')) div.querySelector('.sk-hint').style.opacity='0'; });
+    div.addEventListener('click',()=>{
+      if(activeItem && activeItem!==div){
+        activeItem.classList.remove('active-sk');
+        activeItem.querySelector('.sk-hint').style.opacity='0';
+        activeItem.querySelector('.sk-hint').textContent='Click to see real example →';
+      }
+      div.classList.toggle('active-sk');
+      if(div.classList.contains('active-sk')){
+        div.querySelector('.sk-hint').style.opacity='1';
+        div.querySelector('.sk-hint').textContent='Click to collapse ↑';
+        activeItem = div;
+      } else {
+        div.querySelector('.sk-hint').style.opacity='0';
+        div.querySelector('.sk-hint').textContent='Click to see real example →';
+        activeItem = null;
+      }
+    });
+    grid.appendChild(div);
+  });
+}
+ 
+document.querySelectorAll('.skmap-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.skmap-tab').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    activeItem = null;
+    renderSkills(tab.dataset.cat);
+  });
+});
+ 
+ 
+/* ══════════════════════════════════════════════
+   FEATURE — ARABIC LANGUAGE TOGGLE
+══════════════════════════════════════════════ */
+const TRANSLATIONS = {
+  en: {
+    navWork: 'Work', navExp: 'Experience', navCases: 'Case Studies',
+    navStar: 'STAR Story', navSkills: 'Skills', navPhil: 'Philosophy', navContact: 'Contact',
+    navCV: 'Download Full CV (PDF) ↓',
+    heroEyebrow: 'Senior Product Owner | SaaS & IoT Specialist',
+    heroLine1: 'Turning Complexity &amp; Constraints Into',
+    heroLine2: 'Scalable, <em>Privacy-First</em> Products',
+    heroSub: 'Senior Product Owner driving AI-powered SaaS and IoT platforms across MENA. Turning regulatory complexity into scalable, privacy-first products. PSPO I · Arabic native.',
+    kpi1: 'users impacted', kpi2: 'international markets',
+    kpi3: 'cloud dependency reduction (pilot validated)', kpi4: 'engagement increase',
+    cta1: 'Explore Work ↓', cta2: 'Download Full CV (PDF) ↓',
+    bentoEyebrow: 'Featured Work',
+    bentoH: 'Three roles. <span>Three market-defining</span> bets.',
+    bentoSub: 'Hover any card to reveal impact metrics. Click to jump to the full case study.',
+    casesEyebrow: 'Deep Dives', casesH: 'Case <span>Studies</span>',
+    casesSub: 'Problem · Discovery · Decision · Outcome. The strategic thinking behind every number.',
+    expEyebrow: 'Career Timeline', expH: 'Professional <span>Experience</span>',
+    expSub: 'End-to-end product ownership — from discovery through delivery, scaling, and market entry across MENA and international markets.',
+    skillsEyebrow: 'Capabilities', skillsH: 'Skills &amp; <span>Expertise</span>',
+    skillsSub: 'Click any skill to see exactly how I applied it — real decisions, real projects.',
+    philEyebrow: 'How I Think',
+    philH: 'A Product Owner\'s <em style="color:var(--accent);font-style:normal;">Operating System</em>',
+    philSub: 'Not frameworks I know — beliefs I ship with, decisions I\'ve made, and lessons I\'ve earned.',
+    eduEyebrow: 'Credentials', eduH: 'Education &amp; <span>Certifications</span>',
+    contactEyebrow: 'Get In Touch', contactH: 'Let\'s <span>Connect</span>',
+    footerLine: '© 2026 · Built to showcase strategic depth, not just activity.',
+    availStatus: 'Open to Opportunities',
+    availText: 'Senior Product Owner roles · Series B–C SaaS/IoT · MENA or Remote Europe · Available immediately',
+    availCTA: 'Let\'s Talk →',
+    dtLabel: 'Decision Flow',
+    langBtnLabel: '🌐 عربي',
+  },
+  ar: {
+    navWork: 'الأعمال', navExp: 'الخبرة', navCases: 'دراسات الحالة',
+    navStar: 'قصة STAR', navSkills: 'المهارات', navPhil: 'الفلسفة', navContact: 'تواصل',
+    navCV: 'تحميل السيرة الذاتية ↓',
+    heroEyebrow: 'مالك منتج أول | متخصص SaaS وIoT',
+    heroLine1: 'تحويل التعقيد والقيود إلى',
+    heroLine2: 'منتجات قابلة للتوسع <em>تُقدّم الخصوصية أولاً</em>',
+    heroSub: 'مالكة منتج أول تقود منصات SaaS وIoT المدعومة بالذكاء الاصطناعي عبر منطقة MENA. أحوّل التعقيد التنظيمي إلى منتجات قابلة للتوسع تُقدّم الخصوصية أولاً. حاصلة على PSPO I · ناطقة بالعربية.',
+    kpi1: 'مستخدم استفاد من المنتج', kpi2: 'سوق دولي',
+    kpi3: 'انخفاض في الاعتماد على السحابة (تجريبي)', kpi4: 'زيادة في التفاعل',
+    cta1: 'استعرض الأعمال ↓', cta2: 'تحميل السيرة الذاتية ↓',
+    bentoEyebrow: 'أعمال مختارة',
+    bentoH: 'ثلاثة أدوار. <span>ثلاثة رهانات</span> تُعيد تعريف السوق.',
+    bentoSub: 'مرّر على أي بطاقة لعرض مؤشرات الأثر. اضغط للانتقال لدراسة الحالة الكاملة.',
+    casesEyebrow: 'تحليل معمّق', casesH: '<span>دراسات</span> الحالة',
+    casesSub: 'المشكلة · الاكتشاف · القرار · النتيجة. التفكير الاستراتيجي خلف كل رقم.',
+    expEyebrow: 'المسيرة المهنية', expH: 'الخبرة <span>المهنية</span>',
+    expSub: 'ملكية منتج شاملة — من الاكتشاف إلى التسليم والتوسع ودخول الأسواق عبر MENA والأسواق الدولية.',
+    skillsEyebrow: 'القدرات', skillsH: 'المهارات <span>والخبرات</span>',
+    skillsSub: 'اضغط على أي مهارة لترى كيف طبّقتها فعلياً — قرارات حقيقية، مشاريع حقيقية.',
+    philEyebrow: 'طريقة تفكيري',
+    philH: '<em style="color:var(--accent);font-style:normal;">نظام تشغيل</em> مالك المنتج',
+    philSub: 'ليست أطر نظرية — بل قناعات أشحنها مع كل إصدار، وقرارات اتخذتها، ودروس اكتسبتها.',
+    eduEyebrow: 'المؤهلات', eduH: 'التعليم <span>والشهادات</span>',
+    contactEyebrow: 'تواصل معي', contactH: 'لنتحدث <span>معاً</span>',
+    footerLine: '© 2026 · بُني لإظهار العمق الاستراتيجي، لا مجرد النشاط.',
+    availStatus: 'متاحة للفرص',
+    availText: 'أدوار مالك منتج أول · شركات SaaS/IoT Series B–C · MENA أو أوروبا عن بُعد · متاحة فوراً',
+    availCTA: 'لنتحدث →',
+    dtLabel: 'مسار القرار',
+    langBtnLabel: '🌐 English',
+  }
+};
+ 
+let currentLang = 'en';
+ 
+function toggleLang() {
+  currentLang = currentLang === 'en' ? 'ar' : 'en';
+  const t = TRANSLATIONS[currentLang];
+  const isAr = currentLang === 'ar';
+  const html = document.documentElement;
+ 
+  // Direction & lang attr
+  html.setAttribute('dir', isAr ? 'rtl' : 'ltr');
+  html.setAttribute('lang', isAr ? 'ar' : 'en');
+ 
+  // Toggle button label
+  document.getElementById('langLabel').textContent = t.langBtnLabel.replace('🌐 ','');
+  document.getElementById('langLabel').textContent = t.langBtnLabel;
+ 
+  // Nav links
+  const navLinks = document.querySelectorAll('.nav-links a:not(.nav-cv)');
+  const navKeys = ['navWork','navExp','navCases','navStar','navSkills','navPhil','navContact'];
+  navLinks.forEach((a, i) => { if(navKeys[i]) a.textContent = t[navKeys[i]]; });
+  document.querySelectorAll('.nav-cv').forEach(el => el.textContent = t.navCV);
+ 
+  // Hero
+  setHTML('#heroEyebrowText', t.heroEyebrow);
+  setHTML('#heroLine1', t.heroLine1);
+  setHTML('#heroLine2', t.heroLine2);
+  setHTML('#heroSub', t.heroSub);
+  const kpiLabels = document.querySelectorAll('.hkpi-l');
+  const kpiKeys = ['kpi1','kpi2','kpi3','kpi4'];
+  kpiLabels.forEach((el,i) => { if(kpiKeys[i]) el.textContent = t[kpiKeys[i]]; });
+  setHTML('#heroCTA1', t.cta1);
+  setHTML('#heroCTA2', t.cta2);
+ 
+  // Bento header
+  setHTML('#bentoEyebrow', t.bentoEyebrow);
+  setHTML('#bentoH', t.bentoH);
+  setHTML('#bentoSub', t.bentoSub);
+ 
+  // Section headers
+  setHTML('#casesEyebrow', t.casesEyebrow);
+  setHTML('#casesH', t.casesH);
+  setHTML('#casesSub', t.casesSub);
+  setHTML('#expEyebrow', t.expEyebrow);
+  setHTML('#expH', t.expH);
+  setHTML('#expSub', t.expSub);
+  setHTML('#skillsEyebrow', t.skillsEyebrow);
+  setHTML('#skillsH', t.skillsH);
+  setHTML('#skillsSub', t.skillsSub);
+  setHTML('#philEyebrow', t.philEyebrow);
+  setHTML('#philH', t.philH);
+  setHTML('#philSub', t.philSub);
+  setHTML('#eduEyebrow', t.eduEyebrow);
+  setHTML('#eduH', t.eduH);
+  setHTML('#contactEyebrow', t.contactEyebrow);
+  setHTML('#contactH', t.contactH);
+  setHTML('#footerLine', t.footerLine);
+ 
+  // Avail card
+  setHTML('#availStatus', t.availStatus);
+  setHTML('#availText', t.availText);
+  setHTML('#availCTA', t.availCTA);
+ 
+  // Decision timelines labels
+  document.querySelectorAll('.dt-label').forEach(el => el.textContent = t.dtLabel);
+}
+ 
+function setHTML(selector, html) {
+  const el = document.querySelector(selector);
+  if (el) el.innerHTML = html;
+}
+ 
+/* ══════════════════════════════════════════════
+   FEATURE — DECISION TIMELINE TOGGLE (toggleDT)
+══════════════════════════════════════════════ */
+function toggleDT(stepEl) {
+  const isOpen = stepEl.classList.contains('open');
+  // Close all steps in same dt-track
+  const track = stepEl.closest('.dt-track');
+  if (track) track.querySelectorAll('.dt-step').forEach(s => s.classList.remove('open'));
+  // Toggle clicked
+  if (!isOpen) stepEl.classList.add('open');
+}
+ 
+// Attach toggleDT to all dt-steps
+document.querySelectorAll('.dt-step').forEach(step => {
+  step.addEventListener('click', () => toggleDT(step));
+});
+ 
+// Add tooltip hint
+document.querySelectorAll('.dt-wrap').forEach(wrap => {
+  const hint = document.createElement('div');
+  hint.style.cssText = 'font-size:.6rem;color:var(--text3);margin-top:.6rem;text-align:right;';
+  hint.textContent = '↑ Click any step to expand';
+  wrap.appendChild(hint);
+});
+ 
+/* ══════════════════════════════════════════════
+   CLEANUP — Add IDs to translatable elements
+══════════════════════════════════════════════ */
+// (IDs are added in HTML below — this is the runtime safety net)
+(function addRuntimeIDs() {
+  // Hero eyebrow text span
+  const eyebrow = document.querySelector('.hero-eyebrow');
+  if (eyebrow && !eyebrow.querySelector('#heroEyebrowText')) {
+    const span = document.createElement('span');
+    span.id = 'heroEyebrowText';
+    span.innerHTML = eyebrow.innerHTML.replace(/<span[^>]*class="blink"[^>]*><\/span>/, '').trim();
+    eyebrow.innerHTML = '';
+    const blink = document.createElement('span');
+    blink.className = 'blink';
+    eyebrow.appendChild(blink);
+    eyebrow.appendChild(span);
+  }
+})();
  
  
 </script>
